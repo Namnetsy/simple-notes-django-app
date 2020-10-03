@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Simple Notes</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+	</head>
+	<body>
+		<section class="hero is-fullheight is-light is-bold">
+			<div class="hero-head">
+				<header class="navbar">
+					<div class="container">
+						<div class="navbar-brand">
+							<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
+							<span class="navbar-burger burger" data-target="navbarMenuHero">
+								<span></span>
+								<span></span>
+							</span>
+						</div>
+
+						<div id="navbarMenuHero" class="navbar-menu">
+							<div class="navbar-end has-text-centered">
+								<a class="navbar-item my-2 mx-2" href="{% url 'notes:log-in' %}">
+									Log in
+								</a>
+								<a class="navbar-item button is-rounded my-2 mx-2" href="{% url 'notes:sign-up' %}">
+									Create an account
+								</a>
+							</div>
+						</div>
+					</div>
+				</header>
+			</div>
+
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h1 class="title is-size-1 my-6">Simple Notes</h1>
+					<p class="subtitle">A simple way of saving your thoughts & ideas for the future</p>
+					<a class="button is-primary is-large is-rounded" href="{% url 'notes:sign-up' %}">Get Started</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="hero is-fullheight">
+			<div class="hero-head">
+				<div class="container has-text-centered">
+					<h2 class="title is-size-1 my-6">Orginize your notes</h2>
+					<p class="subtitle">Never get lost, orginize your notes by notebooks with ease</p>
+				</div>
+			</div>
+
+			<div class="hero-body">
+				<div class="container">
+					<figure class="image is-5by3 mx-6">
+						<img src="{% static 'images/personal_notebook.svg' %}">
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<section class="hero is-fullheight">
+			<div class="hero-head">
+				<div class="container has-text-centered">
+					<h2 class="title is-size-1 my-6">It's Free</h2>
+					<p class="subtitle">No ads, no pro versions, it's completely free!</p>
+				</div>
+			</div>
+
+			<div class="hero-body">
+				<div class="container">
+					<figure class="image is-5by3">
+						<img src="{% static 'images/wallet.svg' %}">
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<section class="hero is-fullheight">
+			<div class="hero-head">
+				<div class="container has-text-centered">
+					<h2 class="title is-size-1 my-6">Your notes are safe with us</h2>
+					<p class="subtitle">No one is able to see your notes, except of us :)</p>
+				</div>
+			</div>
+
+			<div class="hero-body">
+				<div class="container">
+					<figure class="image is-5by3">
+						<img src="{% static 'images/safe.svg' %}">
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<section class="hero is-fullheight is-dark">
+			<div class="hero-head">
+				<div class="container has-text-centered">
+					<h2 class="title is-size-1 my-6">Dark Theme</h2>
+					<p class="subtitle">Work at any time of the day, even at night with our dark theme</p>
+				</div>
+			</div>
+
+			<div class="hero-body">
+				<div class="container">
+					<figure class="image is-5by3">
+						<img src="{% static 'images/working_late.svg' %}">
+					</figure>
+				</div>
+			</div>
+		</section>
+
+		<section class="hero is-fullheight">
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h2 class="title is-size-1 my-6">Let's get started</h2>
+					<p class="subtitle">Do not hesitate, start using <strong>Simple Notes</strong> right now!</p>
+					<a class="button is-large is-primary is-rounded" href="{% url 'notes:sign-up' %}">Create an account</a>
+				</div>
+			</div>
+		</section>
+
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				// Get all "navbar-burger" elements
+				const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+				// Check if there are any navbar burgers
+				if ($navbarBurgers.length > 0) {
+					// Add a click event on each of them
+					$navbarBurgers.forEach( el => {
+						el.addEventListener('click', () => {
+							// Get the target from the "data-target" attribute
+							const target = el.dataset.target;
+							const $target = document.getElementById(target);
+
+							// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+							el.classList.toggle('is-active');
+							$target.classList.toggle('is-active');
+						});
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
