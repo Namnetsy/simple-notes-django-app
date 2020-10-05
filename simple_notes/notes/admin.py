@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Notebook, Note, PublicSharedNote
 
-# Register your models here.
+admin.site.register(
+    [Notebook, Note, PublicSharedNote]
+)

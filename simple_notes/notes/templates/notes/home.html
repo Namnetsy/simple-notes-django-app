@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Home | Simple Notes</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+		<script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+	</head>
+	<body>
+		<header>
+			<nav class="navbar">
+				<div class="container">
+					<div class="navbar-brand">
+						<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
+						<span class="navbar-burger burger" data-target="navbarMenuHero">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</div>
+
+					<div id="navbarMenuHero" class="navbar-menu">
+						<div class="navbar-end has-text-centered">
+							<a class="navbar-item my-2 mx-2" href="{% url 'notes:index' %}">Home</a>
+							<a class="navbar-item my-2 mx-2" href="#">Settings</a>
+							<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<nav class="tabs is-centered">
+				<ul>
+					<li class="is-active">
+						<a href="#">
+							<span class="icon is-small">
+								<i class="fa fa-book" aria-hidden="true"></i>
+							</span>
+							<span>Notebooks</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<span class="icon is-small">
+								<i class="fa fa-share-alt" aria-hidden="true"></i>
+							</span>
+							<span>Shared Notes</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<div class="container is-fluid">
+			<div class="columns">
+				<div style="min-height: 80vh" class="column is-10-desktop box container is-fluid py-5 my-5">
+					
+					<div class="block has-text-right">
+						<a class="button is-rounded" href="#">
+							<span class="icon is-small">
+								<i class="fa fa-plus" aria-hidden="true"></i>
+							</span>
+							<span>Create a notebook</span>
+						</a>
+					</div>
+
+					<div class="block has-text-centered">
+						<h1 class="title">Welcome to Simple Notes</h1>
+						<p class="subtitle">Create a notebook to view it here.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				// Get all "navbar-burger" elements
+				const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+				// Check if there are any navbar burgers
+				if ($navbarBurgers.length > 0) {
+					// Add a click event on each of them
+					$navbarBurgers.forEach( el => {
+						el.addEventListener('click', () => {
+							// Get the target from the "data-target" attribute
+							const target = el.dataset.target;
+							const $target = document.getElementById(target);
+
+							// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+							el.classList.toggle('is-active');
+							$target.classList.toggle('is-active');
+						});
+					});
+				}
+			});
+		</script>
+	</body>
+</html>
