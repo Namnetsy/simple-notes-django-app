@@ -1,7 +1,49 @@
-{{ form.errors }}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Create Notebook | Simple Notes</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="width: 100%; height: 100%;" class="columns is-centered is-vcentered mx-0 my-0">
+			<div class="box column is-narrow px-6 pt-6 pb-5">
+				<div class="breadcrumb is-centered" aria-label="breadcrumbs">
+					<ul>
+						<li><a href="{% url 'notes:index' %}">Notebooks</a></li>
+						<li class="is-active"><a href="#">Create Notebook</a></li>
+					</ul>
+				</div>
 
-<form action="{% url 'notes:create-notebook' %}" method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-</form>
+				<h1 class="title has-text-centered">Create Notebook</h1>
+				<p class="subtitle has-text-centered">Enter your notebook's name below</p>
+
+				<form action="{% url 'notes:create-notebook' %}" method="POST">
+                    {% csrf_token %}
+					<div class="field">
+						<p class="control has-icons-left">
+							<input class="input" type="text" placeholder="My Lovely Notebook" required name="title">
+							<span class="icon is-small is-left">
+								<i class="fa fa-font" aria-hidden="true"></i>
+							</span>
+						</p>
+					</div>
+
+					<div class="field">
+						<p class="control">
+							<input class="input" type="submit" value="Create Notebook">
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

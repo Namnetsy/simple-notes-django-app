@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Home | Simple Notes</title>
+		<title>Notes | {{ notebook_title }}</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	</head>
@@ -12,7 +12,7 @@
 			<nav class="navbar">
 				<div class="container">
 					<div class="navbar-brand">
-						<a class="navbar-item" href="#">Simple Notes</a>
+						<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
 						<span class="navbar-burger burger" data-target="navbarMenuHero">
 							<span></span>
 							<span></span>
@@ -55,58 +55,63 @@
 		<div class="container is-fluid">
 			<div class="columns">
 				<div style="min-height: 80vh" class="column is-10-desktop box container is-fluid py-5 my-5">
-					<form action="{% url 'notes:create-note' title %}" method="POST">
-                        {% csrf_token %}
-						<div class="columns">
-							<div class="column">
-								<div class="breadcrumb is-left" aria-label="breadcrumbs">
-									<ul>
-										<li><a href="{% url 'notes:index' %}"><b>Notebooks</b></a></li>
-										<li><a href="{% url 'notes:view-notes' title %}">{{ title }}</a></li>
-										<li class="is-active"><a href="#">New Note</a></li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="column">
-								<nav class="tabs is-right is-toggle is-toggle-rounded">
-									<ul>
-										<li>
-											<a onclick="this.closest('form').submit(); return false;">
-												<span class="icon is-small">
-													<i class="fa fa-floppy-o" aria-hidden="true"></i>
-												</span>
-												<span>Save</span>
-											</a>
-										</li>
-										<li>
-											<a href="{% url 'notes:view-notes' title %}">
-												<span class="icon is-small">
-													<i class="fa fa-undo" aria-hidden="true"></i>
-												</span>
-												<span>Discard</span>
-											</a>
-										</li>
-									</ul>
-								</nav>
+					
+                    <div class="columns">
+						<div class="column">
+							<div class="breadcrumb is-left" aria-label="breadcrumbs">
+								<ul>
+									<li>
+										<a href="{% url 'notes:index' %}">
+											Notebooks
+										</a>
+									</li>
+									<li class="is-active">
+										<a href="#">{{ notebook_title }}</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 
-						<div class="columns is-multiline is-desktop">
-							<div class="field column is-12">
-								<article class="columns control box">
-									<input class="input column is-12" type="text" placeholder="My Note's Title" name="title">
-								</article>
-							</div>
-
-							<div class="field column is-12">
-								<article class="columns is-mobile control box">
-									<textarea class="column is-12 input" id="field-content" placeholder="Note's Content" name="content"></textarea>
-								</article>
-							</div>
+						<div class="column">
+							<nav class="tabs is-right is-toggle is-toggle-rounded">
+								<ul>
+									<li>
+										<a href="{% url 'notes:create-note' notebook_title %}">
+											<span class="icon is-small">
+												<i class="fa fa-plus" aria-hidden="true"></i>
+											</span>
+											<span>Create Note</span>
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="icon is-small">
+												<i class="fa fa-font" aria-hidden="true"></i>
+											</span>
+											<span>Edit Notebook</span>
+										</a>
+									</li>
+								</ul>
+							</nav>
 						</div>
-					</form>
+					</div>
 
+					{% if notes %}
+                        <div class="columns is-multiline has-text-centered">
+                            {% for note in notes %}
+                                <div class="column is-4">
+                                    <article class="box">
+                                        <a class="title" href="#">{{ note.title }}</a>
+                                    </article>
+                                </div>
+                            {% endfor %}
+                        </div>
+					{% else %}
+						<div class="block has-text-centered">
+							<h1 class="title">Nothing to show</h1>
+							<p class="subtitle">Create a note to view it here.</p>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -135,6 +140,3 @@
 		</script>
 	</body>
 </html>
-
-
-{{ form.errors }}

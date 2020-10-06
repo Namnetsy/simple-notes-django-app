@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import auth_login
 from django.contrib.auth import login, logout
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from .forms import NotebookForm, NoteForm
@@ -10,11 +11,27 @@ from .models import Notebook, Note
 
 def index(request):
     if request.user.is_authenticated:
-        return render(request, 'notes/home.html')
+        notebooks = Notebook.objects.filter(user=request.user)
+
+        return render(request, 'notes/home.html', {'notebooks': notebooks})
     
     return render(request, 'notes/index.html')
 
 
+@login_required
+def view_notes(request, notebook_title):
+    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
+    notes = Note.objects.filter(notebook=notebook)
+
+    context = {
+        'notes': notes,
+        'notebook_title': notebook_title,
+    }
+
+    return render(request, 'notes/view-notes.html', context)
+
+
+@login_required
 def edit_note(request, notebook_title, note_title):
     notebook = Notebook.objects.get(user=request.user, title=notebook_title)
     note = Note.objects.get(notebook=notebook, title=note_title)
@@ -39,6 +56,7 @@ def edit_note(request, notebook_title, note_title):
     return render(request, 'notes/edit-note.html', context)
 
 
+@login_required
 def create_note(request, title):
     form = NoteForm()
 
@@ -51,11 +69,12 @@ def create_note(request, title):
             note.notebook = notebook
             note.save()
 
-            return redirect('notes:index')
+            return redirect(reverse('notes:view-notes', args=[title]))
 
     return render(request, 'notes/create_note.html', {'form': form, 'title': title})
 
 
+@login_required
 def create_notebook(request):
     form = NotebookForm()
 

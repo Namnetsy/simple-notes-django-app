@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Home | Simple Notes</title>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-		<script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	</head>
 	<body>
 		<header>
@@ -33,7 +33,7 @@
 			<nav class="tabs is-centered">
 				<ul>
 					<li class="is-active">
-						<a href="#">
+						<a href="{% url 'notes:index' %}">
 							<span class="icon is-small">
 								<i class="fa fa-book" aria-hidden="true"></i>
 							</span>
@@ -57,18 +57,30 @@
 				<div style="min-height: 80vh" class="column is-10-desktop box container is-fluid py-5 my-5">
 					
 					<div class="block has-text-right">
-						<a class="button is-rounded" href="#">
+						<a class="button is-rounded" href="{% url 'notes:create-notebook' %}">
 							<span class="icon is-small">
 								<i class="fa fa-plus" aria-hidden="true"></i>
 							</span>
-							<span>Create a notebook</span>
+							<span>Create Notebook</span>
 						</a>
 					</div>
 
-					<div class="block has-text-centered">
-						<h1 class="title">Welcome to Simple Notes</h1>
-						<p class="subtitle">Create a notebook to view it here.</p>
-					</div>
+					{% if notebooks %}
+						<div class="columns is-multiline has-text-centered">
+							{% for notebook in notebooks %}
+								<div class="column is-6">
+									<article class="box">
+										<a class="title" href="{% url 'notes:view-notes' notebook.title %}">{{ notebook.title }}</a>
+									</article>
+								</div>
+							{% endfor %}
+						</div>
+					{% else %}
+						<div class="block has-text-centered">
+							<h1 class="title">Welcome to Simple Notes</h1>
+							<p class="subtitle">Create a notebook to view it here.</p>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>
