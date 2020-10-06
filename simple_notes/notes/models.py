@@ -11,6 +11,9 @@ class Notebook(models.Model):
     def __str__(self):
         return f'{self.user.username}: {self.title}'
     
+    class Meta:
+        unique_together = ('user', 'title')
+
 
 class Note(models.Model):
     notebook = models.ForeignKey(Notebook, on_delete=models.CASCADE)
