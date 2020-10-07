@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import auth_login
 from django.contrib.auth import login, logout
@@ -21,8 +21,8 @@ def index(request):
 
 @login_required
 def share_note(request, notebook_title, note_title):
-    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
-    note = Note.objects.get(notebook=notebook, title=note_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
+    note = get_object_or_404(Note, notebook=notebook, title=note_title)
 
     sharedNote = PublicSharedNote.objects.create(user=request.user, note=note)
     
@@ -38,22 +38,22 @@ def view_shared_notes(request):
 
 @login_required
 def remove_note(request, notebook_title, note_title):
-    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
-    Note.objects.get(notebook=notebook, title=note_title).delete()
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
+    get_object_or_404(Note, notebook=notebook, title=note_title).delete()
 
     return redirect(reverse('notes:view-notes', args=[notebook_title]))
 
 
 @login_required
 def remove_notebook(request, notebook_title):
-    Notebook.objects.get(user=request.user, title=notebook_title).delete()
+    get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
 
     return redirect('notes:index')
 
 
 @login_required
 def edit_notebook(request, notebook_title):
-    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     form = NotebookForm(instance=notebook)
 
     if request.method == 'POST':
@@ -91,14 +91,14 @@ def settings(request):
 
 @login_required
 def remove_notebook(request, notebook_title):
-    Notebook.objects.get(user=request.user, title=notebook_title).delete()
+    get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
 
     return redirect('notes:index')
 
 
 @login_required
 def view_notes(request, notebook_title):
-    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     notes = Note.objects.filter(notebook=notebook)
 
     context = {
@@ -115,8 +115,8 @@ def view_shared_note(request, secret):
 
 @login_required
 def edit_note(request, notebook_title, note_title):
-    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
-    note = Note.objects.get(notebook=notebook, title=note_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
+    note = get_object_or_404(Note, notebook=notebook, title=note_title)
     form = NoteForm(instance=note)
 
     if request.method == 'POST':
@@ -146,7 +146,7 @@ def create_note(request, title):
         form = NoteForm(request.POST)
 
         if form.is_valid():
-            notebook = Notebook.objects.get(user=request.user, title=title)
+            notebook = get_object_or_404(Notebook, user=request.user, title=title)
             note = form.save(commit=False)
             note.notebook = notebook
             note.save()
