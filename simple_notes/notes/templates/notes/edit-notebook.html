@@ -1,0 +1,36 @@
+{% extends 'notes/centered-box-base.html' %}
+
+{% block title %}Edit Notebook | Simple Notes{% endblock %}
+
+{% block content %}
+	<div class="breadcrumb is-centered" aria-label="breadcrumbs">
+		<ul>
+			<li><a href="{% url 'notes:index' %}">Notebooks</a></li>
+			<li><a href="{% url 'notes:view-notes' notebook_title %}">{{ notebook_title }}</a></li>
+			<li class="is-active"><a href="#">Edit Notebook</a></li>
+		</ul>
+	</div>
+
+	<h1 class="title has-text-centered">Edit Notebook</h1>
+	<p class="subtitle has-text-centered">Change your notebook's name below</p>
+
+	<form action="{% url 'notes:edit-notebook' notebook_title %}" method="POST">
+		{% csrf_token %}
+		<div class="field">
+			<p class="control has-icons-left">
+				<input class="input" type="text" placeholder="My Lovely Notebook" required name="title" value="{{ form.title.value }}">
+				<span class="icon is-small is-left">
+					<i class="fa fa-font" aria-hidden="true"></i>
+				</span>
+			</p>
+		</div>
+
+		<div class="field">
+			<p class="control">
+				<input class="input" type="submit" value="Save">
+			</p>
+		</div>
+	</form>
+{% endblock %}
+
+{{ form.errors }}

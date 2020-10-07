@@ -1,17 +1,23 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
 
-from .views import index, sign_up, create_notebook, create_note, edit_note, view_notes
+from .views import *
 
 app_name = 'notes'
 
 urlpatterns = [
     path('', index, name='index'),
     path('log-in/', LoginView.as_view(template_name='notes/log-in.html', redirect_authenticated_user=True), name='log-in'),
-    path('sign-up/', sign_up, name='sign-up'),
+    path('sign-up/', SignUp.as_view(), name='sign-up'),
     path('log-out/', LogoutView.as_view(), name='log-out'),
-    path('create-notebook/', create_notebook, name='create-notebook'),
-    path('notebooks/<str:title>/notes/', create_note, name='create-note'),
-    path('notebooks/<str:notebook_title>/notes/<str:note_title>/', edit_note, name='edit-note'),
-    path('notebooks/<str:notebook_title>', view_notes, name='view-notes'),
+    path('notebooks/create/', create_notebook, name='create-notebook'),
+    path('notebooks/<str:notebook_title>/view/', view_notes, name='view-notes'),
+    path('notebooks/<str:notebook_title>/edit/', edit_notebook, name='edit-notebook'),
+    path('notebooks/<str:notebook_title>/remove/', remove_notebook, name='remove-notebook'),
+    path('notebooks/<str:notebook_title>/notes/<str:note_title>/edit/', edit_note, name='edit-note'),
+    path('notebooks/<str:notebook_title>/notes/<str:note_title>/remove/', remove_note, name='remove-note'),
+    path('notebooks/<str:notebook_title>/notes/<str:note_title>/share/', share_note, name='share-note'),
+    path('notebooks/<str:title>/notes/create/', create_note, name='create-note'),
+    path('shared-notes/', view_shared_notes, name='view-shared-notes'),
+    path('settings/', settings, name='settings'),
 ]

@@ -1,0 +1,10 @@
+{% if notes %}
+    {% for note in notes %}
+        <p>
+            {{ note.unique_secret }}<br>
+            {{ note.user.username }}<br>
+            {{ note.note.title }}<br>
+            {{ note.note.content }}
+        </p>
+    {% endfor %}
+{% endif %}

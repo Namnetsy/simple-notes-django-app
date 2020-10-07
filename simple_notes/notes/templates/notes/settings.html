@@ -1,0 +1,6 @@
+<form method="{% url 'notes:settings' %}" method="POST">
+    {{ form.as_p }}
+    <input type="submit">
+</form>
+
+{{ form.errors }}

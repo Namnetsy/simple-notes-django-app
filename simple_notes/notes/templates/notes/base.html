@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}Simple Notes{% endblock %}</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	</head>
+	<body>
+		<header>
+			<nav class="navbar">
+				<div class="container">
+					<div class="navbar-brand">
+						<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
+						<span class="navbar-burger burger" data-target="navbarMenuHero">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+					</div>
+
+					<div id="navbarMenuHero" class="navbar-menu">
+						<div class="navbar-end has-text-centered">
+							<a class="navbar-item my-2 mx-2" href="{% url 'notes:index' %}">Home</a>
+							<a class="navbar-item my-2 mx-2" href="{% url 'notes:settings' %}">Settings</a>
+							<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<nav class="tabs is-centered">
+				<ul>
+					<li class="is-active">
+						<a href="{% url 'notes:index' %}">
+							<span class="icon is-small">
+								<i class="fa fa-book" aria-hidden="true"></i>
+							</span>
+							<span>Notebooks</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'notes:view-shared-notes' %}">
+							<span class="icon is-small">
+								<i class="fa fa-share-alt" aria-hidden="true"></i>
+							</span>
+							<span>Shared Notes</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		<div class="container is-fluid">
+			<div class="columns">
+				<div style="min-height: 80vh" class="column is-10-desktop box container is-fluid py-5 my-5">
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				// Get all "navbar-burger" elements
+				const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+				// Check if there are any navbar burgers
+				if ($navbarBurgers.length > 0) {
+					// Add a click event on each of them
+					$navbarBurgers.forEach( el => {
+						el.addEventListener('click', () => {
+							// Get the target from the "data-target" attribute
+							const target = el.dataset.target;
+							const $target = document.getElementById(target);
+
+							// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+							el.classList.toggle('is-active');
+							$target.classList.toggle('is-active');
+						});
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

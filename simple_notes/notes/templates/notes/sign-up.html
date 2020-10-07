@@ -1,90 +1,68 @@
-{% load static %}
+{% extends 'notes/centered-box-base.html' %}
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Sign up | Simple Notes</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-		<style>
-			html, body {
-				width: 100%;
-				height: 100%;
-			}
+{% block title %}Sign up | Simple Notes{% endblock %}
 
-            .errorlist {
-                color: red;
-            }
-		</style>
-	</head>
-	<body>
-		<div style="width: 100%; height: 100%;" class="columns is-centered is-vcentered mx-0 my-0">
-			<div class="box column is-narrow px-6 pt-6 pb-5">
-				<h1 class="title has-text-centered">Sign Up</h1>
-				<form action="{% url 'notes:sign-up' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ next }}">
-					<div class="field">
-						<label class="label" for="field-username">Username</label>
-						<p class="control has-icons-left">
-                            <input id="field-username" class="input" type="text" placeholder="Username" name="username" required>
-                            <span class="icon is-small is-left">
-								<i class="fas fa-user-circle"></i>
-							</span>
-						</p>
-						<p class="help">
-							{{ form.errors.username }}
-						</p>
-					</div>
-
-					<div class="field">
-						<label class="label" for="field-email">Email</label>
-						<p class="control has-icons-left">
-							<input id="field-email" class="input" type="email" placeholder="Email" name="email" required>
-							 <span class="icon is-small is-left">
-								<i class="fas fa-envelope"></i>
-							</span>
-						</p>
-					</div>
-
-					<div class="field">
-						<label class="label" for="field-password1">Password</label>
-						<p class="control has-icons-left">
-							<input id="field-password1" class="input" type="password" placeholder="Password" name="password1" required>
-							<span class="icon is-small is-left">
-								<i class="fas fa-lock"></i>
-							</span>
-						</p>
-						<p class="help">
-							{{ form.errors.password1 }}
-						</p>
-					</div>
-
-					<div class="field">
-						<label class="label" for="field-password2">Repeat Password</label>
-						<p class="control has-icons-left">
-							<input id="field-password2" class="input" type="password" placeholder="Repeat Password" name="password2" required>
-							<span class="icon is-small is-left">
-								<i class="fas fa-lock"></i>
-							</span>
-						</p>
-						<p class="help">
-							{{ form.errors.password2 }}
-						</p>
-					</div>
-
-					<div class="field pt-2">
-						<p class="control">
-							<input class="input button is-rounded has-text-centered" type="submit" value="Create an account">
-						</p>
-					</div>
-				</form>
-				<div class="block has-text-centered pt-3">
-					<small>If you already have an account <a href="{% url 'notes:log-in' %}">Log in</a></small>
-				</div>
+{% block content %}
+	<h1 class="title has-text-centered">Sign Up</h1>
+		<form action="{% url 'notes:sign-up' %}" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="next" value="{{ next }}">
+			<div class="field">
+				<label class="label" for="field-username">Username</label>
+				<p class="control has-icons-left">
+					<input id="field-username" class="input" type="text" placeholder="Username" name="username" required>
+					<span class="icon is-small is-left">
+						<i class="fas fa-user-circle"></i>
+					</span>
+				</p>
+				<p class="help">
+					{{ form.errors.username }}
+				</p>
 			</div>
+
+			<div class="field">
+				<label class="label" for="field-email">Email</label>
+				<p class="control has-icons-left">
+					<input id="field-email" class="input" type="email" placeholder="Email" name="email" required>
+						<span class="icon is-small is-left">
+						<i class="fas fa-envelope"></i>
+					</span>
+				</p>
+			</div>
+
+			<div class="field">
+				<label class="label" for="field-password1">Password</label>
+				<p class="control has-icons-left">
+					<input id="field-password1" class="input" type="password" placeholder="Password" name="password1" required>
+					<span class="icon is-small is-left">
+						<i class="fas fa-lock"></i>
+					</span>
+				</p>
+				<p class="help">
+					{{ form.errors.password1 }}
+				</p>
+			</div>
+
+			<div class="field">
+				<label class="label" for="field-password2">Repeat Password</label>
+				<p class="control has-icons-left">
+					<input id="field-password2" class="input" type="password" placeholder="Repeat Password" name="password2" required>
+					<span class="icon is-small is-left">
+						<i class="fas fa-lock"></i>
+					</span>
+				</p>
+				<p class="help">
+					{{ form.errors.password2 }}
+				</p>
+			</div>
+
+			<div class="field pt-2">
+				<p class="control">
+					<input class="input button is-rounded has-text-centered" type="submit" value="Create an account">
+				</p>
+			</div>
+		</form>
+		<div class="block has-text-centered pt-3">
+			<small>If you already have an account <a href="{% url 'notes:log-in' %}">Log in</a></small>
 		</div>
-	</body>
-</html>
+{% endblock %}
