@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'notes.apps.NotesConfig'
+    'notes.apps.NotesConfig',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -137,4 +138,31 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'is-success',
     messages.WARNING: 'is-warning',
     messages.ERROR: 'is-danger',
+}
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+SUMMERNOTE_THEME = 'lite'
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'width': '100%',
+        'height': '600px',
+
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+
+        'lang': 'en-US',
+    },
+
+    'attachment_require_authentication': True,
 }

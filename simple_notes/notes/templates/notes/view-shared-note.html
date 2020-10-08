@@ -8,7 +8,7 @@
     </div>
     <div style="min-height: 60vh" class="content box">
         {% if shared_note.note.content %}
-            {{ shared_note.note.content }}
+            {{ shared_note.note.content|safe }}
         {% else %}
             <p>This note is empty.</p>
         {% endif %}

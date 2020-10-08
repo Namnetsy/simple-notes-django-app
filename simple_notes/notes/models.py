@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django_summernote.fields import SummernoteTextField
 
 from secrets import token_urlsafe
 
@@ -18,7 +19,7 @@ class Notebook(models.Model):
 class Note(models.Model):
     notebook = models.ForeignKey(Notebook, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
-    content = models.TextField(blank=True)
+    content = SummernoteTextField(blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(blank=True, null=True)
 
