@@ -1,0 +1,16 @@
+{% extends 'notes/base.html' %}
+
+{% block title %}{{ shared_note.note.title }} | Simple Notes{% endblock %}
+
+{% block content %}
+    <div class="block box">
+        <h1 class="title has-text-centered">{{ shared_note.note.title }}</h1>
+    </div>
+    <div style="min-height: 60vh" class="content box">
+        {% if shared_note.note.content %}
+            {{ shared_note.note.content }}
+        {% else %}
+            <p>This note is empty.</p>
+        {% endif %}
+    </div>
+{% endblock %}

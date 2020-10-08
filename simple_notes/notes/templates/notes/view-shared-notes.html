@@ -3,28 +3,29 @@
 {% block title %}Shared Notes | Simple Notes{% endblock %}
 
 {% block content %}
-    <div class="block has-text-right">
-		<a class="button is-rounded" href="{% url 'notes:create-notebook' %}">
-			<span class="icon is-small">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-			</span>
-			<span>Remove All</span>
-		</a>
-	</div>
-
 	{% if shared_notes %}
+        <div class="block has-text-right">
+            <a class="button is-rounded" href="{% url 'notes:remove-all-shared-notes' %}">
+                <span class="icon is-small">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
+                <span>Remove All</span>
+            </a>
+        </div>
+
 		<div class="columns is-multiline has-text-centered">
 			{% for shared_note in shared_notes %}
 				<div class="column is-12">
 					<article class="box">
                         <div class="columns">
                             <div class="column is-6 has-text-left">
-                                <p class="title">{{ shared_note.note.title }}</p>
+                                <a class="title" href="{% url 'notes:edit-note' shared_note.note.notebook.title shared_note.note.title %}">{{ shared_note.note.title }}</a><br>
+                                <a class="subtitle" href="{% url 'notes:view-notes' shared_note.note.notebook.title %}">{{ shared_note.note.notebook.title }}</a>
                             </div>
                             <div class="column is-6 is-right tabs is-toggle is-toggle-rounded">
                                 <ul>
                                     <li>
-                                        <a href="#">
+                                        <a href="{% url 'notes:view-shared-note' shared_note.unique_secret %}">
                                             <span class="icon is-small">
                                                 <i class="fa fa-link" aria-hidden="true"></i>
                                             </span>
@@ -32,7 +33,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="{% url 'notes:remove-shared-note' shared_note.unique_secret %}">
                                             <span class="icon is-small">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </span>

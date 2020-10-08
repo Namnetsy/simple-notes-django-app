@@ -19,5 +19,8 @@ urlpatterns = [
     path('notebooks/<str:notebook_title>/notes/<str:note_title>/share/', share_note, name='share-note'),
     path('notebooks/<str:title>/notes/create/', create_note, name='create-note'),
     path('shared-notes/', view_shared_notes, name='view-shared-notes'),
+    path('shared-notes/remove-all/', remove_all_shared_notes, name='remove-all-shared-notes'),
+    path('shared-notes/<str:unique_secret>/remove/', remove_shared_note, name='remove-shared-note'),
+    path('shared-notes/<str:unique_secret>/view/', view_shared_note, name='view-shared-note'),
     path('settings/', settings, name='settings'),
 ]

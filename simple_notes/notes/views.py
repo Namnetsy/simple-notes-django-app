@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.views import View
 from django.contrib import messages
+from django.db import IntegrityError
 
 from .forms import NotebookForm, NoteForm, UserSettingsForm
 from .models import Notebook, Note, PublicSharedNote
@@ -24,8 +25,6 @@ def index(request):
 def share_note(request, notebook_title, note_title):
     notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     note = get_object_or_404(Note, notebook=notebook, title=note_title)
-
-    from django.db import IntegrityError
 
     try:
         sharedNote = PublicSharedNote.objects.create(user=request.user, note=note)
@@ -116,8 +115,32 @@ def view_notes(request, notebook_title):
     return render(request, 'notes/view-notes.html', context)
 
 
-def view_shared_note(request, secret):
-    pass
+@login_required
+def remove_all_shared_notes(request):
+    shared_notes = PublicSharedNote.objects.filter(user=request.user)
+
+    if shared_notes.exists():
+        shared_notes.delete()
+        messages.success(request, 'All shared notes were removed sucessfully.')
+    else:
+        messages.warning(request, 'You have zero shared notes, so there\'s nothing to remove!')
+
+    return redirect('notes:view-shared-notes')
+
+
+@login_required
+def remove_shared_note(request, unique_secret):
+    get_object_or_404(PublicSharedNote, unique_secret=unique_secret).delete()
+
+    messages.success(request, 'Shared note was removed sucessfully.')
+
+    return redirect('notes:view-shared-notes')
+
+
+def view_shared_note(request, unique_secret):
+    shared_note = get_object_or_404(PublicSharedNote, unique_secret=unique_secret)
+
+    return render(request, 'notes/view-shared-note.html', {'shared_note': shared_note})
 
 
 @login_required

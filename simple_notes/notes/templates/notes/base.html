@@ -17,49 +17,51 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	</head>
 	<body>
-		<header>
-			<nav class="navbar">
-				<div class="container">
-					<div class="navbar-brand">
-						<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
-						<span class="navbar-burger burger" data-target="navbarMenuHero">
-							<span></span>
-							<span></span>
-							<span></span>
-						</span>
-					</div>
+		{% if user.is_authenticated %}
+			<header>
+				<nav class="navbar">
+					<div class="container">
+						<div class="navbar-brand">
+							<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
+							<span class="navbar-burger burger" data-target="navbarMenuHero">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
+						</div>
 
-					<div id="navbarMenuHero" class="navbar-menu">
-						<div class="navbar-end has-text-centered">
-							<a class="navbar-item my-2 mx-2" href="{% url 'notes:index' %}">Home</a>
-							<a class="navbar-item my-2 mx-2" href="{% url 'notes:settings' %}">Settings</a>
-							<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
+						<div id="navbarMenuHero" class="navbar-menu">
+							<div class="navbar-end has-text-centered">
+								<a class="navbar-item my-2 mx-2" href="{% url 'notes:index' %}">Home</a>
+								<a class="navbar-item my-2 mx-2" href="{% url 'notes:settings' %}">Settings</a>
+								<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			</nav>
+				</nav>
 
-			<nav class="tabs is-centered">
-				<ul>
-					<li {% if not shared_notes %}class="is-active"{% endif %}>
-						<a href="{% url 'notes:index' %}">
-							<span class="icon is-small">
-								<i class="fa fa-book" aria-hidden="true"></i>
-							</span>
-							<span>Notebooks</span>
-						</a>
-					</li>
-					<li {% if shared_notes %}class="is-active"{% endif %}>
-						<a href="{% url 'notes:view-shared-notes' %}">
-							<span class="icon is-small">
-								<i class="fa fa-share-alt" aria-hidden="true"></i>
-							</span>
-							<span>Shared Notes</span>
-						</a>
-					</li>
-				</ul>
-			</nav>
-		</header>
+				<nav class="tabs is-centered">
+					<ul>
+						<li {% if request.path != '/shared-notes/' %}class="is-active"{% endif %}>
+							<a href="{% url 'notes:index' %}">
+								<span class="icon is-small">
+									<i class="fa fa-book" aria-hidden="true"></i>
+								</span>
+								<span>Notebooks</span>
+							</a>
+						</li>
+						<li {% if request.path == '/shared-notes/' %}class="is-active"{% endif %}>
+							<a href="{% url 'notes:view-shared-notes' %}">
+								<span class="icon is-small">
+									<i class="fa fa-share-alt" aria-hidden="true"></i>
+								</span>
+								<span>Shared Notes</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</header>
+		{% endif %}
 
 		<div class="container is-fluid">
 			<div class="columns">
@@ -69,37 +71,39 @@
 			</div>
 		</div>
 		
-		<script>
-			document.addEventListener('DOMContentLoaded', () => {
-				// Get all "navbar-burger" elements
-				const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+		{% if user.is_authenticated %}
+			<script>
+				document.addEventListener('DOMContentLoaded', () => {
+					// Get all "navbar-burger" elements
+					const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-				// Check if there are any navbar burgers
-				if ($navbarBurgers.length > 0) {
-					// Add a click event on each of them
-					$navbarBurgers.forEach( el => {
-						el.addEventListener('click', () => {
-							// Get the target from the "data-target" attribute
-							const target = el.dataset.target;
-							const $target = document.getElementById(target);
+					// Check if there are any navbar burgers
+					if ($navbarBurgers.length > 0) {
+						// Add a click event on each of them
+						$navbarBurgers.forEach( el => {
+							el.addEventListener('click', () => {
+								// Get the target from the "data-target" attribute
+								const target = el.dataset.target;
+								const $target = document.getElementById(target);
 
-							// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-							el.classList.toggle('is-active');
-							$target.classList.toggle('is-active');
+								// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+								el.classList.toggle('is-active');
+								$target.classList.toggle('is-active');
+							});
+						});
+					}
+				});
+
+				document.addEventListener('DOMContentLoaded', () => {
+					(document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+						var $notification = $delete.parentNode;
+
+						$delete.addEventListener('click', () => {
+							$notification.parentNode.removeChild($notification);
 						});
 					});
-				}
-			});
-
-			document.addEventListener('DOMContentLoaded', () => {
-				(document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-					var $notification = $delete.parentNode;
-
-					$delete.addEventListener('click', () => {
-						$notification.parentNode.removeChild($notification);
-					});
 				});
-			});
-		</script>
+			</script>
+		{% endif %}
 	</body>
 </html>
