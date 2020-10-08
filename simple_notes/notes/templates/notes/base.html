@@ -1,3 +1,12 @@
+{% if messages %}
+	{% for message in messages %}
+		<div class="notification {{ message.tags}}">
+			<button class="delete"></button>
+			{{ message }}
+		</div
+	{% endfor %}
+{% endif %}
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -80,6 +89,16 @@
 						});
 					});
 				}
+			});
+
+			document.addEventListener('DOMContentLoaded', () => {
+				(document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+					var $notification = $delete.parentNode;
+
+					$delete.addEventListener('click', () => {
+						$notification.parentNode.removeChild($notification);
+					});
+				});
 			});
 		</script>
 	</body>

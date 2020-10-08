@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.views import View
+from django.contrib import messages
 
 from .forms import NotebookForm, NoteForm, UserSettingsForm
 from .models import Notebook, Note, PublicSharedNote
@@ -24,7 +25,14 @@ def share_note(request, notebook_title, note_title):
     notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     note = get_object_or_404(Note, notebook=notebook, title=note_title)
 
-    sharedNote = PublicSharedNote.objects.create(user=request.user, note=note)
+    from django.db import IntegrityError
+
+    try:
+        sharedNote = PublicSharedNote.objects.create(user=request.user, note=note)
+
+        messages.success(request, f'Public link for {note_title} was created successfully.')
+    except IntegrityError:
+        messages.warning(request, f'You have shared this note already!')
     
     return redirect('notes:view-shared-notes')
 
@@ -41,14 +49,9 @@ def remove_note(request, notebook_title, note_title):
     notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     get_object_or_404(Note, notebook=notebook, title=note_title).delete()
 
+    messages.success(request, f'{note_title} was removed successfully.')
+
     return redirect(reverse('notes:view-notes', args=[notebook_title]))
-
-
-@login_required
-def remove_notebook(request, notebook_title):
-    get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
-
-    return redirect('notes:index')
 
 
 @login_required
@@ -63,6 +66,8 @@ def edit_notebook(request, notebook_title):
             notebook = form.save(commit=False)
             notebook.user = request.user
             notebook.save()
+
+            messages.success(request, f'Changes in {notebook_title} were saved successfully.')
 
             return redirect('notes:index')
 
@@ -92,6 +97,8 @@ def settings(request):
 @login_required
 def remove_notebook(request, notebook_title):
     get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
+
+    messages.success(request, f'{notebook_title} was removed successfully.')
 
     return redirect('notes:index')
 
@@ -127,7 +134,8 @@ def edit_note(request, notebook_title, note_title):
             note.modified_at = timezone.now()
             note.save()
 
-            return redirect('notes:index')
+            messages.success(request, f'Changes in {note_title} were saved successfully.')
+            return redirect(reverse('notes:view-notes', args=[notebook_title]))
     
     context = {
         'form': form,
@@ -151,6 +159,8 @@ def create_note(request, title):
             note.notebook = notebook
             note.save()
 
+            messages.success(request, f'{note.title} was created successfully.')
+
             return redirect(reverse('notes:view-notes', args=[title]))
 
     return render(request, 'notes/create_note.html', {'form': form, 'title': title})
@@ -168,6 +178,7 @@ def create_notebook(request):
             notebook.user = request.user
             notebook.save()
 
+            messages.success(request, f'{notebook.title} was created successfully.')
             return redirect('notes:index')
 
     return render(request, 'notes/create_notebook.html', {'form': form})
@@ -192,6 +203,8 @@ class SignUp(View):
             form.save_m2m()
 
             login(request, user)
+            
+            messages.info(request, f'Hi {user.username}! You\'ll receive messages like this one every time something happens, if You don\'t want to see them, go to Settings and turn them off.')
 
             return redirect('notes:index')
         
