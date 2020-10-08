@@ -41,7 +41,7 @@ def share_note(request, notebook_title, note_title):
 def view_shared_notes(request):
     shared_notes = PublicSharedNote.objects.filter(user=request.user)
 
-    return render(request, 'notes/view-shared-notes.html', {'notes': shared_notes})
+    return render(request, 'notes/view-shared-notes.html', {'shared_notes': shared_notes})
 
 
 @login_required

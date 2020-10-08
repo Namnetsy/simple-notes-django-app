@@ -41,7 +41,7 @@
 
 			<nav class="tabs is-centered">
 				<ul>
-					<li class="is-active">
+					<li {% if not shared_notes %}class="is-active"{% endif %}>
 						<a href="{% url 'notes:index' %}">
 							<span class="icon is-small">
 								<i class="fa fa-book" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
 							<span>Notebooks</span>
 						</a>
 					</li>
-					<li>
+					<li {% if shared_notes %}class="is-active"{% endif %}>
 						<a href="{% url 'notes:view-shared-notes' %}">
 							<span class="icon is-small">
 								<i class="fa fa-share-alt" aria-hidden="true"></i>

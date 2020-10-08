@@ -1,10 +1,55 @@
-{% if notes %}
-    {% for note in notes %}
-        <p>
-            {{ note.unique_secret }}<br>
-            {{ note.user.username }}<br>
-            {{ note.note.title }}<br>
-            {{ note.note.content }}
-        </p>
-    {% endfor %}
-{% endif %}
+{% extends 'notes/base.html' %}
+
+{% block title %}Shared Notes | Simple Notes{% endblock %}
+
+{% block content %}
+    <div class="block has-text-right">
+		<a class="button is-rounded" href="{% url 'notes:create-notebook' %}">
+			<span class="icon is-small">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+			</span>
+			<span>Remove All</span>
+		</a>
+	</div>
+
+	{% if shared_notes %}
+		<div class="columns is-multiline has-text-centered">
+			{% for shared_note in shared_notes %}
+				<div class="column is-12">
+					<article class="box">
+                        <div class="columns">
+                            <div class="column is-6 has-text-left">
+                                <p class="title">{{ shared_note.note.title }}</p>
+                            </div>
+                            <div class="column is-6 is-right tabs is-toggle is-toggle-rounded">
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon is-small">
+                                                <i class="fa fa-link" aria-hidden="true"></i>
+                                            </span>
+                                            <span>Link</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="icon is-small">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                            </span>
+                                            <span>Remove</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+					</article>
+				</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="block has-text-centered">
+			<h1 class="title">Nothing to show</h1>
+			<p class="subtitle">All your shared notes will be listed here.</p>
+		</div>
+	{% endif %}
+{% endblock %}
