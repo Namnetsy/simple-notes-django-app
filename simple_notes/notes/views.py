@@ -88,6 +88,8 @@ def settings(request):
         if form.is_valid():
             form.save()
 
+            messages.success(request, f'Your settings were saved successfully.')
+
             return redirect('notes:index')
 
     return render(request, 'notes/settings.html', {'form': form})

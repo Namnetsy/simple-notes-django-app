@@ -1,6 +1,41 @@
-<form method="{% url 'notes:settings' %}" method="POST">
-    {{ form.as_p }}
-    <input type="submit">
-</form>
+{% extends 'notes/centered-box-base.html' %}
 
-{{ form.errors }}
+{% block title %}Settings | Simple Notes{% endblock %}
+
+{% block content %}
+    <h1 class="title has-text-centered">Settings</h1>
+    <form action="{% url 'notes:settings' %}" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <label class="label" for="field-username">Username</label>
+            <p class="control has-icons-left">
+                <input id="field-username" class="input" type="text" placeholder="Username" name="username" value="{{ form.username.value }}" required>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user-circle"></i>
+                </span>
+            </p>
+            <p class="help is-danger has-text-centered">
+                {{ form.errors.username }}
+            </p>
+        </div>
+
+        <div class="field">
+            <label class="label" for="field-email">Email</label>
+            <p class="control has-icons-left">
+                <input id="field-email" class="input" type="email" placeholder="Email" name="email" value="{{ form.email.value }}" required>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+            </p>
+            <p class="help is-danger has-text-centered">
+                {{ form.errors.email }}
+            </p>
+        </div>
+
+        <div class="field pt-2">
+            <p class="control">
+                <input class="input button is-rounded has-text-centered" type="submit" value="Save">
+            </p>
+        </div>
+    </form>
+{% endblock %}
