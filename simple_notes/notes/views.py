@@ -228,8 +228,6 @@ class SignUp(View):
             form.save_m2m()
 
             login(request, user)
-            
-            messages.info(request, f'Hi {user.username}! You\'ll receive messages like this one every time something happens, if You don\'t want to see them, go to Settings and turn them off.')
 
             return redirect('notes:index')
         
