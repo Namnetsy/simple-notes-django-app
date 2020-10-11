@@ -54,7 +54,7 @@
 	{% if notes %}
 		<div class="columns is-multiline has-text-centered">
 			{% for note in notes %}
-				<div class="column is-4">
+				<div class="column is-12">
 					<article class="box">
 						<a class="title" href="{% url 'notes:edit-note' notebook_title note.title %}">{{ note.title }}</a>
 					</article>
