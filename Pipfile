@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 Django = "*"
 django-summernote = "*"
+django-environ = "*"
 
 [dev-packages]
 ipython = "*"
