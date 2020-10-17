@@ -139,14 +139,6 @@ LOGIN_URL = '/log-in'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-MESSAGE_TAGS = {
-    messages.DEBUG: 'is-link',
-    messages.INFO: 'is-info',
-    messages.SUCCESS: 'is-success',
-    messages.WARNING: 'is-warning',
-    messages.ERROR: 'is-danger',
-}
-
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 SUMMERNOTE_THEME = 'lite'

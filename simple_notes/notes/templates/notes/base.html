@@ -1,12 +1,3 @@
-{% if messages %}
-	{% for message in messages %}
-		<div class="notification {{ message.tags}}">
-			<button class="delete"></button>
-			{{ message }}
-		</div
-	{% endfor %}
-{% endif %}
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -81,7 +72,16 @@
 		</div>
 		
 		{% if user.is_authenticated %}
+			{% if messages %}
+				{% load static %}
+				<script src="{% static 'scripts/tata.js' %}"></script>
+			{% endif %}
 			<script>
+				{% if messages %}
+					{% for message in messages %}
+						tata.{{ message.tags }}('{{ message.tags|capfirst }}', '{{ message }}');
+					{% endfor %}
+				{% endif %}
 				document.addEventListener('DOMContentLoaded', () => {
 					// Get all "navbar-burger" elements
 					const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
