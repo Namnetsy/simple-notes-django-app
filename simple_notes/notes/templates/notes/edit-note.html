@@ -5,67 +5,39 @@
 {% block content %}
 	<form action="{% url 'notes:edit-note' notebook_title note_title %}" method="POST">
 		{% csrf_token %}
-		<div class="columns">
-			<div class="column">
-				<div class="breadcrumb is-left" aria-label="breadcrumbs">
-					<ul>
-						<li><a href="{% url 'notes:index' %}"><b>Notebooks</b></a></li>
-						<li><a href="{% url 'notes:view-notes' notebook_title %}">{{ notebook_title }}</a></li>
-						<li class="is-active"><a href="#">{{ note_title }}</a></li>
-					</ul>
-				</div>
-			</div>
 
-			<div class="column">
-				<nav class="tabs is-right is-toggle is-toggle-rounded">
-					<ul>
-						<li>
-							<a onclick="this.closest('form').submit(); return false;">
-								<span class="icon is-small">
-									<i class="fa fa-floppy-o" aria-hidden="true"></i>
-								</span>
-								<span>Save</span>
-							</a>
-						</li>
-						<li>
-							<a href="{% url 'notes:share-note' notebook_title form.title.value %}">
-								<span class="icon is-small">
-									<i class="fa fa-share-alt" aria-hidden="true"></i>
-								</span>
-								<span>Share</span>
-							</a>
-						</li>
-						<li>
-							<a href="{% url 'notes:remove-note' notebook_title note_title %}">
-								<span class="icon is-small">
-									<i class="fa fa-trash" aria-hidden="true"></i>
-								</span>
-								<span>Remove</span>
-							</a>
-						</li>
-						<li>
-							<a href="{% url 'notes:view-notes' notebook_title %}">
-								<span class="icon is-small">
-									<i class="fa fa-undo" aria-hidden="true"></i>
-								</span>
-								<span>Go Back</span>
-							</a>
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
+		<nav class="tabs is-toggle is-right">
+			<ul>
+				<li>
+					<a onclick="this.closest('form').submit();return false;" title="Save">
+						<span class="icon is-small">
+							<i class="fas fa-save"></i>
+						</span>
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'notes:share-note' notebook_title note_title %}" title="Share">
+						<span class="icon is-small">
+							<i class="fas fa-share-square"></i>
+						</span>
+					</a>
+				</li>
+				<li>
+					<a href="{% url 'notes:view-notes' notebook_title %}" title="Go Back">
+						<span class="icon is-small">
+							<i class="fas fa-undo-alt"></i>
+						</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-		<div class="columns is-multiline is-desktop">
-			<div class="field column is-12">
-				<article class="columns control box">
-					<input class="input column is-12" type="text" placeholder="My Note's Title" name="title" value="{{ form.title.value }}">
-				</article>
-			</div>
+		<input class="input mb-4" type="text" placeholder="My Note's Title" name="title" value="{{ form.title.value }}">
 
-			<div class="field column is-12 box">
+		<article class="columns is-multiline is-desktop">
+			<section class="field column is-12">
 				{{ form.content }}
-			</div>
-		</div>
+			</section>
+		</article>
 	</form>
 {% endblock %}

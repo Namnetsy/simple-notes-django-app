@@ -2,29 +2,12 @@
 
 {% block title %}Home | Simple Notes{% endblock %}
 {% block content %}
-	<div class="block has-text-right">
-		<a class="button is-rounded" href="{% url 'notes:create-notebook' %}">
-			<span class="icon is-small">
-				<i class="fa fa-plus" aria-hidden="true"></i>
-			</span>
-			<span>New Notebook</span>
-		</a>
-	</div>
-
-	{% if notebooks %}
-		<div class="columns is-multiline has-text-centered">
-			{% for notebook in notebooks %}
-				<div class="column is-12">
-					<article class="box">
-						<a class="title" href="{% url 'notes:view-notes' notebook.title %}">{{ notebook.title }}</a>
-					</article>
-				</div>
-			{% endfor %}
-		</div>
-	{% else %}
-		<div class="block has-text-centered">
-			<h1 class="title">Welcome to Simple Notes</h1>
-			<p class="subtitle">Create a notebook to view it here.</p>
-		</div>
-	{% endif %}
+	{% load static %}
+	<section class="section has-text-centered">
+		<h1 class="title">Nothing to show</h1>
+		<p class="subtitle">Create or Open a note to view it here.</p>
+		<figure style="margin: 0 auto; width: 45vw;" class="image is-128x128">
+			<img src="{% static 'images/empty.svg' %}">
+		</figure>
+	</section>
 {% endblock %}

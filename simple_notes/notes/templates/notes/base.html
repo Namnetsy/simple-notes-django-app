@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="has-background-light">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,11 +18,11 @@
 	</head>
 	<body>
 		{% if user.is_authenticated %}
-			<header>
+			<header style="border-radius: 0" class="box px-0 py-0">
 				<nav class="navbar">
 					<div class="container">
 						<div class="navbar-brand">
-							<a class="navbar-item" href="{% url 'notes:index' %}">Simple Notes</a>
+							<a class="navbar-item" href="{% url 'notes:index' %}"><b>Simple Notes</b></a>
 							<span class="navbar-burger burger" data-target="navbarMenuHero">
 								<span></span>
 								<span></span>
@@ -32,87 +32,228 @@
 
 						<div id="navbarMenuHero" class="navbar-menu">
 							<div class="navbar-end has-text-centered">
-								<a class="navbar-item my-2 mx-2" href="{% url 'notes:index' %}">Home</a>
-								<a class="navbar-item my-2 mx-2" href="{% url 'notes:settings' %}">Settings</a>
+								<a class="navbar-item my-2 mx-2 is-active" href="{% url 'notes:index' %}" title="">Home</a>
+								<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'notes:settings' %}">Settings</a>
 								<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
 							</div>
 						</div>
 					</div>
 				</nav>
-
-				<nav class="tabs is-centered">
-					<ul>
-						<li {% if request.path != '/shared-notes/' %}class="is-active"{% endif %}>
-							<a href="{% url 'notes:index' %}">
-								<span class="icon is-small">
-									<i class="fa fa-book" aria-hidden="true"></i>
-								</span>
-								<span>Notebooks</span>
-							</a>
-						</li>
-						<li {% if request.path == '/shared-notes/' %}class="is-active"{% endif %}>
-							<a href="{% url 'notes:view-shared-notes' %}">
-								<span class="icon is-small">
-									<i class="fa fa-share-alt" aria-hidden="true"></i>
-								</span>
-								<span>Shared Notes</span>
-							</a>
-						</li>
-					</ul>
-				</nav>
 			</header>
 		{% endif %}
 
-		<div class="container is-fluid">
-			<div class="columns">
-				<div style="min-height: 80vh" class="column is-10-desktop box container is-fluid py-5 my-5">
+		<div class="block columns is-multiline mt-3 mx-0">
+			{% if user.is_authenticated %}
+				<aside class="column is-12-tablet is-2-desktop pt-0">
+					<div class="box menu">
+						<p class="menu-label">
+							<span class="columns is-mobile">
+								<span class="column is-3 has-text-left">
+									Notebooks
+								</span>
+								<span class="column is-9 has-text-right">
+									<a class="modal-button" data-target="new-notebook-modal" title="New Notebook">
+										<span class="icon is-small">
+											<i class="fa fa-plus" aria-hidden="true"></i>
+										</span>
+										<span>Notebook</span>
+									</a>
+								</span>
+							</span>
+						</p>
+						<ul class="menu-list">
+							{% if notebooks %}
+								{% for notebook in notebooks %}
+									{% if notebook_title and notebook.title == notebook_title %}
+										<li>
+											<a href="{% url 'notes:view-notes' notebook.title %}"><b>{{ notebook.title }}</b></a>
+											<ul>
+												<li>
+													{% if notes %}
+														{% for note in notes %}
+															{% if note_title == note.title %}
+																<a class="is-active" href="{% url 'notes:edit-note' notebook_title note.title %}">{{ note.title }}</a>
+															{% else %}
+																<a href="{% url 'notes:edit-note' notebook_title note.title %}">{{ note.title }}</a>
+															{% endif %}
+														{% endfor %}
+													{% else %}
+														<a>Empty</a>
+													{% endif %}
+												</li>
+											</ul>
+										</li>
+									{% else %}
+										<li>
+											<a href="{% url 'notes:view-notes' notebook.title %}">{{ notebook.title }}</a>
+										</li>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
+						</ul>
+
+						<p class="menu-label">
+							Shared Notes
+						</p>
+						<ul class="menu-list">
+							{% if shared_notes %}
+								{% for note in shared_notes %}
+									{% if shared_note and shared_note.unique_secret == note.unique_secret %}
+										<li><a class="is-active" href="{% url 'notes:view-shared-note' note.unique_secret %}">{{ note.note.title }}</a></li>
+									{% else %}
+										<li><a href="{% url 'notes:view-shared-note' note.unique_secret %}">{{ note.note.title }}</a></li>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<li><a>Empty</a></li>
+							{% endif %}
+						</ul>
+					</div>
+				</aside>
+			{% endif %}
+
+			<main class="column is-12-tablet is-10-desktop pt-0">
+				<div style="min-height: 80vh;" class="box">
 					{% block content %}{% endblock %}
 				</div>
-			</div>
+			</main>
 		</div>
-		
+
 		{% if user.is_authenticated %}
-			{% if messages %}
-				{% load static %}
-				<script src="{% static 'scripts/tata.js' %}"></script>
+			<div class="modal" id="new-notebook-modal">
+				<div class="modal-background"></div>
+				<div class="modal-card">
+					<header class="modal-card-head">
+						<p class="modal-card-title">New Notebook</p>
+						<button class="delete" aria-label="close"></button>
+					</header>
+					<form action="{% url 'notes:create-notebook' %}" method="POST">
+						{% csrf_token %}
+						<section class="modal-card-body">
+							<div class="field">
+								<label class="label" for="field-title">Title</label>
+								<p class="control has-icons-left">
+									<input id="field-title" class="input" type="text" placeholder="My Lovely Notebook" name="title" required>
+									<span class="icon is-small is-left">
+										<i class="fa fa-font" aria-hidden="true"></i>
+									</span>
+								</p>
+							</div>
+						</section>
+						<footer class="modal-card-foot">
+							<button type="submit" class="button is-link">Save</button>
+							<button type="reset" class="button button-close">Cancel</button>
+						</footer>
+					</form>
+				</div>
+			</div>
+
+			{% if notebook_title %}
+				<div class="modal" id="edit-notebook-modal">
+					<div class="modal-background"></div>
+					<div class="modal-card">
+						<header class="modal-card-head">
+							<p class="modal-card-title">Edit Notebook</p>
+							<button class="delete" aria-label="close"></button>
+						</header>
+						<form action="{% url 'notes:edit-notebook' notebook_title %}" method="POST">
+							{% csrf_token %}
+							<section class="modal-card-body">
+								<div class="field">
+									<label class="label" for="field-title">Title</label>
+									<p class="control has-icons-left">
+										<input id="field-title" class="input" type="text" placeholder="{{ notebook_title }}" name="title" value="{{ notebook_title }}" required>
+										<span class="icon is-small is-left">
+											<i class="fa fa-font" aria-hidden="true"></i>
+										</span>
+									</p>
+								</div>
+							</section>
+							<footer class="modal-card-foot">
+								<button type="submit" class="button is-link">Update</button>
+								<button type="reset" class="button button-close">Cancel</button>
+							</footer>
+						</form>
+					</div>
+				</div>
 			{% endif %}
-			<script>
-				{% if messages %}
-					{% for message in messages %}
-						tata.{{ message.tags }}('{{ message.tags|capfirst }}', '{{ message }}');
-					{% endfor %}
-				{% endif %}
-				document.addEventListener('DOMContentLoaded', () => {
-					// Get all "navbar-burger" elements
-					const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+		{% endif %}
 
-					// Check if there are any navbar burgers
-					if ($navbarBurgers.length > 0) {
-						// Add a click event on each of them
-						$navbarBurgers.forEach( el => {
-							el.addEventListener('click', () => {
-								// Get the target from the "data-target" attribute
-								const target = el.dataset.target;
-								const $target = document.getElementById(target);
+		{% if messages %}
+			{% load static %}
+			<script src="{% static 'scripts/tata.js' %}"></script>
+		{% endif %}
+		<script>
+			{% if messages %}
+				{% for message in messages %}
+					tata.{{ message.tags }}('{{ message.tags|capfirst }}', '{{ message }}');
+				{% endfor %}
+			{% endif %}
+			document.addEventListener('DOMContentLoaded', () => {
+				// Modals
+				var rootEl = document.documentElement;
+				var $modals = getAll('.modal');
+				var $modalButtons = getAll('.modal-button');
+				var $modalCloses = getAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button-close');
 
-								// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-								el.classList.toggle('is-active');
-								$target.classList.toggle('is-active');
-							});
+				if ($modalButtons.length > 0) {
+					$modalButtons.forEach(function ($el) {
+						$el.addEventListener('click', function () {
+							var target = $el.dataset.target;
+							var $target = document.getElementById(target);
+							rootEl.classList.add('is-clipped');
+							$target.classList.add('is-active');
 						});
+					});
+				}
+
+				if ($modalCloses.length > 0) {
+					$modalCloses.forEach(function ($el) {
+						$el.addEventListener('click', function () {
+							closeModals();
+						});
+					});
+				}
+
+				document.addEventListener('keydown', function (event) {
+					var e = event || window.event;
+					if (e.keyCode === 27) {
+						closeModals();
 					}
 				});
 
-				document.addEventListener('DOMContentLoaded', () => {
-					(document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-						var $notification = $delete.parentNode;
+				function closeModals() {
+					rootEl.classList.remove('is-clipped');
+					$modals.forEach(function ($el) {
+						$el.classList.remove('is-active');
+					});
+				}
 
-						$delete.addEventListener('click', () => {
-							$notification.parentNode.removeChild($notification);
+				function getAll(selector) {
+					return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+				}
+
+  				// Navbar Burgers
+
+				// Get all "navbar-burger" elements
+				const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+				// Check if there are any navbar burgers
+				if ($navbarBurgers.length > 0) {
+					// Add a click event on each of them
+					$navbarBurgers.forEach( el => {
+						el.addEventListener('click', () => {
+							// Get the target from the "data-target" attribute
+							const target = el.dataset.target;
+							const $target = document.getElementById(target);
+
+							// Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+							el.classList.toggle('is-active');
+							$target.classList.toggle('is-active');
 						});
 					});
-				});
-			</script>
-		{% endif %}
+				}
+			});
+		</script>
 	</body>
 </html>

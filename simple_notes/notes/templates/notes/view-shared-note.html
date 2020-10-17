@@ -3,14 +3,33 @@
 {% block title %}{{ shared_note.note.title }} | Simple Notes{% endblock %}
 
 {% block content %}
-    <div class="block box">
-        <h1 class="title has-text-centered">{{ shared_note.note.title }}</h1>
-    </div>
-    <div style="min-height: 60vh" class="content box">
-        {% if shared_note.note.content %}
-            {{ shared_note.note.content|safe }}
-        {% else %}
-            <p>This note is empty.</p>
-        {% endif %}
-    </div>
+    {% if user.is_authenticated %}
+        <div class="buttons is-right">
+            <a class="button px-5" href="{% url 'notes:remove-shared-note' shared_note.unique_secret %}" title="Stop Sharing">
+                <span class="icon is-small">
+                    <i class="fas fa-trash-alt"></i>
+                </span>
+            </a>
+        </div>
+    {% endif %}
+    
+    {% if shared_note.note.content %}
+        <article>
+            <section class="block">
+                <h1 class="title has-text-centered">{{ shared_note.note.title }}</h1>
+            </section>
+            <section class="content">
+                {{ shared_note.note.content|safe }}
+            </section>
+        </article>
+    {% else %}
+        {% load static %}
+        <article class="block has-text-centered">
+            <h1 class="title">{{ shared_note.note.title }}</h1>
+            <p class="subtitle">The author didn't even left a single word for you!</p>
+            <figure style="margin: 0 auto; width: 35vw;" class="image is-128x128">
+                <img src="{% static 'images/not_found.svg' %}">
+            </figure>
+        </article>
+    {% endif %}
 {% endblock %}

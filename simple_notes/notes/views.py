@@ -14,9 +14,7 @@ from .models import Notebook, Note, PublicSharedNote
 
 def index(request):
     if request.user.is_authenticated:
-        notebooks = Notebook.objects.filter(user=request.user)
-
-        return render(request, 'notes/home.html', {'notebooks': notebooks})
+        return render(request, 'notes/home.html', sidebar_menu_context(request))
     
     return render(request, 'notes/index.html')
 
@@ -33,14 +31,7 @@ def share_note(request, notebook_title, note_title):
     except IntegrityError:
         messages.warning(request, f'You have shared this note already!')
     
-    return redirect('notes:view-shared-notes')
-
-
-@login_required
-def view_shared_notes(request):
-    shared_notes = PublicSharedNote.objects.filter(user=request.user)
-
-    return render(request, 'notes/view-shared-notes.html', {'shared_notes': shared_notes})
+    return redirect(reverse('notes:view-notes', args=[notebook_title]))
 
 
 @login_required
@@ -55,9 +46,6 @@ def remove_note(request, notebook_title, note_title):
 
 @login_required
 def edit_notebook(request, notebook_title):
-    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
-    form = NotebookForm(instance=notebook)
-
     if request.method == 'POST':
         form = NotebookForm(request.POST, instance=notebook)
 
@@ -67,15 +55,10 @@ def edit_notebook(request, notebook_title):
             notebook.save()
 
             messages.success(request, f'Changes in {notebook_title} were saved successfully.')
+        else:
+            messages.error(request, 'Check your input!')
 
-            return redirect('notes:index')
-
-    context = {
-        'form': form,
-        'notebook_title': notebook_title,
-    }
-
-    return render(request, 'notes/edit-notebook.html', context)
+    return redirect('notes:index')
 
 
 @login_required
@@ -88,7 +71,7 @@ def settings(request):
         if form.is_valid():
             form.save()
 
-            messages.success(request, f'Your settings were saved successfully.')
+            messages.success(request, 'Your settings were saved successfully.')
 
             return redirect('notes:index')
 
@@ -114,20 +97,7 @@ def view_notes(request, notebook_title):
         'notebook_title': notebook_title,
     }
 
-    return render(request, 'notes/view-notes.html', context)
-
-
-@login_required
-def remove_all_shared_notes(request):
-    shared_notes = PublicSharedNote.objects.filter(user=request.user)
-
-    if shared_notes.exists():
-        shared_notes.delete()
-        messages.success(request, 'All shared notes were removed sucessfully.')
-    else:
-        messages.warning(request, 'You have zero shared notes, so there\'s nothing to remove!')
-
-    return redirect('notes:view-shared-notes')
+    return render(request, 'notes/view-notes.html', sidebar_menu_context(request, context))
 
 
 @login_required
@@ -141,8 +111,11 @@ def remove_shared_note(request, unique_secret):
 
 def view_shared_note(request, unique_secret):
     shared_note = get_object_or_404(PublicSharedNote, unique_secret=unique_secret)
+    context = {
+        'shared_note': shared_note,
+    }
 
-    return render(request, 'notes/view-shared-note.html', {'shared_note': shared_note})
+    return render(request, 'notes/view-shared-note.html', sidebar_menu_context(request, context))
 
 
 @login_required
@@ -168,7 +141,7 @@ def edit_note(request, notebook_title, note_title):
         'note_title': note_title,
     }
 
-    return render(request, 'notes/edit-note.html', context)
+    return render(request, 'notes/edit-note.html', sidebar_menu_context(request, context))
 
 
 @login_required
@@ -188,13 +161,16 @@ def create_note(request, title):
 
             return redirect(reverse('notes:view-notes', args=[title]))
 
-    return render(request, 'notes/create_note.html', {'form': form, 'title': title})
+    context = {
+        'form': form,
+        'notebook_title': title,
+    }
+
+    return render(request, 'notes/create_note.html', sidebar_menu_context(request, context))
 
 
 @login_required
 def create_notebook(request):
-    form = NotebookForm()
-
     if request.method == 'POST':
         form = NotebookForm(request.POST)
 
@@ -204,9 +180,10 @@ def create_notebook(request):
             notebook.save()
 
             messages.success(request, f'{notebook.title} was created successfully.')
-            return redirect('notes:index')
-
-    return render(request, 'notes/create_notebook.html', {'form': form})
+        else:
+            messages.error(request, form.errors['title'])
+    
+    return redirect('notes:index')
 
 
 class SignUp(View):
@@ -232,3 +209,23 @@ class SignUp(View):
             return redirect('notes:index')
         
         return render(request, 'notes/sign-up.html', {'form': form})
+
+
+def sidebar_menu_context(request, context=None):
+    notebooks = Notebook.objects.filter(user=request.user)
+    shared_notes = PublicSharedNote.objects.filter(user=request.user)
+    data = {
+        'notebooks': notebooks,
+        'shared_notes': shared_notes,
+    }
+
+    if context:
+        if 'notes' not in context and 'notebook_title' in context:
+            notebook = Notebook.objects.get(user=request.user, title=context['notebook_title'])
+            context.update({'notes': Note.objects.filter(notebook=notebook)})
+        
+        context.update(data)
+        
+        return context
+    
+    return data
