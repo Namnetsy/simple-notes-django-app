@@ -13,6 +13,7 @@ whitenoise = "*"
 [dev-packages]
 ipython = "*"
 pylint = "*"
+django-debug-toolbar = "*"
 
 [requires]
 python_version = "3.8"
