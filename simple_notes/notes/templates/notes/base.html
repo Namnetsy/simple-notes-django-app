@@ -34,6 +34,9 @@
 							<div class="navbar-end has-text-centered">
 								<a class="navbar-item my-2 mx-2 is-active" href="{% url 'notes:index' %}" title="">Home</a>
 								<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'notes:settings' %}">Settings</a>
+								{% if user.is_superuser %}
+									<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'admin:index' %}">Admin Panel</a>
+								{% endif %}
 								<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
 							</div>
 						</div>
