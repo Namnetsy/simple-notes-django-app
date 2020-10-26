@@ -9,6 +9,7 @@ django-summernote = "*"
 django-environ = "*"
 gunicorn = "*"
 whitenoise = "*"
+xhtml2pdf = "*"
 
 [dev-packages]
 ipython = "*"

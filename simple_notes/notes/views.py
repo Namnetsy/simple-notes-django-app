@@ -6,9 +6,12 @@ from django.utils import timezone
 from django.views import View
 from django.contrib import messages
 from django.db import IntegrityError
+from django.http import HttpResponse
 
 from .forms import NotebookForm, NoteForm, UserSettingsForm
 from .models import Notebook, Note, PublicSharedNote
+from xhtml2pdf import pisa
+from tempfile import TemporaryFile
 
 
 def index(request):
@@ -243,3 +246,22 @@ def sidebar_menu_context(request, context=None):
         return context
 
     return data
+
+
+@login_required
+def export_to_pdf(request, notebook_title, note_title):
+    notebook = Notebook.objects.get(user=request.user, title=notebook_title)
+    note = Note.objects.get(notebook=notebook, title=note_title)
+
+    tmpFile = TemporaryFile(mode='w+b')
+    pisa.CreatePDF(note.content, tmpFile)
+    tmpFile.seek(0)
+    pdf = tmpFile.read()
+    content_disposition = f'attachment; filename="{note_title}.pdf"'
+
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = content_disposition
+
+    tmpFile.close()
+
+    return response

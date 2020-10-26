@@ -23,6 +23,13 @@
 					</a>
 				</li>
 				<li>
+					<a href="{% url 'notes:export-to-pdf' notebook_title note_title %}" title="Export To PDF">
+						<span class="icon is-small">
+							<i class="fas fa-file-pdf"></i>
+						</span>
+					</a>
+				</li>
+				<li>
 					<a href="{% url 'notes:view-notes' notebook_title %}" title="Go Back">
 						<span class="icon is-small">
 							<i class="fas fa-undo-alt"></i>

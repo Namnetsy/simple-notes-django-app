@@ -21,4 +21,5 @@ urlpatterns = [
     path('shared-notes/<str:unique_secret>/remove/', remove_shared_note, name='remove-shared-note'),
     path('shared-notes/<str:unique_secret>/view/', view_shared_note, name='view-shared-note'),
     path('settings/', settings, name='settings'),
+    path('notebooks/<str:notebook_title>/notes/<str:note_title>/export-to-pdf/', export_to_pdf, name='export-to-pdf'),
 ]
