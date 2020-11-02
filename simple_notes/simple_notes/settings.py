@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from django.contrib.messages import constants as messages
 
 import os
 import environ
 
-env = environ.Env(DEBUG=(bool, False), ALLOWED_HOSTS=(list, []))
+env = environ.Env(DEBUG=(int, 1), ALLOWED_HOSTS=(list, []))
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

@@ -10,11 +10,12 @@ django-environ = "*"
 gunicorn = "*"
 whitenoise = "*"
 xhtml2pdf = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 ipython = "*"
 pylint = "*"
-django-debug-toolbar = "*"
+inotify = "*"
 
 [requires]
 python_version = "3.8"
