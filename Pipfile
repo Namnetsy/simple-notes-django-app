@@ -11,6 +11,7 @@ gunicorn = "*"
 whitenoise = "*"
 xhtml2pdf = "*"
 django-debug-toolbar = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 ipython = "*"
