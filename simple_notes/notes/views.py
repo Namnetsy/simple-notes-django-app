@@ -147,7 +147,6 @@ def edit_note(request, notebook_title, note_title):
             messages.success(request, _('Changes in {note_title} were saved successfully.').format(
                 note_title=note_title
             ))
-            return redirect(reverse('notes:view-notes', args=[notebook_title]))
 
     ctx = sidebar_menu_context(request, {
         'form': form,
@@ -173,7 +172,7 @@ def create_note(request, title):
 
             messages.success(request, _('{note_title} was created successfully.').format(note_title=note.title))
 
-            return redirect(reverse('notes:view-notes', args=[title]))
+            return redirect(reverse('notes:edit-note', args=[notebook.title, note.title]))
 
     ctx = sidebar_menu_context(request, {
         'form': form,
