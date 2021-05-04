@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html>
@@ -25,10 +26,10 @@
 						<div id="navbarMenuHero" class="navbar-menu">
 							<div class="navbar-end has-text-centered">
 								<a class="navbar-item my-2 mx-2" href="{% url 'notes:log-in' %}">
-									Log in
+									{% translate "Log in" context "Link's text in navbar" %}
 								</a>
 								<a class="navbar-item button is-rounded my-2 mx-2" href="{% url 'notes:sign-up' %}">
-									Create an account
+									{% translate "Create an account" context "Link's text in navbar" %}
 								</a>
 							</div>
 						</div>
@@ -39,8 +40,8 @@
 			<div class="hero-body">
 				<div class="container has-text-centered">
 					<h1 class="title is-size-1 my-6">Simple Notes</h1>
-					<p class="subtitle">A simple way of saving your thoughts & ideas for the future</p>
-					<a class="button is-primary is-large is-rounded" href="{% url 'notes:sign-up' %}">Get Started</a>
+					<p class="subtitle">{% translate "A simple way of saving your thoughts & ideas for the future" %}</p>
+					<a class="button is-primary is-large is-rounded" href="{% url 'notes:sign-up' %}">{% translate "Get Started" context "Text on a button" %}</a>
 				</div>
 			</div>
 		</section>
@@ -48,8 +49,8 @@
 		<section class="hero is-fullheight">
 			<div class="hero-head">
 				<div class="container has-text-centered">
-					<h2 class="title is-size-1 my-6">Orginize your notes</h2>
-					<p class="subtitle">Never get lost, orginize your notes by notebooks with ease</p>
+					<h2 class="title is-size-1 my-6">{% translate "Orginize your notes" context "Heading" %}</h2>
+					<p class="subtitle">{% translate "Never get lost, orginize your notes by notebooks with ease" %}</p>
 				</div>
 			</div>
 
@@ -65,8 +66,8 @@
 		<section class="hero is-fullheight">
 			<div class="hero-head">
 				<div class="container has-text-centered">
-					<h2 class="title is-size-1 my-6">It's Free</h2>
-					<p class="subtitle">No ads, no pro versions, it's completely free!</p>
+					<h2 class="title is-size-1 my-6">{% translate "It's Free" context "Heading" %}</h2>
+					<p class="subtitle">{% translate "No ads, no pro versions, it's completely free!" %}</p>
 				</div>
 			</div>
 
@@ -82,8 +83,8 @@
 		<section class="hero is-fullheight">
 			<div class="hero-head">
 				<div class="container has-text-centered">
-					<h2 class="title is-size-1 my-6">Your notes are safe with us</h2>
-					<p class="subtitle">No one is able to see your notes, except of us :)</p>
+					<h2 class="title is-size-1 my-6">{% translate "Your notes are safe with us" context "Heading" %}</h2>
+					<p class="subtitle">{% translate "No one is able to see your notes, except of us :)" %}</p>
 				</div>
 			</div>
 
@@ -99,8 +100,8 @@
 		<section class="hero is-fullheight is-dark">
 			<div class="hero-head">
 				<div class="container has-text-centered">
-					<h2 class="title is-size-1 my-6">Dark Theme</h2>
-					<p class="subtitle">Work at any time of the day, even at night with our dark theme</p>
+					<h2 class="title is-size-1 my-6">{% translate "Dark Theme" context "Heading" %}</h2>
+					<p class="subtitle">{% translate "Work at any time of the day, even at night with our dark theme" %}</p>
 				</div>
 			</div>
 
@@ -116,9 +117,9 @@
 		<section class="hero is-fullheight">
 			<div class="hero-body">
 				<div class="container has-text-centered">
-					<h2 class="title is-size-1 my-6">Let's get started</h2>
-					<p class="subtitle">Do not hesitate, start using <strong>Simple Notes</strong> right now!</p>
-					<a class="button is-large is-primary is-rounded" href="{% url 'notes:sign-up' %}">Create an account</a>
+					<h2 class="title is-size-1 my-6">{% translate "Let's get started" context "Heading" %}</h2>
+					<p class="subtitle">{% translate "Do not hesitate, start using <strong>Simple Notes</strong> right now!" %}</p>
+					<a class="button is-large is-primary is-rounded" href="{% url 'notes:sign-up' %}">{% translate "Create an account" context "Text on a button" %}</a>
 				</div>
 			</div>
 		</section>

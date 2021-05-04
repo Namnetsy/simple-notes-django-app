@@ -1,11 +1,12 @@
 {% extends 'notes/base.html' %}
+{% load i18n %}
 
-{% block title %}Home | Simple Notes{% endblock %}
+{% block title %}{% translate "Home" context "Page title" %} | Simple Notes{% endblock %}
 {% block content %}
 	{% load static %}
 	<section class="section has-text-centered">
-		<h1 class="title">Nothing to show</h1>
-		<p class="subtitle">Create or Open a note to view it here.</p>
+		<h1 class="title">{% translate "Nothing to show" context "Heading" %}</h1>
+		<p class="subtitle">{% translate "Create or Open a note to view it here." context "sub heading" %}</p>
 		<figure style="margin: 0 auto; width: 45vw;" class="image is-128x128">
 			<img src="{% static 'images/empty.svg' %}">
 		</figure>

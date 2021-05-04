@@ -1,15 +1,16 @@
 {% extends 'notes/centered-box-base.html' %}
+{% load i18n %}
 
-{% block title %}Settings | Simple Notes{% endblock %}
+{% block title %}{% translate "Settings" context "Page's title" %} | Simple Notes{% endblock %}
 
 {% block content %}
-    <h1 class="title has-text-centered">Settings</h1>
+    <h1 class="title has-text-centered">{% translate "Settings" context "Heading" %}</h1>
     <form action="{% url 'notes:settings' %}" method="POST">
         {% csrf_token %}
         <div class="field">
-            <label class="label" for="field-username">Username</label>
+            <label class="label" for="field-username">{% translate "Username" context "Label" %}</label>
             <p class="control has-icons-left">
-                <input id="field-username" class="input" type="text" placeholder="Username" name="username" value="{{ form.username.value }}" required>
+                <input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" value="{{ form.username.value }}" required>
                 <span class="icon is-small is-left">
                     <i class="fas fa-user-circle"></i>
                 </span>
@@ -20,9 +21,9 @@
         </div>
 
         <div class="field">
-            <label class="label" for="field-email">Email</label>
+            <label class="label" for="field-email">{% translate "Email" context "Label" %}</label>
             <p class="control has-icons-left">
-                <input id="field-email" class="input" type="email" placeholder="Email" name="email" value="{{ form.email.value }}" required>
+                <input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" value="{{ form.email.value }}" required>
                 <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                 </span>
@@ -34,7 +35,7 @@
 
         <div class="field pt-2">
             <p class="control">
-                <input class="input button is-link has-text-centered" type="submit" value="Save">
+                <input class="input button is-link has-text-centered" type="submit" value="{% translate "Save" context "Text on a button" %}">
             </p>
         </div>
     </form>

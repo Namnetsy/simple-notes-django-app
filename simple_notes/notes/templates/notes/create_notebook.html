@@ -1,23 +1,24 @@
 {% extends 'notes/centered-box-base.html' %}
+{% load i18n %}
 
-{% block title %}New Notebook | Simple Notes{% endblock %}
+{% block title %}{% translate "New Notebook" context "Page title" %} | Simple Notes{% endblock %}
 
 {% block content %}
 	<div class="breadcrumb is-centered" aria-label="breadcrumbs">
 		<ul>
-			<li><a href="{% url 'notes:index' %}">Notebooks</a></li>
-			<li class="is-active"><a href="#">Create Notebook</a></li>
+			<li><a href="{% url 'notes:index' %}">{% translate "Notebooks" context "Link's text in breadcrumb" %}</a></li>
+			<li class="is-active"><a href="#">{% translate "Create Notebook" context "Link's text in breadcrumb" %}</a></li>
 		</ul>
 	</div>
 
-	<h1 class="title has-text-centered">Create Notebook</h1>
-	<p class="subtitle has-text-centered">Enter your notebook's name below</p>
+	<h1 class="title has-text-centered">{% translate "Create Notebook" context "Page heading" %}</h1>
+	<p class="subtitle has-text-centered">{% translate "Enter your notebook's name below" context "Sub heading" %}</p>
 
 	<form action="{% url 'notes:create-notebook' %}" method="POST">
 		{% csrf_token %}
 		<div class="field">
 			<p class="control has-icons-left">
-				<input class="input" type="text" placeholder="My Lovely Notebook" required name="title">
+				<input class="input" type="text" placeholder="{% translate "My Lovely Notebook" context "Placeholder" %}" required name="title">
 				<span class="icon is-small is-left">
 					<i class="fa fa-font" aria-hidden="true"></i>
 				</span>
@@ -26,7 +27,7 @@
 
 		<div class="field">
 			<p class="control">
-				<input class="input" type="submit" value="Create Notebook">
+				<input class="input" type="submit" value="{% translate "Create Notebook" context "Button's text" %}">
 			</p>
 		</div>
 	</form>

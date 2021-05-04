@@ -1,11 +1,12 @@
 {% extends 'notes/base.html' %}
+{% load i18n %}
 
 {% block title %}{{ shared_note.note.title }} | Simple Notes{% endblock %}
 
 {% block content %}
     {% if user.is_authenticated %}
         <div class="buttons is-right">
-            <a class="button px-5" href="{% url 'notes:remove-shared-note' shared_note.unique_secret %}" title="Stop Sharing">
+            <a class="button px-5" href="{% url 'notes:remove-shared-note' shared_note.unique_secret %}" title="{% translate "Stop Sharing" context "Tooltip" %}">
                 <span class="icon is-small">
                     <i class="fas fa-trash-alt"></i>
                 </span>
@@ -26,7 +27,7 @@
         {% load static %}
         <article class="block has-text-centered">
             <h1 class="title">{{ shared_note.note.title }}</h1>
-            <p class="subtitle">The author didn't even left a single word for you!</p>
+            <p class="subtitle">{% translate "The author didn't even left a single word for you!" %}</p>
             <figure style="margin: 0 auto; width: 35vw;" class="image is-128x128">
                 <img src="{% static 'images/not_found.svg' %}">
             </figure>

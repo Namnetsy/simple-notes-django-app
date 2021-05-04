@@ -1,27 +1,28 @@
 {% extends 'notes/base.html' %}
+{% load i18n %}
 
-{% block title %}Notes | {{ notebook_title }}{% endblock %}
+{% block title %}{% translate "Notes" context "Page's title" %} | {{ notebook_title }}{% endblock %}
 
 {% load static %}
 {% block content %}
 	<nav class="tabs is-toggle is-right">
 		<ul>
 			<li>
-				<a href="{% url 'notes:create-note' notebook_title %}" title="New Note">
+				<a href="{% url 'notes:create-note' notebook_title %}" title="{% translate "New Note" context "Tooltip" %}">
 					<span class="icon is-small">
 						<i class="fas fa-plus" aria-hidden="true"></i>
 					</span>
 				</a>
 			</li>
 			<li>
-				<a href="{% url 'notes:remove-notebook' notebook_title %}" title="Remove Notebook">
+				<a href="{% url 'notes:remove-notebook' notebook_title %}" title="{% translate "Remove Notebook" context "Tooltip" %}">
 					<span class="icon is-small">
 						<i class="fas fa-trash-alt"></i>
 					</span>
 				</a>
 			</li>
 			<li>
-				<a class="modal-button" data-target="edit-notebook-modal" title="Edit Notebook">
+				<a class="modal-button" data-target="edit-notebook-modal" title="{% translate "Edit Notebook" context "Tooltip" %}">
 					<span class="icon is-small">
 						<i class="fas fa-edit"></i>
 					</span>
@@ -31,8 +32,8 @@
 	</nav>
 
 	<article class="block has-text-centered">
-		<h1 class="title">Nothing to show</h1>
-		<p class="subtitle">Create or Open a note to view it here.</p>
+		<h1 class="title">{% translate "Nothing to show" context "Heading" %}</h1>
+		<p class="subtitle">{% translate "Create or Open a note to view it here." context "Sub heading" %}</p>
 		<figure style="margin: 0 auto; width: 45vw;" class="image is-128x128">
 			<img src="{% static 'images/empty.svg' %}">
 		</figure>

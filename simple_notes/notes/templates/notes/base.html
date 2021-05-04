@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html class="has-background-light">
 	<head>
@@ -32,12 +33,12 @@
 
 						<div id="navbarMenuHero" class="navbar-menu">
 							<div class="navbar-end has-text-centered">
-								<a class="navbar-item my-2 mx-2 is-active" href="{% url 'notes:index' %}" title="">Home</a>
-								<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'notes:settings' %}">Settings</a>
+								<a class="navbar-item my-2 mx-2 is-active" href="{% url 'notes:index' %}" title="">{% translate "Home" context "Link's text" %}</a>
+								<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'notes:settings' %}">{% translate "Settings" context "Link's text" %}</a>
 								{% if user.is_superuser %}
-									<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'admin:index' %}">Admin Panel</a>
+									<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'admin:index' %}">{% translate "Admin Panel" context "Link's text" %}</a>
 								{% endif %}
-								<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">Log out</a>
+								<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">{% translate "Log out" context "Link's text" %}</a>
 							</div>
 						</div>
 					</div>
@@ -52,14 +53,14 @@
 						<p class="menu-label">
 							<span class="columns is-mobile">
 								<span class="column is-3 has-text-left">
-									Notebooks
+									{% translate "Notebooks" context "List title" %}
 								</span>
 								<span class="column is-9 has-text-right">
-									<a class="modal-button" data-target="new-notebook-modal" title="New Notebook">
+									<a class="modal-button" data-target="new-notebook-modal" title="{% translate "New Notebook" context "Tooltip" %}">
 										<span class="icon is-small">
 											<i class="fa fa-plus" aria-hidden="true"></i>
 										</span>
-										<span>Notebook</span>
+										<span>{% translate "Notebook" context "Text on a button" %}</span>
 									</a>
 								</span>
 							</span>
@@ -81,7 +82,7 @@
 															{% endif %}
 														{% endfor %}
 													{% else %}
-														<a>Empty</a>
+														<a>{% translate "Empty" context "Empty list text" %}</a>
 													{% endif %}
 												</li>
 											</ul>
@@ -93,12 +94,12 @@
 									{% endif %}
 								{% endfor %}
 							{% else %}
-								<li><a>Empty</a></li>
+								<li><a>{% translate "Empty" context "Empty list text" %}</a></li>
 							{% endif %}
 						</ul>
 
 						<p class="menu-label">
-							Shared Notes
+							{% translate "Shared Notes" context "List title" %}
 						</p>
 						<ul class="menu-list">
 							{% if shared_notes %}
@@ -110,7 +111,7 @@
 									{% endif %}
 								{% endfor %}
 							{% else %}
-								<li><a>Empty</a></li>
+								<li><a>{% translate "Empty" context "Empty list text" %}</a></li>
 							{% endif %}
 						</ul>
 					</div>
@@ -129,16 +130,16 @@
 				<div class="modal-background"></div>
 				<div class="modal-card">
 					<header class="modal-card-head">
-						<p class="modal-card-title">New Notebook</p>
+						<p class="modal-card-title">{% translate "New Notebook" context "Heading of modal window" %}</p>
 						<button class="delete" aria-label="close"></button>
 					</header>
 					<form action="{% url 'notes:create-notebook' %}" method="POST">
 						{% csrf_token %}
 						<section class="modal-card-body">
 							<div class="field">
-								<label class="label" for="field-title">Title</label>
+								<label class="label" for="field-title">{% translate "Title" context  "Label's text on create notebook modal window" %}</label>
 								<p class="control has-icons-left">
-									<input id="field-title" class="input" type="text" placeholder="My Lovely Notebook" name="title" required>
+									<input id="field-title" class="input" type="text" placeholder="{% translate "My Lovely Notebook" context "Placeholder" %}" name="title" required>
 									<span class="icon is-small is-left">
 										<i class="fa fa-font" aria-hidden="true"></i>
 									</span>
@@ -146,8 +147,8 @@
 							</div>
 						</section>
 						<footer class="modal-card-foot">
-							<button type="submit" class="button is-link">Save</button>
-							<button type="reset" class="button button-close">Cancel</button>
+							<button type="submit" class="button is-link">{% translate "Save" context "Text on a button" %}</button>
+							<button type="reset" class="button button-close">{% translate "Cancel" context "Text on a button" %}</button>
 						</footer>
 					</form>
 				</div>
@@ -158,14 +159,14 @@
 					<div class="modal-background"></div>
 					<div class="modal-card">
 						<header class="modal-card-head">
-							<p class="modal-card-title">Edit Notebook</p>
+							<p class="modal-card-title">{% translate "Edit Notebook" context "Heading of modal window" %}</p>
 							<button class="delete" aria-label="close"></button>
 						</header>
 						<form action="{% url 'notes:edit-notebook' notebook_title %}" method="POST">
 							{% csrf_token %}
 							<section class="modal-card-body">
 								<div class="field">
-									<label class="label" for="field-title">Title</label>
+									<label class="label" for="field-title">{% translate "Title" context "Label's text" %}</label>
 									<p class="control has-icons-left">
 										<input id="field-title" class="input" type="text" placeholder="{{ notebook_title }}" name="title" value="{{ notebook_title }}" required>
 										<span class="icon is-small is-left">
@@ -175,8 +176,8 @@
 								</div>
 							</section>
 							<footer class="modal-card-foot">
-								<button type="submit" class="button is-link">Update</button>
-								<button type="reset" class="button button-close">Cancel</button>
+								<button type="submit" class="button is-link">{% translate "Update" context "Text on a button" %}</button>
+								<button type="reset" class="button button-close">{% translate "Cancel" context "Text on a button" %}</button>
 							</footer>
 						</form>
 					</div>

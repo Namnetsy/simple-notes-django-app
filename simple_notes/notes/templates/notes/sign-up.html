@@ -1,16 +1,17 @@
 {% extends 'notes/centered-box-base.html' %}
+{% load i18n %}
 
-{% block title %}Sign up | Simple Notes{% endblock %}
+{% block title %}{% translate "Sign up" context "Page's title" %} | Simple Notes{% endblock %}
 
 {% block content %}
-	<h1 class="title has-text-centered">Sign Up</h1>
+	<h1 class="title has-text-centered">{% translate "Sign Up" context "Heading" %}</h1>
 		<form action="{% url 'notes:sign-up' %}" method="POST">
 			{% csrf_token %}
 			<input type="hidden" name="next" value="{{ next }}">
 			<div class="field">
-				<label class="label" for="field-username">Username</label>
+				<label class="label" for="field-username">{% translate "Username" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-username" class="input" type="text" placeholder="Username" name="username" required>
+					<input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-user-circle"></i>
 					</span>
@@ -21,9 +22,9 @@
 			</div>
 
 			<div class="field">
-				<label class="label" for="field-email">Email</label>
+				<label class="label" for="field-email">{% translate "Email" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-email" class="input" type="email" placeholder="Email" name="email" required>
+					<input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" required>
 						<span class="icon is-small is-left">
 						<i class="fas fa-envelope"></i>
 					</span>
@@ -31,9 +32,9 @@
 			</div>
 
 			<div class="field">
-				<label class="label" for="field-password1">Password</label>
+				<label class="label" for="field-password1">{% translate "Password" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-password1" class="input" type="password" placeholder="Password" name="password1" required>
+					<input id="field-password1" class="input" type="password" placeholder="{% translate "Password" context "Placeholder" %}" name="password1" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
@@ -44,9 +45,9 @@
 			</div>
 
 			<div class="field">
-				<label class="label" for="field-password2">Repeat Password</label>
+				<label class="label" for="field-password2">{% translate "Repeat Password" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-password2" class="input" type="password" placeholder="Repeat Password" name="password2" required>
+					<input id="field-password2" class="input" type="password" placeholder="{% translate "Repeat Password" context "Placeholder" %}" name="password2" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
@@ -58,11 +59,11 @@
 
 			<div class="field pt-2">
 				<p class="control">
-					<input class="input button is-link has-text-centered" type="submit" value="Create an account">
+					<input class="input button is-link has-text-centered" type="submit" value="{% translate "Create an account" context "Text on a button" %}">
 				</p>
 			</div>
 		</form>
 		<div class="block has-text-centered pt-3">
-			<small>If you already have an account <a href="{% url 'notes:log-in' %}">Log in</a></small>
+			<small>{% translate "If you already have an account" %} <a href="{% url 'notes:log-in' %}">{% translate "Log in" context "Link's text" %}</a></small>
 		</div>
 {% endblock %}

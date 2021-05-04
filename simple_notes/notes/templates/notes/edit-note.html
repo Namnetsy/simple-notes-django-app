@@ -1,6 +1,7 @@
 {% extends 'notes/base.html' %}
+{% load i18n %}
 
-{% block title %}Edit {{ note_title }} | {{ notebook_title }}{% endblock %}
+{% block title %}{% translate "Edit" context "Page title" %} {{ note_title }} | {{ notebook_title }}{% endblock %}
 
 {% block content %}
 	<form action="{% url 'notes:edit-note' notebook_title note_title %}" method="POST">
@@ -9,28 +10,28 @@
 		<nav class="tabs is-toggle is-right">
 			<ul>
 				<li>
-					<a onclick="this.closest('form').submit();return false;" title="Save">
+					<a onclick="this.closest('form').submit();return false;" title="{% translate "Save" context "Tooltip" %}">
 						<span class="icon is-small">
 							<i class="fas fa-save"></i>
 						</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'notes:share-note' notebook_title note_title %}" title="Share">
+					<a href="{% url 'notes:share-note' notebook_title note_title %}" title="{% translate "Share" context "Tooltip" %}">
 						<span class="icon is-small">
 							<i class="fas fa-share-square"></i>
 						</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'notes:export-to-pdf' notebook_title note_title %}" title="Export To PDF">
+					<a href="{% url 'notes:export-to-pdf' notebook_title note_title %}" title="{% translate "Export To PDF" context "Tooltip" %}">
 						<span class="icon is-small">
 							<i class="fas fa-file-pdf"></i>
 						</span>
 					</a>
 				</li>
 				<li>
-					<a href="{% url 'notes:view-notes' notebook_title %}" title="Go Back">
+					<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back" context "Tooltip" %}">
 						<span class="icon is-small">
 							<i class="fas fa-undo-alt"></i>
 						</span>
@@ -39,7 +40,7 @@
 			</ul>
 		</nav>
 
-		<input class="input mb-4" type="text" placeholder="My Note's Title" name="title" value="{{ form.title.value }}">
+		<input class="input mb-4" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ form.title.value }}">
 
 		<article class="columns is-multiline is-desktop">
 			<section class="field column is-12">

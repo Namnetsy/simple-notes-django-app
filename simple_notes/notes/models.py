@@ -5,6 +5,7 @@ from django_summernote.fields import SummernoteTextField
 
 from secrets import token_urlsafe
 
+
 class Notebook(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)

@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.views import View
 from django.contrib import messages
 from django.db import IntegrityError
@@ -25,28 +26,27 @@ def index(request):
 
 @login_required
 def share_note(request, notebook_title, note_title):
-    notebook = get_object_or_404(
-        Notebook, user=request.user, title=notebook_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     note = get_object_or_404(Note, notebook=notebook, title=note_title)
 
     try:
         PublicSharedNote.objects.create(user=request.user, note=note)
 
-        messages.success(
-            request, f'Public link for {note_title} was created successfully.')
+        messages.success(request, _('Public link for {note_title} was created successfully.').format(
+            note_title=note_title
+        ))
     except IntegrityError:
-        messages.warning(request, f'You have shared this note already!')
+        messages.warning(request, _(f'You have shared this note already!'))
 
     return redirect(reverse('notes:view-notes', args=[notebook_title]))
 
 
 @login_required
 def remove_note(request, notebook_title, note_title):
-    notebook = get_object_or_404(
-        Notebook, user=request.user, title=notebook_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     get_object_or_404(Note, notebook=notebook, title=note_title).delete()
 
-    messages.success(request, f'{note_title} was removed successfully.')
+    messages.success(request, _('{note_title} was removed successfully.').format(note_title=note_title))
 
     return redirect(reverse('notes:view-notes', args=[notebook_title]))
 
@@ -61,10 +61,12 @@ def edit_notebook(request, notebook_title):
             notebook.user = request.user
             notebook.save()
 
-            msg = f'Changes in {notebook_title} were saved successfully.'
+            msg = _('Changes in {notebook_title} were saved successfully.').format(
+                notebook_title=notebook_title
+            )
             messages.success(request, msg)
         else:
-            messages.error(request, 'Check your input!')
+            messages.error(request, _('Check your input!'))
 
     return redirect('notes:index')
 
@@ -79,7 +81,7 @@ def settings(request):
         if form.is_valid():
             form.save()
 
-            messages.success(request, 'Your settings were saved successfully.')
+            messages.success(request, _('Your settings were saved successfully.'))
 
             return redirect('notes:index')
 
@@ -88,18 +90,18 @@ def settings(request):
 
 @login_required
 def remove_notebook(request, notebook_title):
-    get_object_or_404(Notebook, user=request.user,
-                      title=notebook_title).delete()
+    get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
 
-    messages.success(request, f'{notebook_title} was removed successfully.')
+    messages.success(request, _('{notebook_title} was removed successfully.').format(
+        notebook_title=notebook_title
+    ))
 
     return redirect('notes:index')
 
 
 @login_required
 def view_notes(request, notebook_title):
-    notebook = get_object_or_404(
-        Notebook, user=request.user, title=notebook_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     notes = Note.objects.filter(notebook=notebook)
 
     ctx = sidebar_menu_context(request, {
@@ -114,14 +116,13 @@ def view_notes(request, notebook_title):
 def remove_shared_note(request, unique_secret):
     get_object_or_404(PublicSharedNote, unique_secret=unique_secret).delete()
 
-    messages.success(request, 'Shared note was removed sucessfully.')
+    messages.success(request, _('Shared note was removed successfully.'))
 
     return redirect('notes:view-shared-notes')
 
 
 def view_shared_note(request, unique_secret):
-    shared_note = get_object_or_404(
-        PublicSharedNote, unique_secret=unique_secret)
+    shared_note = get_object_or_404(PublicSharedNote, unique_secret=unique_secret)
     ctx = sidebar_menu_context(request, {
         'shared_note': shared_note,
     })
@@ -131,8 +132,7 @@ def view_shared_note(request, unique_secret):
 
 @login_required
 def edit_note(request, notebook_title, note_title):
-    notebook = get_object_or_404(
-        Notebook, user=request.user, title=notebook_title)
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     note = get_object_or_404(Note, notebook=notebook, title=note_title)
     form = NoteForm(instance=note)
 
@@ -144,8 +144,9 @@ def edit_note(request, notebook_title, note_title):
             note.modified_at = timezone.now()
             note.save()
 
-            messages.success(
-                request, f'Changes in {note_title} were saved successfully.')
+            messages.success(request, _('Changes in {note_title} were saved successfully.').format(
+                note_title=note_title
+            ))
             return redirect(reverse('notes:view-notes', args=[notebook_title]))
 
     ctx = sidebar_menu_context(request, {
@@ -165,14 +166,12 @@ def create_note(request, title):
         form = NoteForm(request.POST)
 
         if form.is_valid():
-            notebook = get_object_or_404(
-                Notebook, user=request.user, title=title)
+            notebook = get_object_or_404(Notebook, user=request.user, title=title)
             note = form.save(commit=False)
             note.notebook = notebook
             note.save()
 
-            messages.success(
-                request, f'{note.title} was created successfully.')
+            messages.success(request, _('{note_title} was created successfully.').format(note_title=note.title))
 
             return redirect(reverse('notes:view-notes', args=[title]))
 
@@ -194,8 +193,9 @@ def create_notebook(request):
             notebook.user = request.user
             notebook.save()
 
-            messages.success(
-                request, f'{notebook.title} was created successfully.')
+            messages.success(request, _('{notebook_title} was created successfully.').format(
+                notebook_title=notebook.title
+            ))
         else:
             messages.error(request, form.errors['title'])
 
@@ -237,8 +237,7 @@ def sidebar_menu_context(request, context=None):
 
     if context:
         if 'notes' not in context and 'notebook_title' in context:
-            notebook = Notebook.objects.get(
-                user=request.user, title=context['notebook_title'])
+            notebook = Notebook.objects.get(user=request.user, title=context['notebook_title'])
             context.update({'notes': Note.objects.filter(notebook=notebook)})
 
         context.update(data)
