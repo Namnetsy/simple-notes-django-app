@@ -195,6 +195,8 @@ def create_notebook(request):
             messages.success(request, _('{notebook_title} was created successfully.').format(
                 notebook_title=notebook.title
             ))
+
+            return redirect(reverse('notes:view-notes', args=[notebook.title]))
         else:
             messages.error(request, form.errors['title'])
 
