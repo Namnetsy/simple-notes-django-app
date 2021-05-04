@@ -1,41 +1,28 @@
 # Simple Notes Django App
-A simple note taking application written using python's django web framework.
+A simple note-taking application written using python's django web framework.
+
+![Screenshot of the home page of the app after signing in](screenshots/home_page_screenshot.png)
 
 ## Features
- - Write notes using a keyboard driven WYSIYWG editor
- - Orginize notes into notebooks
+ - [WIP] Write notes using a keyboard driven WYSIYWG editor
+ - Organize notes into notebooks
  - Export notes as PDF files
  - Share your notes via a unique link
+ - [WIP] Dark theme
 
-# Installing using Docker Compose
+# Installation
 Clone repo & create .env file from .env.example
 ```
-$ git clone https://github.com/Namnetsy/simple-notes-django-app 
-$ cd simple-notes-django-app
-$ cp simple_notes/simple_notes/.env.example simple_notes/simple_notes/.env
+git clone https://github.com/Namnetsy/simple-notes-django-app 
+cd simple-notes-django-app
+cp simple_notes/simple_notes/.env.example simple_notes/simple_notes/.env
 ```
-Note: You may want to edit .env file to sepcify SECRET_KEY and some other information.
+Note: You may want to edit .env file to specify SECRET_KEY and some other information.
 
-Build & Run the app:
-```
-$ docker-compose up
-```
-Note: By default it builds the simple notes image with DEBUG=1 which installs dev dependencies.
+Install dependencies with Pipenv: `pipenv install` or with pip: `pip install -r requirements.txt`.
 
-If you don't want dev dependencies then build it this way & run as shown above:
+Run database migrations and the project itself:
 ```
-$ docker-compose build --build-arg DEBUG=0
+./manage.py migrate
+./manage.py runserver
 ```
-
-# Uninstalling
-Remove stopped containers & built image:
-```
-$ docker-compose rm -f
-$ docker rmi simple-notes-django-app_web
-```
-
-Remove created volumes:
-```
-$ docker volume prune -f
-```
-Note: this will also delete other unused volumes besides created by simple notes
