@@ -98,10 +98,17 @@ def edit_note(request, notebook_title, note_title):
     form = NoteForm(instance=note)
 
     if request.method == 'POST':
+        # we need this crutch because there are two input fields for mobile and desktop
+        titles = request.POST.getlist('title')
+        new_title = titles[0] if titles[0] != note.title else titles[1]
+        request.POST._mutable = True
+        request.POST['title'] = new_title
+
         form = NoteForm(request.POST, instance=note)
 
         if form.is_valid():
-            note = form.save(commit=False)
+            note.title = form.data.getlist('title')[0]
+            note.content = form.data.getlist('content')[0]
             note.modified_at = timezone.now()
             note.save()
 
@@ -111,8 +118,8 @@ def edit_note(request, notebook_title, note_title):
 
     ctx = sidebar_menu_context(request, {
         'form': form,
-        'notebook_title': notebook_title,
-        'note_title': note_title,
+        'notebook_title': notebook.title,
+        'note_title': note.title,
     })
 
     return render(request, 'notes/edit-note.html', ctx)

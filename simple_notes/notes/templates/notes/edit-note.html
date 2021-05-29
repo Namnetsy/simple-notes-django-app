@@ -3,6 +3,7 @@
 
 {% block title %}{% translate "Edit" context "Page title" %} {{ note_title }} | {{ notebook_title }}{% endblock %}
 
+<!-- FOR MOBILE -->
 {% block above-content %}
 	<div class="column is-12 pt-0 is-hidden-desktop is-hidden-tablet">
 		<div class="box">
@@ -94,7 +95,7 @@
 		</div>
 
 		<!-- FOR MOBILE -->
-		<input class="input mb-4 is-hidden-desktop is-hidden-tablet" style="border: none; text-align: center" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ form.title.value }}">
+		<input class="input mb-4 is-hidden-desktop is-hidden-tablet" style="border: none; text-align: center" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ note_title }}">
 
 		<article class="columns is-multiline is-desktop">
 			<section class="field column is-12">
