@@ -236,6 +236,11 @@ def sidebar_menu_context(request, context=None):
         'shared_notes': shared_notes,
     }
 
+    for notebook in data['notebooks']:
+        notebook.notes_count = Note.objects.filter(
+            notebook=notebook
+        ).count()
+
     if context:
         if 'notes' not in context and 'notebook_title' in context:
             notebook = Notebook.objects.get(user=request.user, title=context['notebook_title'])
