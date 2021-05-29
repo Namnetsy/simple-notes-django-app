@@ -77,8 +77,8 @@ def edit_notebook(request, notebook_title):
         form = NotebookForm(request.POST)
 
         if form.is_valid():
-            notebook = form.save(commit=False)
-            notebook.user = request.user
+            notebook = Notebook.objects.get(title=notebook_title)
+            notebook.title = form.data['title']
             notebook.save()
 
             msg = _('Changes in {notebook_title} were saved successfully.').format(
