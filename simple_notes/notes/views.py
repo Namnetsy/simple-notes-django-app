@@ -42,6 +42,17 @@ def share_note(request, notebook_title, note_title):
 
 
 @login_required
+def remove_notebook(request, notebook_title):
+    get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
+
+    messages.success(request, _('{notebook_title} was removed successfully.').format(
+        notebook_title=notebook_title
+    ))
+
+    return redirect('notes:index')
+
+
+@login_required
 def remove_note(request, notebook_title, note_title):
     notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     get_object_or_404(Note, notebook=notebook, title=note_title).delete()
@@ -49,6 +60,15 @@ def remove_note(request, notebook_title, note_title):
     messages.success(request, _('{note_title} was removed successfully.').format(note_title=note_title))
 
     return redirect(reverse('notes:view-notes', args=[notebook_title]))
+
+
+@login_required
+def remove_shared_note(request, unique_secret):
+    get_object_or_404(PublicSharedNote, unique_secret=unique_secret).delete()
+
+    messages.success(request, _('Shared note was removed successfully.'))
+
+    return redirect('notes:view-shared-notes')
 
 
 @login_required
@@ -69,65 +89,6 @@ def edit_notebook(request, notebook_title):
             messages.error(request, _('Check your input!'))
 
     return redirect('notes:index')
-
-
-@login_required
-def settings(request):
-    form = UserSettingsForm(instance=request.user)
-
-    if request.method == 'POST':
-        form = UserSettingsForm(request.POST, instance=request.user)
-
-        if form.is_valid():
-            form.save()
-
-            messages.success(request, _('Your settings were saved successfully.'))
-
-            return redirect('notes:index')
-
-    return render(request, 'notes/settings.html', {'form': form})
-
-
-@login_required
-def remove_notebook(request, notebook_title):
-    get_object_or_404(Notebook, user=request.user, title=notebook_title).delete()
-
-    messages.success(request, _('{notebook_title} was removed successfully.').format(
-        notebook_title=notebook_title
-    ))
-
-    return redirect('notes:index')
-
-
-@login_required
-def view_notes(request, notebook_title):
-    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
-    notes = Note.objects.filter(notebook=notebook)
-
-    ctx = sidebar_menu_context(request, {
-        'notes': notes,
-        'notebook_title': notebook_title,
-    })
-
-    return render(request, 'notes/view-notes.html', ctx)
-
-
-@login_required
-def remove_shared_note(request, unique_secret):
-    get_object_or_404(PublicSharedNote, unique_secret=unique_secret).delete()
-
-    messages.success(request, _('Shared note was removed successfully.'))
-
-    return redirect('notes:view-shared-notes')
-
-
-def view_shared_note(request, unique_secret):
-    shared_note = get_object_or_404(PublicSharedNote, unique_secret=unique_secret)
-    ctx = sidebar_menu_context(request, {
-        'shared_note': shared_note,
-    })
-
-    return render(request, 'notes/view-shared-note.html', ctx)
 
 
 @login_required
@@ -155,6 +116,45 @@ def edit_note(request, notebook_title, note_title):
     })
 
     return render(request, 'notes/edit-note.html', ctx)
+
+
+@login_required
+def settings(request):
+    form = UserSettingsForm(instance=request.user)
+
+    if request.method == 'POST':
+        form = UserSettingsForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+
+            messages.success(request, _('Your settings were saved successfully.'))
+
+            return redirect('notes:index')
+
+    return render(request, 'notes/settings.html', {'form': form})
+
+
+@login_required
+def view_notes(request, notebook_title):
+    notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
+    notes = Note.objects.filter(notebook=notebook)
+
+    ctx = sidebar_menu_context(request, {
+        'notes': notes,
+        'notebook_title': notebook_title,
+    })
+
+    return render(request, 'notes/view-notes.html', ctx)
+
+
+def view_shared_note(request, unique_secret):
+    shared_note = get_object_or_404(PublicSharedNote, unique_secret=unique_secret)
+    ctx = sidebar_menu_context(request, {
+        'shared_note': shared_note,
+    })
+
+    return render(request, 'notes/view-shared-note.html', ctx)
 
 
 @login_required
