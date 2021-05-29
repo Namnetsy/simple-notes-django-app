@@ -127,8 +127,8 @@
 
 			{% block above-content %}{% endblock %}
 
-			<main class="column is-12-tablet is-10-desktop pt-0">
-				<div style="min-height: 80vh;" class="box">
+			<main class="column {% if user.is_authenticated %}is-12-tablet is-10-desktop{% endif %} pt-0">
+				<div style="min-height: {% if user.is_authenticated %}80vh{% else %}96vh{% endif %};" class="box">
 					{% block content %}{% endblock %}
 				</div>
 			</main>

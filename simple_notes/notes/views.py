@@ -157,9 +157,10 @@ def view_notes(request, notebook_title):
 
 def view_shared_note(request, unique_secret):
     shared_note = get_object_or_404(PublicSharedNote, unique_secret=unique_secret)
-    ctx = sidebar_menu_context(request, {
+    ctx = {
         'shared_note': shared_note,
-    })
+    }
+    ctx = sidebar_menu_context(request, ctx) if request.user.is_authenticated else ctx
 
     return render(request, 'notes/view-shared-note.html', ctx)
 
