@@ -169,9 +169,14 @@ def view_shared_note(request, unique_secret):
 
 @login_required
 def create_note(request, title):
-    form = NoteForm()
+    form = NoteForm(initial={'title': '', 'content': ''})
 
     if request.method == 'POST':
+        # we need this crutch because there are two input fields for mobile and desktop
+        titles = request.POST.getlist('title')
+        new_title = titles[0] if titles[0] else titles[1]
+        request.POST._mutable = True
+        request.POST['title'] = new_title
         form = NoteForm(request.POST)
 
         if form.is_valid():

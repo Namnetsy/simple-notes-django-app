@@ -3,30 +3,71 @@
 
 {% block title %}{% translate "New Note" context "Page title" %} | {{ notebook_title }}{% endblock %}
 
+<!-- FOR MOBILE -->
+{% block above-content %}
+	<div class="column is-12 pt-0 is-hidden-desktop is-hidden-tablet">
+		<div class="box">
+			<nav class="tabs is-toggle is-centered">
+				<ul>
+					<li>
+						<a onclick="document.forms[0].submit();return false;" title="{% translate "Save" context "Tooltip" %}">
+							<span class="icon is-small">
+								<i class="fas fa-save"></i>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back" context "Tooltip" %}">
+							<span class="icon is-small">
+								<i class="fas fa-undo-alt"></i>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+{% endblock %}
+
 {% block content %}
 	<form action="{% url 'notes:create-note' notebook_title %}" method="POST">
 		{% csrf_token %}
 
-		<nav class="tabs is-toggle is-right">
-			<ul>
-				<li>
-					<a onclick="this.closest('form').submit();return false;" title="{% translate "Save" context "Tooltip" %}">
-						<span class="icon is-small">
-							<i class="fas fa-save"></i>
-						</span>
-					</a>
-				</li>
-				<li>
-					<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back" context "Tooltip" %}">
-						<span class="icon is-small">
-							<i class="fas fa-undo-alt"></i>
-						</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
+		<style>
+			input:focus {
+				box-shadow: inset 0 .0625em .125em rgba(10,10,10,.05);
+			}
 
-		<input class="input mb-4" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title">
+			input:not(:focus) {
+				box-shadow: none;
+			}
+		</style>
+
+		<!-- FOR DESKTOP -->
+		<div class="columns is-hidden-mobile">
+			<input class="input column mt-2 ml-4 is-7" style="border: none;" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ form.title.value }}">
+			<nav class="tabs is-toggle is-right column">
+				<ul>
+					<li>
+						<a onclick="this.closest('form').submit();return false;" title="{% translate "Save" context "Tooltip" %}">
+							<span class="icon is-small">
+								<i class="fas fa-save"></i>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back" context "Tooltip" %}">
+							<span class="icon is-small">
+								<i class="fas fa-undo-alt"></i>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+
+		<!-- FOR MOBILE -->
+		<input class="input mb-4 is-hidden-desktop is-hidden-tablet" style="border: none; text-align: center" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ form.title.value }}">
 
 		<article class="columns is-multiline is-desktop">
 			<section class="field column is-12">
