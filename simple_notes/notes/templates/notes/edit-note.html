@@ -17,6 +17,13 @@
 						</a>
 					</li>
 					<li>
+						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove" context "Tooltip" %}">
+							<span class="icon is-small">
+								<i class="fas fa-trash-alt"></i>
+							</span>
+						</a>
+					</li>
+					<li>
 						<a href="{% url 'notes:share-note' notebook_title note_title %}" title="{% translate "Share" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-share-square"></i>
@@ -59,13 +66,20 @@
 
 		<!-- FOR DESKTOP -->
 		<div class="columns is-hidden-mobile">
-			<input class="input column mt-2 ml-4 is-7" style="border: none;" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ form.title.value }}">
+			<input class="input column mt-2 ml-4 is-6" style="border: none;" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ form.title.value }}">
 			<nav class="tabs is-toggle is-right column">
 				<ul>
 					<li>
 						<a onclick="this.closest('form').submit();return false;" title="{% translate "Save" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-save"></i>
+							</span>
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove" context "Tooltip" %}">
+							<span class="icon is-small">
+								<i class="fas fa-trash-alt"></i>
 							</span>
 						</a>
 					</li>
