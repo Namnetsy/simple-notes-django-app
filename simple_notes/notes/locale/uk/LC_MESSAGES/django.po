@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 05:46+0000\n"
+"POT-Creation-Date: 2021-05-30 06:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,94 +20,94 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: notes/templates/notes/base.html:37
+#: notes/templates/notes/base.html:40
 msgctxt "Link's text"
 msgid "Home"
 msgstr "Головна сторінка"
 
-#: notes/templates/notes/base.html:38
+#: notes/templates/notes/base.html:41
 msgctxt "Link's text"
 msgid "Settings"
 msgstr "Налаштування"
 
-#: notes/templates/notes/base.html:40
+#: notes/templates/notes/base.html:43
 msgctxt "Link's text"
 msgid "Admin Panel"
 msgstr "Адмін панель"
 
-#: notes/templates/notes/base.html:42
+#: notes/templates/notes/base.html:45
 msgctxt "Link's text"
 msgid "Log out"
 msgstr "Вийти"
 
-#: notes/templates/notes/base.html:57
+#: notes/templates/notes/base.html:60
 msgctxt "List title"
 msgid "Notebooks"
 msgstr "Записники"
 
-#: notes/templates/notes/base.html:60
+#: notes/templates/notes/base.html:63
 msgctxt "Tooltip"
 msgid "New Notebook"
 msgstr "Новий Записник"
 
-#: notes/templates/notes/base.html:64
+#: notes/templates/notes/base.html:67
 msgctxt "Text on a button"
 msgid "Notebook"
 msgstr "Записник"
 
-#: notes/templates/notes/base.html:75 notes/templates/notes/base.html:97
+#: notes/templates/notes/base.html:78 notes/templates/notes/base.html:100
 msgctxt "Tooltip on a badge"
 msgid "Amount of notes"
-msgstr ""
+msgstr "Кількість записів"
 
-#: notes/templates/notes/base.html:89 notes/templates/notes/base.html:104
-#: notes/templates/notes/base.html:121
+#: notes/templates/notes/base.html:92 notes/templates/notes/base.html:107
+#: notes/templates/notes/base.html:124
 msgctxt "Empty list text"
 msgid "Empty"
 msgstr "Пусто"
 
-#: notes/templates/notes/base.html:109
+#: notes/templates/notes/base.html:112
 msgctxt "List title"
 msgid "Shared Notes"
 msgstr "Спільні Нотатки"
 
-#: notes/templates/notes/base.html:142
+#: notes/templates/notes/base.html:145
 msgctxt "Heading of modal window"
 msgid "New Notebook"
 msgstr "Новий Записник"
 
-#: notes/templates/notes/base.html:149
+#: notes/templates/notes/base.html:152
 msgctxt "Label's text on create notebook modal window"
 msgid "Title"
 msgstr "Назва записника"
 
-#: notes/templates/notes/base.html:151
+#: notes/templates/notes/base.html:154
 #: notes/templates/notes/create_notebook.html:21
 msgctxt "Placeholder"
 msgid "My Lovely Notebook"
 msgstr "Назва"
 
-#: notes/templates/notes/base.html:159 notes/templates/notes/settings.html:38
+#: notes/templates/notes/base.html:162 notes/templates/notes/settings.html:38
 msgctxt "Text on a button"
 msgid "Save"
 msgstr "Зберегти"
 
-#: notes/templates/notes/base.html:160 notes/templates/notes/base.html:189
+#: notes/templates/notes/base.html:163 notes/templates/notes/base.html:192
 msgctxt "Text on a button"
 msgid "Cancel"
 msgstr "Відмінити"
 
-#: notes/templates/notes/base.html:171
+#: notes/templates/notes/base.html:174
 msgctxt "Heading of modal window"
 msgid "Edit Notebook"
 msgstr "Редагувати Записник"
 
-#: notes/templates/notes/base.html:178
+#: notes/templates/notes/base.html:181
 msgctxt "Label's text"
 msgid "Title"
 msgstr "Заголовок"
 
-#: notes/templates/notes/base.html:188
+#: notes/templates/notes/base.html:191
 msgctxt "Text on a button"
 msgid "Update"
 msgstr "Обновити"
@@ -228,54 +228,59 @@ msgctxt "Text on a button"
 msgid "Get Started"
 msgstr "Розпочати"
 
-#: notes/templates/notes/index.html:52
+#: notes/templates/notes/index.html:46
+msgctxt "Small text with a link on the front page."
+msgid "Simple Notes offered in: <a class='has-text-info' href='/uk'>Ukrainian</a>"
+msgstr "Simple Notes доступний на таких мовах: <a class='has-text-info' href='/en'>Англійська</a>"
+
+#: notes/templates/notes/index.html:55
 msgctxt "Heading"
 msgid "Orginize your notes"
 msgstr "Orginize your notes"
 
-#: notes/templates/notes/index.html:53
+#: notes/templates/notes/index.html:56
 msgid "Never get lost, orginize your notes by notebooks with ease"
 msgstr "Never get lost, orginize your notes by notebooks with ease"
 
-#: notes/templates/notes/index.html:69
+#: notes/templates/notes/index.html:72
 msgctxt "Heading"
 msgid "It's Free"
 msgstr "It's Free"
 
-#: notes/templates/notes/index.html:70
+#: notes/templates/notes/index.html:73
 msgid "No ads, no pro versions, it's completely free!"
 msgstr "No ads, no pro versions, it's completely free!"
 
-#: notes/templates/notes/index.html:86
+#: notes/templates/notes/index.html:89
 msgctxt "Heading"
 msgid "Your notes are safe with us"
 msgstr "Your notes are safe with us"
 
-#: notes/templates/notes/index.html:87
+#: notes/templates/notes/index.html:90
 msgid "No one is able to see your notes, except of us :)"
 msgstr "No one is able to see your notes, except of us :)"
 
-#: notes/templates/notes/index.html:103
+#: notes/templates/notes/index.html:106
 msgctxt "Heading"
 msgid "Dark Theme"
 msgstr "Темна тема"
 
-#: notes/templates/notes/index.html:104
+#: notes/templates/notes/index.html:107
 msgid "Work at any time of the day, even at night with our dark theme"
 msgstr "Працюйте в будь який час дня, навіть вночі за допомогою темної теми"
 
-#: notes/templates/notes/index.html:120
+#: notes/templates/notes/index.html:123
 msgctxt "Heading"
 msgid "Let's get started"
 msgstr "Розпочнімо"
 
-#: notes/templates/notes/index.html:121
+#: notes/templates/notes/index.html:124
 msgid "Do not hesitate, start using <strong>Simple Notes</strong> right now!"
 msgstr ""
 "Не зволікайте, розпочніть використовувати <strong>Simple Notes</strong> "
 "прямо зараз!"
 
-#: notes/templates/notes/index.html:122 notes/templates/notes/sign-up.html:62
+#: notes/templates/notes/index.html:125 notes/templates/notes/sign-up.html:62
 msgctxt "Text on a button"
 msgid "Create an account"
 msgstr "Створити обліковий запис"

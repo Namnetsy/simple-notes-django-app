@@ -41,7 +41,10 @@
 				<div class="container has-text-centered">
 					<h1 class="title is-size-1 my-6">Simple Notes</h1>
 					<p class="subtitle">{% translate "A simple way of saving your thoughts & ideas for the future" %}</p>
-					<a class="button is-primary is-large is-rounded" href="{% url 'notes:sign-up' %}">{% translate "Get Started" context "Text on a button" %}</a>
+					<a class="button is-info is-large is-rounded" href="{% url 'notes:sign-up' %}">{% translate "Get Started" context "Text on a button" %}</a>
+					<div class="mt-6">
+						<small>{% translate "Simple Notes offered in: <a class='has-text-info' href='/uk'>Ukrainian</a>" context "Small text with a link on the front page." %}</small>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -119,7 +122,7 @@
 				<div class="container has-text-centered">
 					<h2 class="title is-size-1 my-6">{% translate "Let's get started" context "Heading" %}</h2>
 					<p class="subtitle">{% translate "Do not hesitate, start using <strong>Simple Notes</strong> right now!" %}</p>
-					<a class="button is-large is-primary is-rounded" href="{% url 'notes:sign-up' %}">{% translate "Create an account" context "Text on a button" %}</a>
+					<a class="button is-large is-info is-rounded" href="{% url 'notes:sign-up' %}">{% translate "Create an account" context "Text on a button" %}</a>
 				</div>
 			</div>
 		</section>
