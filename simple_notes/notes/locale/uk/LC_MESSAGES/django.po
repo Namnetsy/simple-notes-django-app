@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 06:46+0000\n"
+"POT-Creation-Date: 2021-05-30 08:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,8 +47,8 @@ msgstr "Записники"
 
 #: notes/templates/notes/base.html:63
 msgctxt "Tooltip"
-msgid "New Notebook"
-msgstr "Новий Записник"
+msgid "New Notebook (Alt + Shift + N)"
+msgstr ""
 
 #: notes/templates/notes/base.html:67
 msgctxt "Text on a button"
@@ -119,8 +119,6 @@ msgstr "Новий Нотаток"
 
 #: notes/templates/notes/create_note.html:13
 #: notes/templates/notes/create_note.html:52
-#: notes/templates/notes/edit-note.html:13
-#: notes/templates/notes/edit-note.html:73
 msgctxt "Tooltip"
 msgid "Save"
 msgstr "Зберегти"
@@ -176,11 +174,17 @@ msgctxt "Page title"
 msgid "Edit"
 msgstr "Редагувати"
 
+#: notes/templates/notes/edit-note.html:13
+#: notes/templates/notes/edit-note.html:73
+msgctxt "Tooltip"
+msgid "Save (Alt + S)"
+msgstr "Зберегти (Alt + S)"
+
 #: notes/templates/notes/edit-note.html:20
 #: notes/templates/notes/edit-note.html:80
 msgctxt "Tooltip"
-msgid "Remove"
-msgstr "Видалити"
+msgid "Remove (Del)"
+msgstr "Видалити (Del)"
 
 #: notes/templates/notes/edit-note.html:27
 #: notes/templates/notes/edit-note.html:87
@@ -387,13 +391,13 @@ msgstr "Нотатки"
 
 #: notes/templates/notes/view-notes.html:11
 msgctxt "Tooltip"
-msgid "New Note"
-msgstr "Новий Нотаток"
+msgid "New Note (Alt + N)"
+msgstr "Новий Нотаток (Alt + N)"
 
 #: notes/templates/notes/view-notes.html:18
 msgctxt "Tooltip"
-msgid "Remove Notebook"
-msgstr "Видалити Записник"
+msgid "Remove Notebook (Del)"
+msgstr "Видалити Записник (Del)"
 
 #: notes/templates/notes/view-notes.html:25
 msgctxt "Tooltip"

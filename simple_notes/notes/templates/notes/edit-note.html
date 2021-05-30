@@ -10,14 +10,14 @@
 			<nav class="tabs is-toggle is-centered">
 				<ul>
 					<li>
-						<a onclick="document.forms[0].submit();return false;" title="{% translate "Save" context "Tooltip" %}">
+						<a onclick="document.forms[0].submit();return false;" title="{% translate "Save (Alt + S)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-save"></i>
 							</span>
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove" context "Tooltip" %}">
+						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove (Del)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-trash-alt"></i>
 							</span>
@@ -70,14 +70,14 @@
 			<nav class="tabs is-toggle is-right column">
 				<ul>
 					<li>
-						<a onclick="this.closest('form').submit();return false;" title="{% translate "Save" context "Tooltip" %}">
+						<a onclick="this.closest('form').submit();return false;" title="{% translate "Save (Alt + S)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-save"></i>
 							</span>
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove" context "Tooltip" %}">
+						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove (Del)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-trash-alt"></i>
 							</span>

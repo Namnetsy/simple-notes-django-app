@@ -8,6 +8,9 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-badge@1.0.1/dist/bulma-badge.min.css">
+<!--		<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lux/bulmaswatch.min.css">-->
+<!--		<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/pulse/bulmaswatch.min.css">-->
+<!--		<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/sandstone/bulmaswatch.min.css">-->
 		<style>
 			html {
 				scrollbar-width: none;
@@ -57,7 +60,7 @@
 									{% translate "Notebooks" context "List title" %}
 								</span>
 								<span class="column is-9 has-text-right">
-									<a class="modal-button" data-target="new-notebook-modal" title="{% translate "New Notebook" context "Tooltip" %}">
+									<a class="modal-button" data-target="new-notebook-modal" title="{% translate "New Notebook (Alt + Shift + N)" context "Tooltip" %}">
 										<span class="icon is-small">
 											<i class="fa fa-plus" aria-hidden="true"></i>
 										</span>
@@ -198,6 +201,7 @@
 			{% load static %}
 			<script src="{% static 'scripts/tata.js' %}"></script>
 		{% endif %}
+		<script src="https://unpkg.com/keyboardjs@2.6.4/dist/keyboard.js"></script>
 		<script>
 			{% if messages %}
 				{% for message in messages %}
@@ -222,6 +226,7 @@
 					});
 				}
 
+				// close a modal window by pressing on an x button
 				if ($modalCloses.length > 0) {
 					$modalCloses.forEach(function ($el) {
 						$el.addEventListener('click', function () {
@@ -230,11 +235,53 @@
 					});
 				}
 
-				document.addEventListener('keydown', function (event) {
-					var e = event || window.event;
-					if (e.keyCode === 27) {
-						closeModals();
+				// open modal for creating a notebook
+				keyboardJS.bind('alt + shift + n', (e) => {
+					e.preventDefault();
+
+					document.documentElement.classList.add('is-clipped');
+					document.getElementById('new-notebook-modal').classList.add('is-active');
+					document.getElementById('field-title').focus();
+				});
+
+				// submit form
+				keyboardJS.bind('alt + s', (e) => {
+					e.preventDefault();
+
+					if (document.forms.length) {
+						document.forms[0].submit();
 					}
+				});
+
+				{% if notebook_title %}
+					// open url for creating a note
+					keyboardJS.bind('alt + n', (e) => {
+						e.preventDefault();
+
+						window.open("{% url 'notes:create-note' notebook_title %}", "_self");
+					});
+
+					// open url for removing a notebook
+					keyboardJS.bind('delete', (e) => {
+						e.preventDefault();
+
+						window.open("{% url 'notes:remove-notebook' notebook_title %}", "_self");
+					});
+				{% endif %}
+
+				{% if notebook_title and note_title %}
+					// open url for removing a note
+					keyboardJS.bind('delete', (e) => {
+						e.preventDefault();
+
+						window.open("{% url 'notes:remove-note' notebook_title note_title %}", "_self");
+					});
+				{% endif %}
+
+				// close a modal window
+				keyboardJS.bind('esc', (e) => {
+					e.preventDefault();
+					closeModals();
 				});
 
 				function closeModals() {
