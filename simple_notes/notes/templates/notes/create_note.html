@@ -30,7 +30,7 @@
 {% endblock %}
 
 {% block content %}
-	<form action="{% url 'notes:create-note' notebook_title %}" method="POST">
+	<form action="{% url 'notes:create-note' notebook_title %}" method="POST" id="create-note-form">
 		{% csrf_token %}
 
 		<style>
@@ -75,4 +75,20 @@
 			</section>
 		</article>
 	</form>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			keyboardJS.bind('alt + s', (e) => {
+				e.preventDefault();
+
+				document.getElementById("create-note-form").submit();
+			});
+
+			keyboardJS.bind('esc', (e) => {
+				e.preventDefault();
+
+				window.open("{% url 'notes:view-notes' notebook_title %}", "_self");
+			});
+		});
+	</script>
 {% endblock %}

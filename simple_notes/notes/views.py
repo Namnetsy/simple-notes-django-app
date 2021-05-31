@@ -17,13 +17,7 @@ from tempfile import TemporaryFile
 
 def index(request):
     if request.user.is_authenticated:
-        user_settings_form = UserSettingsForm(instance=request.user)
-        profile_settings_form = ProfileSettingsForm(instance=Profile.objects.get(user=request.user))
         ctx = general_context(request)
-        ctx.update({
-            'user_settings_form': user_settings_form,
-            'profile_settings_form': profile_settings_form,
-        })
 
         return render(request, 'notes/home.html', ctx)
 
@@ -157,7 +151,7 @@ def settings(request):
 
             messages.success(request, _('Your settings were saved successfully.'))
 
-            return redirect('notes:index')
+            return redirect(request.META.get('HTTP_REFERER', '/'))
 
     return redirect('notes:index', {
         'user_settings_form': user_settings_form,
@@ -272,10 +266,14 @@ def general_context(request, context=None):
     notebooks = Notebook.objects.filter(user=request.user)
     shared_notes = PublicSharedNote.objects.filter(user=request.user)
     theme = Profile.objects.get(user=request.user).theme
+    user_settings_form = UserSettingsForm(instance=request.user)
+    profile_settings_form = ProfileSettingsForm(instance=Profile.objects.get(user=request.user))
     data = {
         'notebooks': notebooks,
         'shared_notes': shared_notes,
-        'theme': theme
+        'theme': theme,
+        'user_settings_form': user_settings_form,
+        'profile_settings_form': profile_settings_form,
     }
 
     for notebook in data['notebooks']:

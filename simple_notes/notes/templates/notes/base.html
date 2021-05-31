@@ -149,9 +149,9 @@
 						{% csrf_token %}
 						<section class="modal-card-body">
 							<div class="field">
-								<label class="label" for="field-title">{% translate "Title" context  "Label's text on create notebook modal window" %}</label>
+								<label class="label" for="create-notebook-field-title">{% translate "Title" context  "Label's text on create notebook modal window" %}</label>
 								<p class="control has-icons-left">
-									<input id="field-title" class="input" type="text" placeholder="{% translate "My Lovely Notebook" context "Placeholder" %}" name="title" required>
+									<input id="create-notebook-field-title" class="input" type="text" placeholder="{% translate "My Lovely Notebook" context "Placeholder" %}" name="title" required>
 									<span class="icon is-small is-left">
 										<i class="fa fa-font" aria-hidden="true"></i>
 									</span>
@@ -178,9 +178,9 @@
 							{% csrf_token %}
 							<section class="modal-card-body">
 								<div class="field">
-									<label class="label" for="field-title">{% translate "Title" context "Label's text" %}</label>
+									<label class="label" for="edit-notebook-field-title">{% translate "Title" context "Label's text" %}</label>
 									<p class="control has-icons-left">
-										<input id="field-title" class="input" type="text" placeholder="{{ notebook_title }}" name="title" value="{{ notebook_title }}" required>
+										<input id="edit-notebook-field-title" class="input" type="text" placeholder="{{ notebook_title }}" name="title" value="{{ notebook_title }}" required>
 										<span class="icon is-small is-left">
 											<i class="fa fa-font" aria-hidden="true"></i>
 										</span>
@@ -325,16 +325,7 @@
 
 					document.documentElement.classList.add('is-clipped');
 					document.getElementById('new-notebook-modal').classList.add('is-active');
-					document.getElementById('field-title').focus();
-				});
-
-				// submit form
-				keyboardJS.bind('alt + s', (e) => {
-					e.preventDefault();
-
-					if (document.forms.length) {
-						document.forms[0].submit();
-					}
+					document.getElementById('create-notebook-field-title').focus();
 				});
 
 				{% if notebook_title %}
@@ -343,6 +334,15 @@
 						e.preventDefault();
 
 						window.open("{% url 'notes:create-note' notebook_title %}", "_self");
+					});
+
+					// open a modal window for editing current notebook
+					keyboardJS.bind('alt + e', (e) => {
+						e.preventDefault();
+
+						document.documentElement.classList.add('is-clipped');
+						document.getElementById('edit-notebook-modal').classList.add('is-active');
+						document.getElementById('edit-notebook-field-title').focus();
 					});
 
 					// open url for removing a notebook

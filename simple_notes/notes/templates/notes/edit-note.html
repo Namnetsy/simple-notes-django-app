@@ -10,14 +10,14 @@
 			<nav class="tabs is-toggle is-centered">
 				<ul>
 					<li>
-						<a onclick="document.forms[0].submit();return false;" title="{% translate "Save (Alt + S)" context "Tooltip" %}">
+						<a onclick="document.forms[0].submit();return false;" title="{% translate "Save" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-save"></i>
 							</span>
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove (Del)" context "Tooltip" %}">
+						<a href="{% url 'notes:remove-note' notebook_title note_title %}" title="{% translate "Remove" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-trash-alt"></i>
 							</span>
@@ -51,7 +51,7 @@
 {% endblock %}
 
 {% block content %}
-	<form action="{% url 'notes:edit-note' notebook_title note_title %}" method="POST">
+	<form action="{% url 'notes:edit-note' notebook_title note_title %}" method="POST" id="edit-note-form">
 		{% csrf_token %}
 
 		<style>
@@ -84,21 +84,21 @@
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:share-note' notebook_title note_title %}" title="{% translate "Share" context "Tooltip" %}">
+						<a href="{% url 'notes:share-note' notebook_title note_title %}" title="{% translate "Share (Alt + Shift + S)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-share-square"></i>
 							</span>
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:export-to-pdf' notebook_title note_title %}" title="{% translate "Export To PDF" context "Tooltip" %}">
+						<a href="{% url 'notes:export-to-pdf' notebook_title note_title %}" title="{% translate "Export To PDF (Alt + Shift + E)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-file-pdf"></i>
 							</span>
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back" context "Tooltip" %}">
+						<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back (Esc)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-undo-alt"></i>
 							</span>
@@ -117,4 +117,32 @@
 			</section>
 		</article>
 	</form>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			keyboardJS.bind('alt + s', (e) => {
+				e.preventDefault();
+
+				document.getElementById('edit-note-form').submit();
+			});
+
+			keyboardJS.bind('esc', (e) => {
+				e.preventDefault();
+
+				window.open("{% url 'notes:view-notes' notebook_title %}", "_self");
+			});
+
+			keyboardJS.bind('alt + shift + s', (e) => {
+				e.preventDefault();
+
+				window.open("{% url 'notes:share-note' notebook_title note_title %}", "_self");
+			});
+
+			keyboardJS.bind('alt + shift + e', (e) => {
+				e.preventDefault();
+
+				window.open("{% url 'notes:export-to-pdf' notebook_title note_title %}", "_self");
+			});
+		});
+	</script>
 {% endblock %}
