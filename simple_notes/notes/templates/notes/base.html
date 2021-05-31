@@ -8,9 +8,9 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-badge@1.0.1/dist/bulma-badge.min.css">
-<!--		<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/lux/bulmaswatch.min.css">-->
-<!--		<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/pulse/bulmaswatch.min.css">-->
-<!--		<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/sandstone/bulmaswatch.min.css">-->
+		{% if theme and theme != 'default' %}
+			<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/{{ theme }}/bulmaswatch.min.css">
+		{% endif %}
 		<style>
 			html {
 				scrollbar-width: none;
@@ -42,7 +42,7 @@
 								{% if user.is_superuser %}
 									<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'admin:index' %}">{% translate "Admin Panel" context "Link's text" %}</a>
 								{% endif %}
-								<a class="navbar-item button my-2 mx-2" href="{% url 'notes:log-out' %}">{% translate "Log out" context "Link's text" %}</a>
+								<a class="navbar-item {% if theme and theme != 'default' %}modal-{% endif %}button my-2 mx-2" href="{% url 'notes:log-out' %}">{% translate "Log out" context "Link's text" %}</a>
 							</div>
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 				</div>
 			{% endif %}
 
-			{% if settings_form %}
+			{% if user_settings_form and profile_settings_form %}
 				<div class="modal" id="account-settings-modal">
 					<div class="modal-background"></div>
 					<div class="modal-card">
@@ -210,26 +210,64 @@
 								<div class="field">
 									<label class="label" for="field-username">{% translate "Username" context "Label" %}</label>
 									<p class="control has-icons-left">
-										<input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" value="{{ settings_form.username.value }}" required>
+										<input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" value="{{ user_settings_form.username.value }}" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-user-circle"></i>
 										</span>
 									</p>
 									<p class="help is-danger has-text-centered">
-										{{ settings_form.errors.username }}
+										{{ user_settings_form.errors.username }}
 									</p>
 								</div>
 
 								<div class="field">
 									<label class="label" for="field-email">{% translate "Email" context "Label" %}</label>
 									<p class="control has-icons-left">
-										<input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" value="{{ settings_form.email.value }}" required>
+										<input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" value="{{ user_settings_form.email.value }}" required>
 										<span class="icon is-small is-left">
 											<i class="fas fa-lock"></i>
 										</span>
 									</p>
 									<p class="help is-danger has-text-centered">
-										{{ settings_form.errors.email }}
+										{{ user_settings_form.errors.email }}
+									</p>
+								</div>
+
+								<div class="field">
+									<label class="label" for="field-language">{% translate "Language" context "Label" %}</label>
+									<p class="control has-icons-left">
+										<span class="select is-fullwidth">
+											<select name="language" id="field-language">
+												{% for value, text in profile_settings_form.language.field.choices %}
+													<option {% if value == profile_settings_form.language.value %} selected {% endif %} value="{{ value }}">{{ text }}</option>
+												{% endfor %}
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-language"></i>
+										</span>
+									</p>
+									<p class="help is-danger has-text-centered">
+										{{ profile_settings_form.errors.language }}
+									</p>
+								</div>
+
+								<div class="field">
+									<label class="label" for="field-theme">{% translate "Theme" context "Label" %}</label>
+									<p class="control has-icons-left">
+										<span class="select is-fullwidth">
+											<select name="theme" id="field-theme">
+												{% for value, text in profile_settings_form.theme.field.choices %}
+													<option {% if value == profile_settings_form.theme.value %} selected {% endif %} value="{{ value }}">{{ text }}</option>
+												{% endfor %}
+											</select>
+										</span>
+										<span class="icon is-small is-left">
+											<i class="fas fa-palette"></i>
+										</span>
+									</p>
+									<p class="help is-danger has-text-centered">
+										{{ profile_settings_form.errors.theme }}
 									</p>
 								</div>
 							</section>

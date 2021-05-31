@@ -2,25 +2,27 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
-from django.utils.translation import gettext as _
+from django.utils import timezone, translation
+from django.utils.translation import gettext as _, get_language
 from django.views import View
 from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
 
-from .forms import NotebookForm, NoteForm, UserSettingsForm
-from .models import Notebook, Note, PublicSharedNote
+from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm
+from .models import Notebook, Note, PublicSharedNote, Profile
 from xhtml2pdf import pisa
 from tempfile import TemporaryFile
 
 
 def index(request):
     if request.user.is_authenticated:
-        settings_form = UserSettingsForm(instance=request.user)
-        ctx = sidebar_menu_context(request)
+        user_settings_form = UserSettingsForm(instance=request.user)
+        profile_settings_form = ProfileSettingsForm(instance=Profile.objects.get(user=request.user))
+        ctx = general_context(request)
         ctx.update({
-            'settings_form': settings_form
+            'user_settings_form': user_settings_form,
+            'profile_settings_form': profile_settings_form,
         })
 
         return render(request, 'notes/home.html', ctx)
@@ -122,7 +124,7 @@ def edit_note(request, notebook_title, note_title):
         else:
             messages.error(request, _('The title field should NOT be empty!'))
 
-    ctx = sidebar_menu_context(request, {
+    ctx = general_context(request, {
         'form': form,
         'notebook_title': notebook.title,
         'note_title': note.title,
@@ -133,19 +135,34 @@ def edit_note(request, notebook_title, note_title):
 
 @login_required
 def settings(request):
-    form = UserSettingsForm(instance=request.user)
+    profile = Profile.objects.get(user=request.user)
+    user_settings_form = UserSettingsForm(instance=request.user)
+    profile_settings_form = ProfileSettingsForm(instance=profile)
 
     if request.method == 'POST':
-        form = UserSettingsForm(request.POST, instance=request.user)
+        user_settings_form = UserSettingsForm({
+            'username': request.POST.get('username'),
+            'email': request.POST.get('email')
+        }, instance=request.user)
+        profile_settings_form = ProfileSettingsForm({
+            'language': request.POST.get('language'),
+            'theme': request.POST.get('theme'),
+        }, instance=profile)
 
-        if form.is_valid():
-            form.save()
+        if user_settings_form.is_valid() and profile_settings_form.is_valid():
+            user_settings_form.save()
+            profile_settings_form.save()
+
+            translation.activate(profile_settings_form.cleaned_data['language'])
 
             messages.success(request, _('Your settings were saved successfully.'))
 
             return redirect('notes:index')
 
-    return redirect('notes:index', {'settings_form': form})
+    return redirect('notes:index', {
+        'user_settings_form': user_settings_form,
+        'profile_settings_form': profile_settings_form,
+    })
 
 
 @login_required
@@ -153,7 +170,7 @@ def view_notes(request, notebook_title):
     notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     notes = Note.objects.filter(notebook=notebook)
 
-    ctx = sidebar_menu_context(request, {
+    ctx = general_context(request, {
         'notes': notes,
         'notebook_title': notebook_title,
     })
@@ -166,7 +183,7 @@ def view_shared_note(request, unique_secret):
     ctx = {
         'shared_note': shared_note,
     }
-    ctx = sidebar_menu_context(request, ctx) if request.user.is_authenticated else ctx
+    ctx = general_context(request, ctx) if request.user.is_authenticated else ctx
 
     return render(request, 'notes/view-shared-note.html', ctx)
 
@@ -195,7 +212,7 @@ def create_note(request, title):
         else:
             messages.error(request, _('The title field should NOT be empty!'))
 
-    ctx = sidebar_menu_context(request, {
+    ctx = general_context(request, {
         'form': form,
         'notebook_title': title,
     })
@@ -242,6 +259,8 @@ class SignUp(View):
             user.save()
             form.save_m2m()
 
+            Profile(user=user, language=get_language()).save()
+
             login(request, user)
 
             return redirect('notes:index')
@@ -249,12 +268,14 @@ class SignUp(View):
         return render(request, 'notes/sign-up.html', {'form': form})
 
 
-def sidebar_menu_context(request, context=None):
+def general_context(request, context=None):
     notebooks = Notebook.objects.filter(user=request.user)
     shared_notes = PublicSharedNote.objects.filter(user=request.user)
+    theme = Profile.objects.get(user=request.user).theme
     data = {
         'notebooks': notebooks,
         'shared_notes': shared_notes,
+        'theme': theme
     }
 
     for notebook in data['notebooks']:

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Notebook, Note
+from .models import Notebook, Note, Profile
 from django.contrib.auth.models import User
 
 
@@ -19,3 +19,9 @@ class UserSettingsForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email']
+
+
+class ProfileSettingsForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['language', 'theme']

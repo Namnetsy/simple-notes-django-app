@@ -6,6 +6,10 @@ from django_summernote.fields import SummernoteTextField
 from secrets import token_urlsafe
 
 
+def generate_token():
+    return token_urlsafe(32)
+
+
 class Notebook(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)
@@ -31,10 +35,6 @@ class Note(models.Model):
         unique_together = ('notebook', 'title')
 
 
-def generate_token():
-    return token_urlsafe(32)
-
-
 class PublicSharedNote(models.Model):
     unique_secret = models.CharField(primary_key=True, max_length=43, default=generate_token)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -45,3 +45,33 @@ class PublicSharedNote(models.Model):
     
     class Meta:
         unique_together = ('user', 'note')
+
+
+class Theme:
+    DEFAULT = 'default'
+    LUX = 'lux'
+    PULSE = 'pulse'
+    SANDSTONE = 'sandstone'
+
+    CHOICES = (
+        (DEFAULT, 'Default'),
+        (LUX, 'Lux'),
+        (PULSE, 'Pulse'),
+        (SANDSTONE, 'Sandstone')
+    )
+
+
+class Language:
+    UK = 'uk'
+    EN = 'en'
+
+    CHOICES = (
+        (UK, 'Ukrainian'),
+        (EN, 'English')
+    )
+
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    language = models.CharField(max_length=20, choices=Language.CHOICES, default=Language.EN)
+    theme = models.CharField(max_length=20, choices=Theme.CHOICES, default=Theme.DEFAULT)
