@@ -38,7 +38,7 @@
 						<div id="navbarMenuHero" class="navbar-menu">
 							<div class="navbar-end has-text-centered">
 								<a class="navbar-item my-2 mx-2 is-active" href="{% url 'notes:index' %}" title="">{% translate "Home" context "Link's text" %}</a>
-								<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'notes:settings' %}">{% translate "Settings" context "Link's text" %}</a>
+								<a class="navbar-item my-2 mx-2 modal-button" data-target="account-settings-modal">{% translate "Settings" context "Link's text" %}</a>
 								{% if user.is_superuser %}
 									<a class="navbar-item my-2 mx-2 modal-button" href="{% url 'admin:index' %}">{% translate "Admin Panel" context "Link's text" %}</a>
 								{% endif %}
@@ -189,6 +189,52 @@
 							</section>
 							<footer class="modal-card-foot">
 								<button type="submit" class="button is-link">{% translate "Update" context "Text on a button" %}</button>
+								<button type="reset" class="button button-close">{% translate "Cancel" context "Text on a button" %}</button>
+							</footer>
+						</form>
+					</div>
+				</div>
+			{% endif %}
+
+			{% if settings_form %}
+				<div class="modal" id="account-settings-modal">
+					<div class="modal-background"></div>
+					<div class="modal-card">
+						<header class="modal-card-head">
+							<p class="modal-card-title">{% translate "Settings" context "Heading of modal window" %}</p>
+							<button class="delete" aria-label="close"></button>
+						</header>
+						<form action="{% url 'notes:settings' %}" method="POST">
+							{% csrf_token %}
+							<section class="modal-card-body">
+								<div class="field">
+									<label class="label" for="field-username">{% translate "Username" context "Label" %}</label>
+									<p class="control has-icons-left">
+										<input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" value="{{ settings_form.username.value }}" required>
+										<span class="icon is-small is-left">
+											<i class="fas fa-user-circle"></i>
+										</span>
+									</p>
+									<p class="help is-danger has-text-centered">
+										{{ settings_form.errors.username }}
+									</p>
+								</div>
+
+								<div class="field">
+									<label class="label" for="field-email">{% translate "Email" context "Label" %}</label>
+									<p class="control has-icons-left">
+										<input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" value="{{ settings_form.email.value }}" required>
+										<span class="icon is-small is-left">
+											<i class="fas fa-lock"></i>
+										</span>
+									</p>
+									<p class="help is-danger has-text-centered">
+										{{ settings_form.errors.email }}
+									</p>
+								</div>
+							</section>
+							<footer class="modal-card-foot">
+								<button type="submit" class="button is-link">{% translate "Save" context "Text on a button" %}</button>
 								<button type="reset" class="button button-close">{% translate "Cancel" context "Text on a button" %}</button>
 							</footer>
 						</form>

@@ -17,7 +17,11 @@ from tempfile import TemporaryFile
 
 def index(request):
     if request.user.is_authenticated:
+        settings_form = UserSettingsForm(instance=request.user)
         ctx = sidebar_menu_context(request)
+        ctx.update({
+            'settings_form': settings_form
+        })
 
         return render(request, 'notes/home.html', ctx)
 
@@ -141,7 +145,7 @@ def settings(request):
 
             return redirect('notes:index')
 
-    return render(request, 'notes/settings.html', {'form': form})
+    return redirect('notes:index', {'settings_form': form})
 
 
 @login_required
