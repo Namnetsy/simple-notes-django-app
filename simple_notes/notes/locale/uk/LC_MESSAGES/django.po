@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-30 08:00+0000\n"
+"POT-Creation-Date: 2021-05-31 17:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,18 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+#: notes/models.py:58
+msgid "Default"
+msgstr "За замовчуванням"
+
+#: notes/models.py:70
+msgid "Ukrainian"
+msgstr "Українська"
+
+#: notes/models.py:71
+msgid "English"
+msgstr "Англійська"
 
 #: notes/templates/notes/base.html:40
 msgctxt "Link's text"
@@ -87,12 +99,14 @@ msgctxt "Placeholder"
 msgid "My Lovely Notebook"
 msgstr "Назва"
 
-#: notes/templates/notes/base.html:162 notes/templates/notes/settings.html:38
+#: notes/templates/notes/base.html:162 notes/templates/notes/base.html:275
+#: notes/templates/notes/settings.html:38
 msgctxt "Text on a button"
 msgid "Save"
 msgstr "Зберегти"
 
 #: notes/templates/notes/base.html:163 notes/templates/notes/base.html:192
+#: notes/templates/notes/base.html:276
 msgctxt "Text on a button"
 msgid "Cancel"
 msgstr "Відмінити"
@@ -111,6 +125,44 @@ msgstr "Заголовок"
 msgctxt "Text on a button"
 msgid "Update"
 msgstr "Обновити"
+
+#: notes/templates/notes/base.html:204
+msgid "Settings"
+msgstr "Налаштування"
+
+#: notes/templates/notes/base.html:211 notes/templates/notes/log-in.html:12
+#: notes/templates/notes/settings.html:11 notes/templates/notes/sign-up.html:12
+msgctxt "Label"
+msgid "Username"
+msgstr "Псевдонім"
+
+#: notes/templates/notes/base.html:213 notes/templates/notes/log-in.html:14
+#: notes/templates/notes/settings.html:13 notes/templates/notes/sign-up.html:14
+msgctxt "Placeholder"
+msgid "Username"
+msgstr "Псевдонім"
+
+#: notes/templates/notes/base.html:224 notes/templates/notes/settings.html:24
+#: notes/templates/notes/sign-up.html:25
+msgctxt "Label"
+msgid "Email"
+msgstr "Пошта"
+
+#: notes/templates/notes/base.html:226 notes/templates/notes/settings.html:26
+#: notes/templates/notes/sign-up.html:27
+msgctxt "Placeholder"
+msgid "Email"
+msgstr "Пошта"
+
+#: notes/templates/notes/base.html:237
+msgctxt "Label"
+msgid "Language"
+msgstr ""
+
+#: notes/templates/notes/base.html:256
+msgctxt "Label"
+msgid "Theme"
+msgstr "Тема"
 
 #: notes/templates/notes/create_note.html:4
 msgctxt "Page title"
@@ -299,18 +351,6 @@ msgctxt "Heading"
 msgid "Log In"
 msgstr "Авторизуватись"
 
-#: notes/templates/notes/log-in.html:12 notes/templates/notes/settings.html:11
-#: notes/templates/notes/sign-up.html:12
-msgctxt "Label"
-msgid "Username"
-msgstr "Псевдонім"
-
-#: notes/templates/notes/log-in.html:14 notes/templates/notes/settings.html:13
-#: notes/templates/notes/sign-up.html:14
-msgctxt "Placeholder"
-msgid "Username"
-msgstr "Псевдонім"
-
 #: notes/templates/notes/log-in.html:22 notes/templates/notes/sign-up.html:35
 msgctxt "Label"
 msgid "Password"
@@ -344,16 +384,6 @@ msgstr "Налаштування"
 msgctxt "Heading"
 msgid "Settings"
 msgstr "Налаштування"
-
-#: notes/templates/notes/settings.html:24 notes/templates/notes/sign-up.html:25
-msgctxt "Label"
-msgid "Email"
-msgstr "Пошта"
-
-#: notes/templates/notes/settings.html:26 notes/templates/notes/sign-up.html:27
-msgctxt "Placeholder"
-msgid "Email"
-msgstr "Пошта"
 
 #: notes/templates/notes/sign-up.html:4
 msgctxt "Page's title"
@@ -418,57 +448,57 @@ msgstr "Видалити з розданих"
 msgid "The author didn't even left a single word for you!"
 msgstr "Тут пусто, тому що автор цієї нотатки нічого не написав!"
 
-#: notes/views.py:35
+#: notes/views.py:41
 #, python-brace-format
 msgid "Public link for {note_title} was created successfully."
 msgstr "Замітка {note_title} стала публічною."
 
-#: notes/views.py:39
+#: notes/views.py:45
 msgid "You have shared this note already!"
 msgstr "Ви вже ділились цією нотаткою раніше!"
 
-#: notes/views.py:48
+#: notes/views.py:54
 #, python-brace-format
 msgid "{notebook_title} was removed successfully."
 msgstr "{notebook_title} був успішно видалений."
 
-#: notes/views.py:60
+#: notes/views.py:66
 #, python-brace-format
 msgid "{note_title} was removed successfully."
 msgstr "{note_title} був успішно видалений."
 
-#: notes/views.py:69
+#: notes/views.py:75
 msgid "Shared note was removed successfully."
 msgstr "Нотаток був успішно видалиний зі списку публічних."
 
-#: notes/views.py:84
+#: notes/views.py:90
 #, python-brace-format
 msgid "Changes in {notebook_title} were saved successfully."
 msgstr "Зміни в {notebook_title} були успішно збережені"
 
-#: notes/views.py:89
+#: notes/views.py:95
 msgid "Check your input!"
 msgstr "Перевірте вірність введених даних!"
 
-#: notes/views.py:115
+#: notes/views.py:121
 #, python-brace-format
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:119 notes/views.py:192
+#: notes/views.py:125 notes/views.py:213
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
-#: notes/views.py:140
+#: notes/views.py:158
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:188
+#: notes/views.py:209
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:212
+#: notes/views.py:233
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."

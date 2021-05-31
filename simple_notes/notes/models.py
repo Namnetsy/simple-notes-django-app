@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
 from django.utils import timezone
 from django_summernote.fields import SummernoteTextField
 
@@ -54,7 +55,7 @@ class Theme:
     SANDSTONE = 'sandstone'
 
     CHOICES = (
-        (DEFAULT, 'Default'),
+        (DEFAULT, _('Default')),
         (LUX, 'Lux'),
         (PULSE, 'Pulse'),
         (SANDSTONE, 'Sandstone')
@@ -66,8 +67,8 @@ class Language:
     EN = 'en'
 
     CHOICES = (
-        (UK, 'Ukrainian'),
-        (EN, 'English')
+        (UK, _('Ukrainian')),
+        (EN, _('English'))
     )
 
 
