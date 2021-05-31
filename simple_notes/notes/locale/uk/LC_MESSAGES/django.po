@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 17:29+0000\n"
+"POT-Creation-Date: 2021-05-31 18:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,6 +127,7 @@ msgid "Update"
 msgstr "Обновити"
 
 #: notes/templates/notes/base.html:204
+msgctxt "Heading of modal window"
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -171,6 +172,7 @@ msgstr "Новий Нотаток"
 
 #: notes/templates/notes/create_note.html:13
 #: notes/templates/notes/create_note.html:52
+#: notes/templates/notes/edit-note.html:13
 msgctxt "Tooltip"
 msgid "Save"
 msgstr "Зберегти"
@@ -178,7 +180,6 @@ msgstr "Зберегти"
 #: notes/templates/notes/create_note.html:20
 #: notes/templates/notes/create_note.html:59
 #: notes/templates/notes/edit-note.html:41
-#: notes/templates/notes/edit-note.html:101
 msgctxt "Tooltip"
 msgid "Go Back"
 msgstr "Назад"
@@ -226,29 +227,45 @@ msgctxt "Page title"
 msgid "Edit"
 msgstr "Редагувати"
 
-#: notes/templates/notes/edit-note.html:13
-#: notes/templates/notes/edit-note.html:73
-msgctxt "Tooltip"
-msgid "Save (Alt + S)"
-msgstr "Зберегти (Alt + S)"
-
 #: notes/templates/notes/edit-note.html:20
-#: notes/templates/notes/edit-note.html:80
 msgctxt "Tooltip"
-msgid "Remove (Del)"
-msgstr "Видалити (Del)"
+msgid "Remove"
+msgstr "Видалити"
 
 #: notes/templates/notes/edit-note.html:27
-#: notes/templates/notes/edit-note.html:87
 msgctxt "Tooltip"
 msgid "Share"
 msgstr "Поділитись"
 
 #: notes/templates/notes/edit-note.html:34
-#: notes/templates/notes/edit-note.html:94
 msgctxt "Tooltip"
 msgid "Export To PDF"
 msgstr "Експортувати до PDF"
+
+#: notes/templates/notes/edit-note.html:73
+msgctxt "Tooltip"
+msgid "Save (Alt + S)"
+msgstr "Зберегти (Alt + S)"
+
+#: notes/templates/notes/edit-note.html:80
+msgctxt "Tooltip"
+msgid "Remove (Del)"
+msgstr "Видалити (Del)"
+
+#: notes/templates/notes/edit-note.html:87
+msgctxt "Tooltip"
+msgid "Share (Alt + Shift + S)"
+msgstr "Поділитись (Alt + Shift + S)"
+
+#: notes/templates/notes/edit-note.html:94
+msgctxt "Tooltip"
+msgid "Export To PDF (Alt + Shift + E)"
+msgstr "Експортувати як PDF (Alt + Shift + E)"
+
+#: notes/templates/notes/edit-note.html:101
+msgctxt "Tooltip"
+msgid "Go Back (Esc)"
+msgstr "Назад (Esc)"
 
 #: notes/templates/notes/home.html:4
 msgctxt "Page title"
@@ -291,30 +308,30 @@ msgstr "Simple Notes доступний на таких мовах: <a class='ha
 
 #: notes/templates/notes/index.html:55
 msgctxt "Heading"
-msgid "Orginize your notes"
-msgstr "Orginize your notes"
+msgid "Organize your notes"
+msgstr "Структуруйте інформацію"
 
 #: notes/templates/notes/index.html:56
-msgid "Never get lost, orginize your notes by notebooks with ease"
-msgstr "Never get lost, orginize your notes by notebooks with ease"
+msgid "Never get lost, organize your notes by notebooks with ease"
+msgstr "Розподілюйте свої записи по записникам для зручнішого доступу до інформації"
 
 #: notes/templates/notes/index.html:72
 msgctxt "Heading"
 msgid "It's Free"
-msgstr "It's Free"
+msgstr "Це безкоштовно"
 
 #: notes/templates/notes/index.html:73
 msgid "No ads, no pro versions, it's completely free!"
-msgstr "No ads, no pro versions, it's completely free!"
+msgstr "Без реклами та SMS!"
 
 #: notes/templates/notes/index.html:89
 msgctxt "Heading"
 msgid "Your notes are safe with us"
-msgstr "Your notes are safe with us"
+msgstr "Ваші записи в безпеці з нами"
 
 #: notes/templates/notes/index.html:90
 msgid "No one is able to see your notes, except of us :)"
-msgstr "No one is able to see your notes, except of us :)"
+msgstr "Ніхто не може бачити ваші записи, крім нас :)"
 
 #: notes/templates/notes/index.html:106
 msgctxt "Heading"
@@ -431,8 +448,8 @@ msgstr "Видалити Записник (Del)"
 
 #: notes/templates/notes/view-notes.html:25
 msgctxt "Tooltip"
-msgid "Edit Notebook"
-msgstr "Редагувати Записник"
+msgid "Edit Notebook (Alt + E)"
+msgstr "Редагувати Записник (Alt + E)"
 
 #: notes/templates/notes/view-notes.html:36
 msgctxt "Sub heading"
@@ -448,57 +465,57 @@ msgstr "Видалити з розданих"
 msgid "The author didn't even left a single word for you!"
 msgstr "Тут пусто, тому що автор цієї нотатки нічого не написав!"
 
-#: notes/views.py:41
+#: notes/views.py:35
 #, python-brace-format
 msgid "Public link for {note_title} was created successfully."
 msgstr "Замітка {note_title} стала публічною."
 
-#: notes/views.py:45
+#: notes/views.py:39
 msgid "You have shared this note already!"
 msgstr "Ви вже ділились цією нотаткою раніше!"
 
-#: notes/views.py:54
+#: notes/views.py:48
 #, python-brace-format
 msgid "{notebook_title} was removed successfully."
 msgstr "{notebook_title} був успішно видалений."
 
-#: notes/views.py:66
+#: notes/views.py:60
 #, python-brace-format
 msgid "{note_title} was removed successfully."
 msgstr "{note_title} був успішно видалений."
 
-#: notes/views.py:75
+#: notes/views.py:69
 msgid "Shared note was removed successfully."
 msgstr "Нотаток був успішно видалиний зі списку публічних."
 
-#: notes/views.py:90
+#: notes/views.py:84
 #, python-brace-format
 msgid "Changes in {notebook_title} were saved successfully."
 msgstr "Зміни в {notebook_title} були успішно збережені"
 
-#: notes/views.py:95
+#: notes/views.py:89
 msgid "Check your input!"
 msgstr "Перевірте вірність введених даних!"
 
-#: notes/views.py:121
+#: notes/views.py:115
 #, python-brace-format
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:125 notes/views.py:213
+#: notes/views.py:119 notes/views.py:207
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
-#: notes/views.py:158
+#: notes/views.py:152
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:209
+#: notes/views.py:203
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:233
+#: notes/views.py:227
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."
