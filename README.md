@@ -4,7 +4,7 @@ A simple note-taking application written using python's django web framework.
 ![Screenshot of the home page of the app after signing in](screenshots/home_page_screenshot.png)
 
 ## Features
- - [WIP] Shortcuts
+ - Shortcuts
  - Organize notes into notebooks
  - Export notes as PDF files
  - Share your notes via a unique link
