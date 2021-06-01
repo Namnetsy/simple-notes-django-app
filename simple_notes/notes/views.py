@@ -72,7 +72,7 @@ def remove_shared_note(request, unique_secret):
 
     messages.success(request, _('Shared note was removed successfully.'))
 
-    return redirect('notes:view-shared-notes')
+    return redirect('notes:index')
 
 
 @login_required
