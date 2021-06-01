@@ -292,6 +292,8 @@
 					tata.{{ message.tags }}('{{ message.tags|capfirst }}', '{{ message }}');
 				{% endfor %}
 			{% endif %}
+			const getAll = (selector) => Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+
 			document.addEventListener('DOMContentLoaded', () => {
 				// Modals
 				var rootEl = document.documentElement;
@@ -373,10 +375,6 @@
 					$modals.forEach(function ($el) {
 						$el.classList.remove('is-active');
 					});
-				}
-
-				function getAll(selector) {
-					return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
 				}
 
   				// Navbar Burgers

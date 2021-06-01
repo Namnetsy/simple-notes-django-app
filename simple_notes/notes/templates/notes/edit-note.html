@@ -113,7 +113,7 @@
 
 		<article class="columns is-multiline is-desktop">
 			<section class="field column is-12">
-				{{ form.content }}
+				<textarea id="text-editor" name="content" class="textarea is-fullwidth" style="min-height: 680px; resize: none;" spellcheck="false" placeholder="{% translate "Write something here." context "Placeholder" %}">{{ form.content.value }}</textarea>
 			</section>
 		</article>
 	</form>
@@ -129,7 +129,17 @@
 			keyboardJS.bind('esc', (e) => {
 				e.preventDefault();
 
-				window.open("{% url 'notes:view-notes' notebook_title %}", "_self");
+				let contains = false;
+				getAll('.modal').forEach((modal) => {
+					console.log(modal.classList.contains('is-active'));
+					if (modal.classList.contains('is-active')) {
+						contains = true;
+					}
+				});
+
+				if (!contains) {
+					window.open("{% url 'notes:view-notes' notebook_title %}", "_self");
+				}
 			});
 
 			keyboardJS.bind('alt + shift + s', (e) => {
@@ -143,6 +153,14 @@
 
 				window.open("{% url 'notes:export-to-pdf' notebook_title note_title %}", "_self");
 			});
+
+			document.getElementById('text-editor').onkeydown = function(e) {
+				if (e.keyCode === 9) { // tab was pressed
+					document.execCommand('insertText', false, '\t');
+
+					return false;
+				}
+			};
 		});
 	</script>
 {% endblock %}

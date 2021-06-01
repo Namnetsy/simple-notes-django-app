@@ -73,11 +73,12 @@ def remove_shared_note(request, unique_secret):
 
 @login_required
 def edit_notebook(request, notebook_title):
+    notebook = Notebook.objects.get(title=notebook_title)
+
     if request.method == 'POST':
         form = NotebookForm(request.POST)
 
         if form.is_valid():
-            notebook = Notebook.objects.get(title=notebook_title)
             notebook.title = form.data['title']
             notebook.save()
 
@@ -88,7 +89,7 @@ def edit_notebook(request, notebook_title):
         else:
             messages.error(request, _('Check your input!'))
 
-    return redirect('notes:index')
+    return redirect(reverse('notes:view-notes', args=[notebook.title]))
 
 
 @login_required

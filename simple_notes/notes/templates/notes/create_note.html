@@ -49,14 +49,14 @@
 			<nav class="tabs is-toggle is-right column">
 				<ul>
 					<li>
-						<a onclick="this.closest('form').submit();return false;" title="{% translate "Save" context "Tooltip" %}">
+						<a onclick="this.closest('form').submit();return false;" title="{% translate "Save (Alt + S)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-save"></i>
 							</span>
 						</a>
 					</li>
 					<li>
-						<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back" context "Tooltip" %}">
+						<a href="{% url 'notes:view-notes' notebook_title %}" title="{% translate "Go Back (Esc)" context "Tooltip" %}">
 							<span class="icon is-small">
 								<i class="fas fa-undo-alt"></i>
 							</span>
@@ -71,7 +71,7 @@
 
 		<article class="columns is-multiline is-desktop">
 			<section class="field column is-12">
-				{{ form.content }}
+				<textarea id="text-editor" name="content" class="textarea is-fullwidth" style="min-height: 680px; resize: none;" spellcheck="false" placeholder="{% translate "Write something here." context "Placeholder" %}">{{ form.content.value }}</textarea>
 			</section>
 		</article>
 	</form>
@@ -87,8 +87,26 @@
 			keyboardJS.bind('esc', (e) => {
 				e.preventDefault();
 
-				window.open("{% url 'notes:view-notes' notebook_title %}", "_self");
+				let contains = false;
+				getAll('.modal').forEach((modal) => {
+					console.log(modal.classList.contains('is-active'));
+					if (modal.classList.contains('is-active')) {
+						contains = true;
+					}
+				});
+
+				if (!contains) {
+					window.open("{% url 'notes:view-notes' notebook_title %}", "_self");
+				}
 			});
 		});
+
+		document.getElementById('text-editor').onkeydown = function(e) {
+			if (e.keyCode === 9) { // tab was pressed
+				document.execCommand('insertText', false, '\t');
+
+				return false;
+			}
+		};
 	</script>
 {% endblock %}
