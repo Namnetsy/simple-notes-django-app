@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-31 18:37+0000\n"
+"POT-Creation-Date: 2021-06-01 18:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,15 +20,15 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: notes/models.py:58
+#: notes/models.py:57
 msgid "Default"
 msgstr "За замовчуванням"
 
-#: notes/models.py:70
+#: notes/models.py:69
 msgid "Ukrainian"
 msgstr "Українська"
 
-#: notes/models.py:71
+#: notes/models.py:70
 msgid "English"
 msgstr "Англійська"
 
@@ -171,14 +171,12 @@ msgid "New Note"
 msgstr "Новий Нотаток"
 
 #: notes/templates/notes/create_note.html:13
-#: notes/templates/notes/create_note.html:52
 #: notes/templates/notes/edit-note.html:13
 msgctxt "Tooltip"
 msgid "Save"
 msgstr "Зберегти"
 
 #: notes/templates/notes/create_note.html:20
-#: notes/templates/notes/create_note.html:59
 #: notes/templates/notes/edit-note.html:41
 msgctxt "Tooltip"
 msgid "Go Back"
@@ -191,6 +189,24 @@ msgstr "Назад"
 msgctxt "Placeholder"
 msgid "My Note's Title"
 msgstr "Назва"
+
+#: notes/templates/notes/create_note.html:52
+#: notes/templates/notes/edit-note.html:73
+msgctxt "Tooltip"
+msgid "Save (Alt + S)"
+msgstr "Зберегти (Alt + S)"
+
+#: notes/templates/notes/create_note.html:59
+#: notes/templates/notes/edit-note.html:101
+msgctxt "Tooltip"
+msgid "Go Back (Esc)"
+msgstr "Назад (Esc)"
+
+#: notes/templates/notes/create_note.html:74
+#: notes/templates/notes/edit-note.html:116
+msgctxt "Placeholder"
+msgid "Write something here."
+msgstr "Напишіть щось."
 
 #: notes/templates/notes/create_notebook.html:4
 msgctxt "Page title"
@@ -242,11 +258,6 @@ msgctxt "Tooltip"
 msgid "Export To PDF"
 msgstr "Експортувати до PDF"
 
-#: notes/templates/notes/edit-note.html:73
-msgctxt "Tooltip"
-msgid "Save (Alt + S)"
-msgstr "Зберегти (Alt + S)"
-
 #: notes/templates/notes/edit-note.html:80
 msgctxt "Tooltip"
 msgid "Remove (Del)"
@@ -261,11 +272,6 @@ msgstr "Поділитись (Alt + Shift + S)"
 msgctxt "Tooltip"
 msgid "Export To PDF (Alt + Shift + E)"
 msgstr "Експортувати як PDF (Alt + Shift + E)"
-
-#: notes/templates/notes/edit-note.html:101
-msgctxt "Tooltip"
-msgid "Go Back (Esc)"
-msgstr "Назад (Esc)"
 
 #: notes/templates/notes/home.html:4
 msgctxt "Page title"
@@ -488,34 +494,34 @@ msgstr "{note_title} був успішно видалений."
 msgid "Shared note was removed successfully."
 msgstr "Нотаток був успішно видалиний зі списку публічних."
 
-#: notes/views.py:84
+#: notes/views.py:85
 #, python-brace-format
 msgid "Changes in {notebook_title} were saved successfully."
 msgstr "Зміни в {notebook_title} були успішно збережені"
 
-#: notes/views.py:89
+#: notes/views.py:90
 msgid "Check your input!"
 msgstr "Перевірте вірність введених даних!"
 
-#: notes/views.py:115
+#: notes/views.py:116
 #, python-brace-format
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:119 notes/views.py:207
+#: notes/views.py:120 notes/views.py:208
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
-#: notes/views.py:152
+#: notes/views.py:153
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:203
+#: notes/views.py:204
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:227
+#: notes/views.py:228
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."
