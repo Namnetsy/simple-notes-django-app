@@ -36,9 +36,13 @@ def share_note(request, notebook_title, note_title):
             note_title=note_title
         ))
     except IntegrityError:
-        messages.warning(request, _(f'You have shared this note already!'))
+        messages.info(request, _(f'You have shared this note already!'))
 
-    return redirect(reverse('notes:view-notes', args=[notebook_title]))
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    return redirect(reverse('notes:view-shared-note', args=[
+        PublicSharedNote.objects.get(user=request.user, note=note).unique_secret
+    ]))
 
 
 @login_required
