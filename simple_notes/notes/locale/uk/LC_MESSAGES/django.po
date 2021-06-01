@@ -158,7 +158,7 @@ msgstr "Пошта"
 #: notes/templates/notes/base.html:237
 msgctxt "Label"
 msgid "Language"
-msgstr ""
+msgstr "Мова"
 
 #: notes/templates/notes/base.html:256
 msgctxt "Label"
