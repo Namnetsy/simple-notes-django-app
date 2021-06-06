@@ -11,7 +11,7 @@
 			<div class="field">
 				<label class="label" for="field-username">{% translate "Username" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" required>
+					<input id="field-username" class="input" type="text" placeholder="{% translate "Username" context "Placeholder" %}" name="username" value="{{ form.username.value }}" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-user-circle"></i>
 					</span>
@@ -24,7 +24,7 @@
 			<div class="field">
 				<label class="label" for="field-email">{% translate "Email" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" required>
+					<input id="field-email" class="input" type="email" placeholder="{% translate "Email" context "Placeholder" %}" name="email" value="{{ form.email.value }}" required>
 						<span class="icon is-small is-left">
 						<i class="fas fa-envelope"></i>
 					</span>
@@ -34,7 +34,7 @@
 			<div class="field">
 				<label class="label" for="field-password1">{% translate "Password" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-password1" class="input" type="password" placeholder="{% translate "Password" context "Placeholder" %}" name="password1" required>
+					<input id="field-password1" class="input" type="password" placeholder="{% translate "Password" context "Placeholder" %}" name="password" value="{{ form.password.value }}" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
@@ -47,7 +47,7 @@
 			<div class="field">
 				<label class="label" for="field-password2">{% translate "Repeat Password" context "Label" %}</label>
 				<p class="control has-icons-left">
-					<input id="field-password2" class="input" type="password" placeholder="{% translate "Repeat Password" context "Placeholder" %}" name="password2" required>
+					<input id="field-password2" class="input" type="password" placeholder="{% translate "Repeat Password" context "Placeholder" %}" name="password2" value="{{ form.password2.value }}" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>

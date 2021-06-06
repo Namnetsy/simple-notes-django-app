@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
 
-from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm
+from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm, UserAccountForm
 from .models import Notebook, Note, PublicSharedNote, Profile
 from xhtml2pdf import pisa
 from tempfile import TemporaryFile
@@ -245,21 +245,21 @@ class SignUp(View):
         if request.user.is_authenticated:
             return redirect('notes:index')
 
-        form = UserCreationForm()
+        form = UserAccountForm(initial={
+            'username': '',
+            'email': ''
+        })
 
         return render(request, 'notes/sign-up.html', {'form': form})
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = UserAccountForm(request.POST, initial={
+            'username': '',
+            'email': ''
+        })
 
         if form.is_valid():
-            user = form.save(commit=False)
-            user.email = request.POST['email']
-            user.save()
-            form.save_m2m()
-
-            Profile(user=user, language=get_language()).save()
-
+            user = form.save()
             login(request, user)
 
             return redirect('notes:index')
