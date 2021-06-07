@@ -151,12 +151,15 @@ def settings(request):
         if user_settings_form.is_valid() and profile_settings_form.is_valid():
             user_settings_form.save()
             profile_settings_form.save()
+            language = profile_settings_form.cleaned_data['language']
 
-            translation.activate(profile_settings_form.cleaned_data['language'])
+            translation.activate(language)
 
             messages.success(request, _('Your settings were saved successfully.'))
 
-            return redirect(request.META.get('HTTP_REFERER', '/'))
+            return redirect(request.META.get('HTTP_REFERER', '/')
+                .replace('/uk/', f'/{language}/')
+                .replace('/en/', f'/{language}/'))
 
     return redirect('notes:index', {
         'user_settings_form': user_settings_form,
