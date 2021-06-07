@@ -229,6 +229,12 @@ def create_notebook(request):
 
         if form.is_valid():
             notebook = form.save(commit=False)
+
+            if Notebook.objects.filter(user=request.user, title=notebook.title).exists():
+                messages.error(request, _('Notebook with this name already exists!'))
+
+                return redirect('notes:index')
+
             notebook.user = request.user
             notebook.save()
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-01 18:50+0000\n"
+"POT-Creation-Date: 2021-06-07 14:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -508,20 +508,24 @@ msgstr "Перевірте вірність введених даних!"
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:124 notes/views.py:212
+#: notes/views.py:124 notes/views.py:215
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
-#: notes/views.py:157
+#: notes/views.py:158
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:208
+#: notes/views.py:211
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:232
+#: notes/views.py:234
+msgid "Notebook with this name already exists!"
+msgstr "Нотаток з цією назвою вже існує!"
+
+#: notes/views.py:241
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."
