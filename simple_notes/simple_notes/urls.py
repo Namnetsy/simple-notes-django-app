@@ -22,7 +22,6 @@ from django.conf.urls.i18n import i18n_patterns
 import debug_toolbar
 
 urlpatterns = [
-    path('summernote/', include('django_summernote.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
 

@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'notes.apps.NotesConfig',
-    'django_summernote',
     'debug_toolbar',
 ]
 
@@ -154,31 +153,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
-
-SUMMERNOTE_THEME = 'lite'
-
-SUMMERNOTE_CONFIG = {
-    'summernote': {
-        'width': '100%',
-        'height': '600px',
-
-        # https://summernote.org/deep-dive/#custom-toolbar-popover
-        'toolbar': [
-            ['style', ['style']],
-            ['font', ['bold', 'underline', 'clear']],
-            ['fontname', ['fontname']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph']],
-            ['table', ['table']],
-            ['insert', ['link', 'picture', 'video']],
-            ['view', ['fullscreen', 'help']],
-        ],
-
-        'lang': 'en-US',
-    },
-
-    'attachment_require_authentication': True,
-}
 
 INTERNAL_IPS = [
     '127.0.0.1',

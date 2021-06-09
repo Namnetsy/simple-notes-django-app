@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 Django = "*"
-django-summernote = "*"
 django-environ = "*"
 gunicorn = "*"
 whitenoise = "*"
