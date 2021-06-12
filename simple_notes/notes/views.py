@@ -14,6 +14,8 @@ from .models import Notebook, Note, PublicSharedNote, Profile
 from xhtml2pdf import pisa
 from tempfile import TemporaryFile
 
+from .utils import serialize_notebooks_with_notes
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -288,6 +290,7 @@ def general_context(request, context=None):
         'theme': theme,
         'user_settings_form': user_settings_form,
         'profile_settings_form': profile_settings_form,
+        'search_data': serialize_notebooks_with_notes(request)
     }
 
     for notebook in data['notebooks']:

@@ -11,6 +11,7 @@
 		{% if theme and theme != 'default' %}
 			<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/{{ theme }}/bulmaswatch.min.css">
 		{% endif %}
+		<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js@2.2.0/dist/style.css"/>
 		<style>
 			html {
 				scrollbar-width: none;
@@ -53,6 +54,10 @@
 		<div class="block columns is-multiline mt-3 mx-0">
 			{% if user.is_authenticated %}
 				<aside class="column is-12-tablet is-2-desktop pt-0">
+					<div id="autocomplete" class="box menu autocomplete" style="background: none; padding: 0; margin-bottom: 10px;">
+						<input class="autocomplete-input" style="background-color: #fff" />
+						<ul class="autocomplete-result-list"></ul>
+					</div>
 					<div class="box menu">
 						<p class="menu-label">
 							<span class="columns is-mobile">
@@ -286,6 +291,8 @@
 			<script src="{% static 'scripts/tata.js' %}"></script>
 		{% endif %}
 		<script src="https://unpkg.com/keyboardjs@2.6.4/dist/keyboard.js"></script>
+		<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6"></script>
 		<script>
 			{% if messages %}
 				{% for message in messages %}
@@ -398,6 +405,54 @@
 					});
 				}
 			});
+
+			{% if search_data %}
+				const search_data = JSON.parse('{{ search_data|safe }}');
+				const fuse = new Fuse(search_data, {
+					keys: ['notebook_title', 'note_title'],
+				});
+
+				new Autocomplete('#autocomplete', {
+					search: input => {
+						if (input.length < 1) { return [] }
+
+						const result = fuse.search(input);
+						if (!result.length) {
+							return [input];
+						}
+
+						const result_items = [];
+						result.forEach((item) => {
+							item = item.item;
+							const notebook_title = item.notebook_title;
+							const note_title = item.note_title;
+
+							if (note_title) {
+								result_items.push(notebook_title + ' ► ' + note_title);
+								return;
+							}
+
+							result_items.push(notebook_title);
+						});
+						return result_items;
+					},
+					onSubmit: result => {
+						const titles = result.split(' ► ');
+						const notebook_title = titles[0];
+						const note_title = titles.length > 1 ? titles[1] : null;
+
+						search_data.forEach((item) => {
+							if (item.notebook_title === notebook_title && note_title !== null && item.note_title === note_title) {
+								window.open(item.note_url, '_self');
+							}
+
+							if (item.notebook_title === notebook_title && note_title === null) {
+								window.open(item.notebook_url, '_self');
+							}
+						});
+					},
+				 });
+			{% endif %}
 		</script>
 	</body>
 </html>
