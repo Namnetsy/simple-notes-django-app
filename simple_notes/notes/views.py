@@ -37,9 +37,7 @@ def share_note(request, notebook_title, note_title):
             note_title=note_title
         ))
     except IntegrityError:
-        messages.info(request, _(f'You have shared this note already!'))
-
-        return redirect(request.META.get('HTTP_REFERER', '/'))
+        pass
 
     return redirect(reverse('notes:view-shared-note', args=[
         PublicSharedNote.objects.get(user=request.user, note=note).unique_secret
@@ -102,6 +100,7 @@ def edit_note(request, notebook_title, note_title):
     notebook = get_object_or_404(Notebook, user=request.user, title=notebook_title)
     note = get_object_or_404(Note, notebook=notebook, title=note_title)
     form = NoteForm(instance=note)
+    share = request.GET.get('share')
 
     if request.method == 'POST':
         # we need this crutch because there are two input fields for mobile and desktop
@@ -118,11 +117,15 @@ def edit_note(request, notebook_title, note_title):
             note.modified_at = timezone.now()
             note.save()
 
-            messages.success(request, _('Changes in {note_title} were saved successfully.').format(
-                note_title=note_title
-            ))
+            if not share:
+                messages.success(request, _('Changes in {note_title} were saved successfully.').format(
+                    note_title=note_title
+                ))
         else:
             messages.error(request, _('The title field should NOT be empty!'))
+
+    if form.is_valid() and share:
+        return redirect(reverse('notes:share-note', args=[notebook.title, note.title]))
 
     ctx = general_context(request, {
         'form': form,
