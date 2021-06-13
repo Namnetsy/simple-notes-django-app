@@ -131,6 +131,7 @@ def edit_note(request, notebook_title, note_title):
         'form': form,
         'notebook_title': notebook.title,
         'note_title': note.title,
+        'note_edit_date': note.modified_at,
     })
 
     return render(request, 'notes/edit-note.html', ctx)
@@ -210,6 +211,7 @@ def create_note(request, title):
             notebook = get_object_or_404(Notebook, user=request.user, title=title)
             note = form.save(commit=False)
             note.notebook = notebook
+            note.modified_at = timezone.now()
             note.save()
 
             messages.success(request, _('{note_title} was created successfully.').format(note_title=note.title))

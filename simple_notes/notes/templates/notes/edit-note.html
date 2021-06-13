@@ -112,9 +112,14 @@
 		<input class="input mb-4 is-hidden-desktop is-hidden-tablet" style="border: none; text-align: center" type="text" placeholder="{% translate "My Note's Title" context "Placeholder" %}" name="title" value="{{ note_title }}">
 
 		<article class="columns is-multiline is-desktop">
-			<section class="field column is-12">
+			<section class="field column is-12 {% if note_edit_date %}mb-0{% endif %}">
 				<textarea id="text-editor" name="content" class="textarea is-fullwidth" style="min-height: 680px; resize: none;" spellcheck="false" placeholder="{% translate "Write something here." context "Placeholder" %}">{{ form.content.value }}</textarea>
 			</section>
+			{% if note_edit_date %}
+				<small class="ml-4 has-text-grey-dark mb-1">
+					{{ note_edit_date }}
+				</small>
+			{% endif %}
 		</article>
 	</form>
 
