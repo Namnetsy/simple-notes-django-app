@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a5057c9e370652fb0e946c30a55eee6b3fa17dcf758b69b796312d63573854bc"
+            "sha256": "a32ea4dd04d6c02b353f36a6a62aeda92385e037a4e80cfa43ef41a2579fee65"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -75,6 +75,14 @@
             ],
             "index": "pypi",
             "version": "==0.4.5"
+        },
+        "django-redis-sessions": {
+            "hashes": [
+                "sha256:13b645a4fad4352c111057e44d0987a3163116b0a2f8b141c7d8abe0cab446c9",
+                "sha256:ba33ecca198f28ddc32d9f03742dc8dfc34c1857b789c75ea8425d6d7d7376be"
+            ],
+            "index": "pypi",
+            "version": "==0.6.2"
         },
         "future": {
             "hashes": [
@@ -266,6 +274,13 @@
                 "sha256:eb10ce3e7736052ed3623d49975ce333bcd712c7bb19a58b9e2089d4057d0798"
             ],
             "version": "==2021.1"
+        },
+        "redis": {
+            "hashes": [
+                "sha256:0e7e0cfca8660dea8b7d5cd8c4f6c5e29e11f31158c0b0ae91a397f00e5a05a2",
+                "sha256:432b788c4530cfe16d8d943a09d40ca6c16149727e4afe8c2c9d5580c59d9f24"
+            ],
+            "version": "==3.5.3"
         },
         "reportlab": {
             "hashes": [

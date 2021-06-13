@@ -12,6 +12,7 @@ xhtml2pdf = "*"
 django-debug-toolbar = "*"
 psycopg2-binary = "*"
 pepipost = "*"
+django-redis-sessions = "*"
 
 [dev-packages]
 ipython = "*"

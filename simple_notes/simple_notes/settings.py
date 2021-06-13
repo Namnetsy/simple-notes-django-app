@@ -162,3 +162,14 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+SESSION_ENGINE = 'redis_sessions.session'
+
+SESSION_REDIS = {
+    'host': 'localhost',
+    'port': 6379,
+    'db': 0,
+    'prefix': 'session',
+    'socket_timeout': 1,
+    'retry_on_timeout': False
+}
