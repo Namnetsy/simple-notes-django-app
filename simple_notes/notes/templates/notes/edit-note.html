@@ -1,7 +1,7 @@
 {% extends 'notes/base.html' %}
 {% load i18n %}
 
-{% block title %}{% translate "Edit" context "Page title" %} {{ note_title }} | {{ notebook_title }}{% endblock %}
+{% block title %}{{ note_title }} | {{ notebook_title }}{% endblock %}
 
 <!-- FOR MOBILE -->
 {% block above-content %}
