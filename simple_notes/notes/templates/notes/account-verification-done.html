@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% translate "Account Verification" context "Page title" %} | Simple Notes</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body class="has-background-white">
+		<div style="display: flex; width: 100%; height: 100%;" class="columns is-centered is-vcentered mx-0 my-0">
+			<div class="column is-narrow px-6 pt-6 pb-5">
+                <h1 class="title has-text-centered mb-5">{% translate "Account Verified!" context "Heading" %}</h1>
+				<img src="{% static 'images/well_done.svg' %}">
+				<p class="subtitle has-text-centered mt-5">Your account was successfully verified. <a href="{% url 'notes:index' %}">Go Home</a></p>
+			</div>
+		</div>
+	</body>
+</html>

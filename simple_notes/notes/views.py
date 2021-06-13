@@ -338,4 +338,4 @@ def activate_account(request, token):
     activation_token.profile.save()
     activation_token.delete()
 
-    return HttpResponse(content='<h1>Cool, it works!</h1>', content_type='text/html')
+    return render(request, 'notes/account-verification-done.html')
