@@ -19,6 +19,11 @@ import environ
 env = environ.Env(DEBUG=(int, 1), ALLOWED_HOSTS=(list, []))
 environ.Env.read_env()
 
+PEPIPOST_API_KEY = env('PEPIPOST_API_KEY')
+PEPIPOST_FROM_EMAIL= env('PEPIPOST_FROM_EMAIL')
+PEPIPOST_FROM_NAME = env('PEPIPOST_FROM_NAME')
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

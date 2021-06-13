@@ -3,11 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from django.utils import timezone
 
-from secrets import token_urlsafe
-
-
-def generate_token():
-    return token_urlsafe(32)
+from simple_notes.notes.utils import generate_token
 
 
 class Notebook(models.Model):
