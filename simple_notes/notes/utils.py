@@ -16,21 +16,33 @@ from secrets import token_urlsafe
 
 
 def serialize_notebooks_with_notes(request: object) -> str:
-    from .models import Note, Notebook
+    from .models import Note
 
-    result = []
-    for notebook in Notebook.objects.filter(user=request.user):
+    notes = Note.objects \
+        .filter(notebook__user=request.user) \
+        .only('notebook__title', 'title') \
+        .values('notebook__title', 'title')
+
+    result, added_notebooks = [], set()
+    for note in notes:
+        title, notebook_title = note['title'], note['notebook__title']
+
         result.append({
-            'notebook_title': notebook.title,
-            'notebook_url': request.build_absolute_uri(reverse('notes:view-notes', args=[notebook.title])),
+            'notebook_title': notebook_title,
+            'note_title': title,
+            'note_url': request.build_absolute_uri(
+                reverse('notes:edit-note', args=[notebook_title, title])
+            ),
         })
 
-        for note in Note.objects.filter(notebook=notebook):
-            result.append({
-                'notebook_title': notebook.title,
-                'note_title': note.title,
-                'note_url': request.build_absolute_uri(reverse('notes:edit-note', args=[notebook.title, note.title])),
-            })
+        if notebook_title in added_notebooks:
+            continue
+
+        result.append({
+            'notebook_title': notebook_title,
+            'notebook_url': request.build_absolute_uri(reverse('notes:view-notes', args=[notebook_title])),
+        })
+        added_notebooks.add(notebook_title)
 
     return json.dumps(result)
 

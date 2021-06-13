@@ -283,9 +283,21 @@ class SignUp(View):
 
 
 def general_context(request, context=None):
-    notebooks = Notebook.objects.filter(user=request.user)
-    shared_notes = PublicSharedNote.objects.filter(user=request.user)
-    theme = Profile.objects.get(user=request.user).theme
+    notebooks = Notebook.objects \
+        .filter(user=request.user) \
+        .only('title')
+
+    shared_notes = PublicSharedNote.objects \
+        .filter(user=request.user) \
+        .only('unique_secret',
+              'note__title',
+              'note__notebook')
+
+    theme = Profile.objects \
+        .only('theme') \
+        .get(user=request.user) \
+        .theme
+
     user_settings_form = UserSettingsForm(instance=request.user)
     profile_settings_form = ProfileSettingsForm(instance=Profile.objects.get(user=request.user))
     data = {
@@ -297,15 +309,27 @@ def general_context(request, context=None):
         'search_data': serialize_notebooks_with_notes(request)
     }
 
+    notes = Note.objects \
+        .filter(notebook__user=request.user) \
+        .only('notebook__title') \
+        .values('notebook__title')
+
     for notebook in data['notebooks']:
-        notebook.notes_count = Note.objects.filter(
-            notebook=notebook
-        ).count()
+        notebook_title = notebook.title
+        count = len([item for item in notes if item['notebook__title'] == notebook_title])
+        notebook.notes_count = count
 
     if context:
         if 'notes' not in context and 'notebook_title' in context:
-            notebook = Notebook.objects.get(user=request.user, title=context['notebook_title'])
-            context.update({'notes': Note.objects.filter(notebook=notebook)})
+            notebook = Notebook.objects \
+                .only('title') \
+                .get(user=request.user,
+                     title=context['notebook_title'])
+            context.update({
+                'notes': Note.objects
+                    .filter(notebook=notebook)
+                    .only('notebook__title', 'title')
+            })
 
         context.update(data)
 
