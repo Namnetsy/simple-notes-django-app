@@ -407,7 +407,7 @@
 			});
 
 			{% if search_data %}
-				const search_data = JSON.parse('{{ search_data|safe }}');
+				const search_data = {{ search_data|safe }};
 				const fuse = new Fuse(search_data, {
 					keys: ['notebook_title', 'note_title'],
 				});

@@ -1,6 +1,8 @@
 import json
+from typing import List
 
 from django.conf import settings
+from django.db.models import F
 from django.urls import reverse
 
 from pepipost.pepipost_client import PepipostClient
@@ -16,33 +18,46 @@ from secrets import token_urlsafe
 
 
 def serialize_notebooks_with_notes(request: object) -> str:
-    from .models import Note
+    from .models import Note, Notebook
 
     notes = Note.objects \
         .filter(notebook__user=request.user) \
         .only('notebook__title', 'title') \
         .values('notebook__title', 'title')
 
-    result, added_notebooks = [], set()
+    notebooks = Notebook.objects \
+        .filter(user=request.user) \
+        .only('id', 'title') \
+        .values('id', 'title')
+
+    notebook_ids: List[int] = []
+    result = []
+    for notebook in notebooks:
+        title = notebook['title']
+        notebook_ids.append(notebook['id'])
+
+        result.append({
+            'notebook_title': title,
+            'notebook_url': request.build_absolute_uri(reverse('notes:view-notes', args=[title])),
+        })
+
+    notes = Note.objects \
+        .filter(notebook__in=notebook_ids) \
+        .only('notebook__title', 'title')\
+        .annotate(notebook_title=F('notebook__title')) \
+        .values('notebook_title', 'title')
+
+    if not notes:
+        return json.dumps(result)
+
     for note in notes:
-        title, notebook_title = note['title'], note['notebook__title']
+        title, notebook_title = note['title'], note['notebook_title']
 
         result.append({
             'notebook_title': notebook_title,
             'note_title': title,
-            'note_url': request.build_absolute_uri(
-                reverse('notes:edit-note', args=[notebook_title, title])
-            ),
+            'note_url': request.build_absolute_uri(reverse('notes:edit-note', args=[notebook_title, title]))
         })
-
-        if notebook_title in added_notebooks:
-            continue
-
-        result.append({
-            'notebook_title': notebook_title,
-            'notebook_url': request.build_absolute_uri(reverse('notes:view-notes', args=[notebook_title])),
-        })
-        added_notebooks.add(notebook_title)
 
     return json.dumps(result)
 
