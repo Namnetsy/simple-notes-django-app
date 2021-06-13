@@ -452,6 +452,13 @@
 						});
 					},
 				 });
+
+				// focus search bar
+				keyboardJS.bind('alt + /', (e) => {
+					e.preventDefault();
+
+					document.getElementById('autocomplete').children[0].focus()
+				});
 			{% endif %}
 		</script>
 	</body>
