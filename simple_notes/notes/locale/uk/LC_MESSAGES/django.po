@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-07 14:31+0000\n"
+"POT-Creation-Date: 2021-06-13 08:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,147 +20,163 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: notes/models.py:57
+#: notes/forms.py:59
+msgid "Welcome to Simple Notes!"
+msgstr "Вітаю в Simple Notes!"
+
+#: notes/forms.py:72
+msgid "Hey {username}!"
+msgstr "Привіт {username}!"
+
+#: notes/forms.py:73
+msgid "Thank you for signing up, just one more step... click on the link below in order to activate your account."
+msgstr "Дякую за реєстрацію, залишився тільки один крок... перейдіть за посиланням нижче щоб активувати ваш обіковий запис."
+
+#: notes/forms.py:75
+msgid "Activate Account"
+msgstr "Активувати обліковий запис"
+
+#: notes/forms.py:76
+msgid "Without an activated account you won't be able to use features like reminders or password reset."
+msgstr "Без активації вам не будуть доступні нагадування та скидування паролю."
+
+#: notes/models.py:53
 msgid "Default"
 msgstr "За замовчуванням"
 
-#: notes/models.py:69
+#: notes/models.py:65
 msgid "Ukrainian"
 msgstr "Українська"
 
-#: notes/models.py:70
+#: notes/models.py:66
 msgid "English"
 msgstr "Англійська"
 
-#: notes/templates/notes/base.html:40
+#: notes/templates/notes/base.html:41
 msgctxt "Link's text"
 msgid "Home"
 msgstr "Головна сторінка"
 
-#: notes/templates/notes/base.html:41
+#: notes/templates/notes/base.html:42
 msgctxt "Link's text"
 msgid "Settings"
 msgstr "Налаштування"
 
-#: notes/templates/notes/base.html:43
+#: notes/templates/notes/base.html:44
 msgctxt "Link's text"
 msgid "Admin Panel"
 msgstr "Адмін панель"
 
-#: notes/templates/notes/base.html:45
+#: notes/templates/notes/base.html:46
 msgctxt "Link's text"
 msgid "Log out"
 msgstr "Вийти"
 
-#: notes/templates/notes/base.html:60
+#: notes/templates/notes/base.html:65
 msgctxt "List title"
 msgid "Notebooks"
 msgstr "Записники"
 
-#: notes/templates/notes/base.html:63
+#: notes/templates/notes/base.html:68
 msgctxt "Tooltip"
 msgid "New Notebook (Alt + Shift + N)"
-msgstr ""
+msgstr "Новий Записник (Alt + Shift + N)"
 
-#: notes/templates/notes/base.html:67
+#: notes/templates/notes/base.html:72
 msgctxt "Text on a button"
 msgid "Notebook"
 msgstr "Записник"
 
-#: notes/templates/notes/base.html:78 notes/templates/notes/base.html:100
+#: notes/templates/notes/base.html:83 notes/templates/notes/base.html:105
 msgctxt "Tooltip on a badge"
 msgid "Amount of notes"
 msgstr "Кількість записів"
 
-#: notes/templates/notes/base.html:92 notes/templates/notes/base.html:107
-#: notes/templates/notes/base.html:124
+#: notes/templates/notes/base.html:97 notes/templates/notes/base.html:112
+#: notes/templates/notes/base.html:129
 msgctxt "Empty list text"
 msgid "Empty"
 msgstr "Пусто"
 
-#: notes/templates/notes/base.html:112
+#: notes/templates/notes/base.html:117
 msgctxt "List title"
 msgid "Shared Notes"
 msgstr "Спільні Нотатки"
 
-#: notes/templates/notes/base.html:145
+#: notes/templates/notes/base.html:150
 msgctxt "Heading of modal window"
 msgid "New Notebook"
 msgstr "Новий Записник"
 
-#: notes/templates/notes/base.html:152
+#: notes/templates/notes/base.html:157
 msgctxt "Label's text on create notebook modal window"
 msgid "Title"
 msgstr "Назва записника"
 
-#: notes/templates/notes/base.html:154
-#: notes/templates/notes/create_notebook.html:21
+#: notes/templates/notes/base.html:159
 msgctxt "Placeholder"
 msgid "My Lovely Notebook"
 msgstr "Назва"
 
-#: notes/templates/notes/base.html:162 notes/templates/notes/base.html:275
-#: notes/templates/notes/settings.html:38
+#: notes/templates/notes/base.html:167 notes/templates/notes/base.html:280
 msgctxt "Text on a button"
 msgid "Save"
 msgstr "Зберегти"
 
-#: notes/templates/notes/base.html:163 notes/templates/notes/base.html:192
-#: notes/templates/notes/base.html:276
+#: notes/templates/notes/base.html:168 notes/templates/notes/base.html:197
+#: notes/templates/notes/base.html:281
 msgctxt "Text on a button"
 msgid "Cancel"
 msgstr "Відмінити"
 
-#: notes/templates/notes/base.html:174
+#: notes/templates/notes/base.html:179
 msgctxt "Heading of modal window"
 msgid "Edit Notebook"
 msgstr "Редагувати Записник"
 
-#: notes/templates/notes/base.html:181
+#: notes/templates/notes/base.html:186
 msgctxt "Label's text"
 msgid "Title"
 msgstr "Заголовок"
 
-#: notes/templates/notes/base.html:191
+#: notes/templates/notes/base.html:196
 msgctxt "Text on a button"
 msgid "Update"
 msgstr "Обновити"
 
-#: notes/templates/notes/base.html:204
+#: notes/templates/notes/base.html:209
 msgctxt "Heading of modal window"
 msgid "Settings"
 msgstr "Налаштування"
 
-#: notes/templates/notes/base.html:211 notes/templates/notes/log-in.html:12
-#: notes/templates/notes/settings.html:11 notes/templates/notes/sign-up.html:12
+#: notes/templates/notes/base.html:216 notes/templates/notes/log-in.html:12
+#: notes/templates/notes/sign-up.html:12
 msgctxt "Label"
 msgid "Username"
 msgstr "Псевдонім"
 
-#: notes/templates/notes/base.html:213 notes/templates/notes/log-in.html:14
-#: notes/templates/notes/settings.html:13 notes/templates/notes/sign-up.html:14
+#: notes/templates/notes/base.html:218 notes/templates/notes/log-in.html:14
+#: notes/templates/notes/sign-up.html:14
 msgctxt "Placeholder"
 msgid "Username"
 msgstr "Псевдонім"
 
-#: notes/templates/notes/base.html:224 notes/templates/notes/settings.html:24
-#: notes/templates/notes/sign-up.html:25
+#: notes/templates/notes/base.html:229 notes/templates/notes/sign-up.html:25
 msgctxt "Label"
 msgid "Email"
 msgstr "Пошта"
 
-#: notes/templates/notes/base.html:226 notes/templates/notes/settings.html:26
-#: notes/templates/notes/sign-up.html:27
+#: notes/templates/notes/base.html:231 notes/templates/notes/sign-up.html:27
 msgctxt "Placeholder"
 msgid "Email"
 msgstr "Пошта"
 
-#: notes/templates/notes/base.html:237
+#: notes/templates/notes/base.html:242
 msgctxt "Label"
 msgid "Language"
 msgstr "Мова"
 
-#: notes/templates/notes/base.html:256
+#: notes/templates/notes/base.html:261
 msgctxt "Label"
 msgid "Theme"
 msgstr "Тема"
@@ -207,36 +223,6 @@ msgstr "Назад (Esc)"
 msgctxt "Placeholder"
 msgid "Write something here."
 msgstr "Напишіть щось."
-
-#: notes/templates/notes/create_notebook.html:4
-msgctxt "Page title"
-msgid "New Notebook"
-msgstr "Новий Записник"
-
-#: notes/templates/notes/create_notebook.html:9
-msgctxt "Link's text in breadcrumb"
-msgid "Notebooks"
-msgstr "Записники"
-
-#: notes/templates/notes/create_notebook.html:10
-msgctxt "Link's text in breadcrumb"
-msgid "Create Notebook"
-msgstr "Створити Записник"
-
-#: notes/templates/notes/create_notebook.html:14
-msgctxt "Page heading"
-msgid "Create Notebook"
-msgstr "Створити Записник"
-
-#: notes/templates/notes/create_notebook.html:15
-msgctxt "Sub heading"
-msgid "Enter your notebook's name below"
-msgstr "Введіть назву записника внизу"
-
-#: notes/templates/notes/create_notebook.html:30
-msgctxt "Button's text"
-msgid "Create Notebook"
-msgstr "Створити Записник"
 
 #: notes/templates/notes/edit-note.html:4
 msgctxt "Page title"
@@ -355,9 +341,7 @@ msgstr "Розпочнімо"
 
 #: notes/templates/notes/index.html:124
 msgid "Do not hesitate, start using <strong>Simple Notes</strong> right now!"
-msgstr ""
-"Не зволікайте, розпочніть використовувати <strong>Simple Notes</strong> "
-"прямо зараз!"
+msgstr "Не зволікайте, розпочніть використовувати <strong>Simple Notes</strong> прямо зараз!"
 
 #: notes/templates/notes/index.html:125 notes/templates/notes/sign-up.html:62
 msgctxt "Text on a button"
@@ -397,16 +381,6 @@ msgstr "Якщо ви ще не зареєстровані"
 msgctxt "Link's text"
 msgid "Sign up"
 msgstr "Зареєструватись"
-
-#: notes/templates/notes/settings.html:4
-msgctxt "Page's title"
-msgid "Settings"
-msgstr "Налаштування"
-
-#: notes/templates/notes/settings.html:7
-msgctxt "Heading"
-msgid "Settings"
-msgstr "Налаштування"
 
 #: notes/templates/notes/sign-up.html:4
 msgctxt "Page's title"
@@ -471,61 +445,61 @@ msgstr "Видалити з розданих (Del)"
 msgid "The author didn't even left a single word for you!"
 msgstr "Тут пусто, тому що автор цієї нотатки нічого не написав!"
 
-#: notes/views.py:35
+#: notes/views.py:36
 #, python-brace-format
 msgid "Public link for {note_title} was created successfully."
 msgstr "Замітка {note_title} стала публічною."
 
-#: notes/views.py:39
+#: notes/views.py:40
 msgid "You have shared this note already!"
 msgstr "Ви вже ділились цією нотаткою раніше!"
 
-#: notes/views.py:52
+#: notes/views.py:53
 #, python-brace-format
 msgid "{notebook_title} was removed successfully."
 msgstr "{notebook_title} був успішно видалений."
 
-#: notes/views.py:64
+#: notes/views.py:65
 #, python-brace-format
 msgid "{note_title} was removed successfully."
 msgstr "{note_title} був успішно видалений."
 
-#: notes/views.py:73
+#: notes/views.py:74
 msgid "Shared note was removed successfully."
 msgstr "Нотаток був успішно видалиний зі списку публічних."
 
-#: notes/views.py:89
+#: notes/views.py:90
 #, python-brace-format
 msgid "Changes in {notebook_title} were saved successfully."
 msgstr "Зміни в {notebook_title} були успішно збережені"
 
-#: notes/views.py:94
+#: notes/views.py:95
 msgid "Check your input!"
 msgstr "Перевірте вірність введених даних!"
 
-#: notes/views.py:120
+#: notes/views.py:121
 #, python-brace-format
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:124 notes/views.py:215
+#: notes/views.py:125 notes/views.py:216
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
-#: notes/views.py:158
+#: notes/views.py:159
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:211
+#: notes/views.py:212
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:234
+#: notes/views.py:235
 msgid "Notebook with this name already exists!"
 msgstr "Нотаток з цією назвою вже існує!"
 
-#: notes/views.py:241
+#: notes/views.py:242
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."

@@ -1,16 +1,15 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone, translation
-from django.utils.translation import gettext as _, get_language
+from django.utils.translation import gettext as _
 from django.views import View
 from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
 
 from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm, UserAccountForm
-from .models import Notebook, Note, PublicSharedNote, Profile
+from .models import Notebook, Note, PublicSharedNote, Profile, ActivationToken
 from xhtml2pdf import pisa
 from tempfile import TemporaryFile
 
@@ -267,7 +266,7 @@ class SignUp(View):
         form = UserAccountForm(request.POST, initial={
             'username': '',
             'email': ''
-        })
+        }, request=request)
 
         if form.is_valid():
             user = form.save()
@@ -327,3 +326,13 @@ def export_to_pdf(request, notebook_title, note_title):
     tmpFile.close()
 
     return response
+
+
+def activate_account(request, token):
+    activation_token = get_object_or_404(ActivationToken, token=token)
+
+    activation_token.profile.is_activated = True
+    activation_token.profile.save()
+    activation_token.delete()
+
+    return HttpResponse(content='<h1>Cool, it works!</h1>', content_type='text/html')

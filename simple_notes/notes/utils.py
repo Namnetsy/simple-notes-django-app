@@ -3,8 +3,6 @@ import json
 from django.conf import settings
 from django.urls import reverse
 
-from notes.models import Note, Notebook
-
 from pepipost.pepipost_client import PepipostClient
 from pepipost.models.send import Send
 from pepipost.models.mfrom import From
@@ -18,6 +16,8 @@ from secrets import token_urlsafe
 
 
 def serialize_notebooks_with_notes(request: object) -> str:
+    from .models import Note, Notebook
+
     result = []
     for notebook in Notebook.objects.filter(user=request.user):
         result.append({

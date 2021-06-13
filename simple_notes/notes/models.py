@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from django.utils import timezone
 
-from simple_notes.notes.utils import generate_token
+from .utils import generate_token
 
 
 class Notebook(models.Model):
@@ -71,3 +71,15 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     language = models.CharField(max_length=20, choices=Language.CHOICES, default=Language.EN)
     theme = models.CharField(max_length=20, choices=Theme.CHOICES, default=Theme.DEFAULT)
+    is_activated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'[{self.language}]: {self.user.username}'
+
+
+class ActivationToken(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, unique=True)
+    token = models.CharField(max_length=32, default=generate_token, unique=True)
+
+    def __str__(self):
+        return self.profile.user.username
