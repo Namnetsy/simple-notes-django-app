@@ -20,7 +20,7 @@
 			<div class="column is-narrow px-6 pt-6 pb-5">
                 <h1 class="title has-text-centered mb-5">{% translate "Account Verified!" context "Heading" %}</h1>
 				<img src="{% static 'images/well_done.svg' %}">
-				<p class="subtitle has-text-centered mt-5">Your account was successfully verified. <a href="{% url 'notes:index' %}">Go Home</a></p>
+				<p class="subtitle has-text-centered mt-5">Your account was successfully verified. <a href="{% url 'notes:index' %}">{% translate "Go Home" context "Link" %}</a></p>
 			</div>
 		</div>
 	</body>

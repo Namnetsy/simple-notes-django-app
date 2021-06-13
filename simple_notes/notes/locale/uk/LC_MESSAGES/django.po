@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-13 08:33+0000\n"
+"POT-Creation-Date: 2021-06-13 10:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,6 +25,7 @@ msgid "Welcome to Simple Notes!"
 msgstr "Вітаю в Simple Notes!"
 
 #: notes/forms.py:72
+#, python-brace-format
 msgid "Hey {username}!"
 msgstr "Привіт {username}!"
 
@@ -51,6 +52,21 @@ msgstr "Українська"
 #: notes/models.py:66
 msgid "English"
 msgstr "Англійська"
+
+#: notes/templates/notes/account-verification-done.html:8
+msgctxt "Page title"
+msgid "Account Verification"
+msgstr "Підтвердження облікового запису"
+
+#: notes/templates/notes/account-verification-done.html:21
+msgctxt "Heading"
+msgid "Account Verified!"
+msgstr "Обліковий запис був успішно підтверджений!"
+
+#: notes/templates/notes/account-verification-done.html:23
+msgctxt "Link"
+msgid "Go Home"
+msgstr "На головну сторінку"
 
 #: notes/templates/notes/base.html:41
 msgctxt "Link's text"
@@ -223,11 +239,6 @@ msgstr "Назад (Esc)"
 msgctxt "Placeholder"
 msgid "Write something here."
 msgstr "Напишіть щось."
-
-#: notes/templates/notes/edit-note.html:4
-msgctxt "Page title"
-msgid "Edit"
-msgstr "Редагувати"
 
 #: notes/templates/notes/edit-note.html:20
 msgctxt "Tooltip"
@@ -450,30 +461,26 @@ msgstr "Тут пусто, тому що автор цієї нотатки ні
 msgid "Public link for {note_title} was created successfully."
 msgstr "Замітка {note_title} стала публічною."
 
-#: notes/views.py:40
-msgid "You have shared this note already!"
-msgstr "Ви вже ділились цією нотаткою раніше!"
-
-#: notes/views.py:53
+#: notes/views.py:51
 #, python-brace-format
 msgid "{notebook_title} was removed successfully."
 msgstr "{notebook_title} був успішно видалений."
 
-#: notes/views.py:65
+#: notes/views.py:63
 #, python-brace-format
 msgid "{note_title} was removed successfully."
 msgstr "{note_title} був успішно видалений."
 
-#: notes/views.py:74
+#: notes/views.py:72
 msgid "Shared note was removed successfully."
 msgstr "Нотаток був успішно видалиний зі списку публічних."
 
-#: notes/views.py:90
+#: notes/views.py:88
 #, python-brace-format
 msgid "Changes in {notebook_title} were saved successfully."
 msgstr "Зміни в {notebook_title} були успішно збережені"
 
-#: notes/views.py:95
+#: notes/views.py:93
 msgid "Check your input!"
 msgstr "Перевірте вірність введених даних!"
 
@@ -482,24 +489,24 @@ msgstr "Перевірте вірність введених даних!"
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:125 notes/views.py:216
+#: notes/views.py:125 notes/views.py:219
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
-#: notes/views.py:159
+#: notes/views.py:162
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:212
+#: notes/views.py:215
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:235
+#: notes/views.py:238
 msgid "Notebook with this name already exists!"
 msgstr "Нотаток з цією назвою вже існує!"
 
-#: notes/views.py:242
+#: notes/views.py:245
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."
