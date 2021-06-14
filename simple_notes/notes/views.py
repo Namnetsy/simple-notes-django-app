@@ -344,7 +344,7 @@ def export_to_pdf(request, notebook_title, note_title):
     note = Note.objects.get(notebook=notebook, title=note_title)
 
     tmpFile = TemporaryFile(mode='w+b')
-    pisa.CreatePDF(note.content, tmpFile)
+    pisa.CreatePDF(note.content.replace('\n', '<br>'), tmpFile)
     tmpFile.seek(0)
     pdf = tmpFile.read()
     content_disposition = f'attachment; filename="{note_title}.pdf"'
