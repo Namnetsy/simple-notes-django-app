@@ -13,6 +13,9 @@ django-debug-toolbar = "*"
 psycopg2-binary = "*"
 pepipost = "*"
 django-redis-sessions = "*"
+celery = "*"
+django-celery-results = "*"
+django-redis = "*"
 
 [dev-packages]
 ipython = "*"
