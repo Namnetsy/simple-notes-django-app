@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _, get_language
 from .models import Notebook, Note, Profile, ActivationToken
 from django.contrib.auth.models import User
 
-from .utils import send_email
+from .tasks import send_email_task
 
 
 class NotebookForm(forms.ModelForm):
@@ -54,7 +54,7 @@ class UserAccountForm(forms.ModelForm):
             reverse('notes:activate-account', args=[activation_token.token])
         )
 
-        send_email(
+        send_email_task.delay(
             email=user.email,
             subject=_('Welcome to Simple Notes!'),
             content='''
