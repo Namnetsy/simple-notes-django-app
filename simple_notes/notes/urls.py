@@ -23,4 +23,6 @@ urlpatterns = [
     path('settings/', settings, name='settings'),
     path('notebooks/<str:notebook_title>/notes/<str:note_title>/export-to-pdf/', export_to_pdf, name='export-to-pdf'),
     path('activate-account/<str:token>', activate_account, name='activate-account'),
+    path('reminders/<str:notebook_title>/notes/<str:note_title>/remind-me', set_reminder, name='set-reminder'),
+    path('reminders/<str:notebook_title>/notes/<str:note_title>/cancel', remove_reminder, name='remove-reminder'),
 ]

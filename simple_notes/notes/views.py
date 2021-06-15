@@ -2,18 +2,23 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone, translation
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, get_language
 from django.views import View
 from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
 
 from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm, UserAccountForm
-from .models import Notebook, Note, PublicSharedNote, Profile, ActivationToken
+from .models import Notebook, Note, PublicSharedNote, Profile, ActivationToken, Reminder
 from xhtml2pdf import pisa
 from tempfile import TemporaryFile
 
+from .tasks import send_reminder_task
 from .utils import serialize_notebooks_with_notes
+
+from datetime import datetime
+
+from simple_notes.celery import app
 
 
 def index(request):
@@ -132,6 +137,8 @@ def edit_note(request, notebook_title, note_title):
         'notebook_title': notebook.title,
         'note_title': note.title,
         'note_edit_date': note.modified_at,
+        'reminder_set': Reminder.objects.filter(note=note).exists(),
+        'language': get_language(),
     })
 
     return render(request, 'notes/edit-note.html', ctx)
@@ -365,3 +372,51 @@ def activate_account(request, token):
     activation_token.delete()
 
     return render(request, 'notes/account-verification-done.html')
+
+
+def set_reminder(request, notebook_title, note_title):
+    try:
+        date = datetime.strptime(
+            request.POST.get('remind-me-date'),
+            '%m/%d/%Y %H:%M'
+        ).astimezone()
+    except:
+        date = None
+
+    if not date:
+        return redirect(reverse('notes:edit-note', args=[notebook_title, note_title]))
+
+    import pdb
+    pdb.set_trace()
+
+    result = send_reminder_task.apply_async((
+        request.user.username,
+        request.user.email,
+        notebook_title,
+        note_title,
+        request.build_absolute_uri(reverse('notes:edit-note', args=[notebook_title, note_title])),
+    ), eta=date)
+
+    Reminder.objects.create(
+        task_id=result.task_id,
+        note=Note.objects.get(
+            notebook__user=request.user,
+            notebook__title=notebook_title,
+            title=note_title,
+        ),
+    )
+
+    messages.success(request, message=_('Reminder was set successfully!'))
+
+    return redirect(reverse('notes:edit-note', args=[notebook_title, note_title]))
+
+
+def remove_reminder(request, notebook_title, note_title):
+    note = Note.objects.get(notebook__title=notebook_title, title=note_title)
+    reminder = Reminder.objects.get(note=note)
+    app.control.revoke(task_id=reminder.task_id)
+    reminder.delete()
+
+    messages.success(request, message=_('Reminder was canceled successfully!'))
+
+    return redirect(reverse('notes:edit-note', args=[notebook_title, note_title]))

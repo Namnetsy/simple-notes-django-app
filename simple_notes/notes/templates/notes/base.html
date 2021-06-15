@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-badge@1.0.1/dist/bulma-badge.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/bulma-calendar@6.1.6/dist/css/bulma-calendar.min.css">
 		{% if theme and theme != 'default' %}
 			<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/{{ theme }}/bulmaswatch.min.css">
 		{% endif %}
@@ -15,6 +16,10 @@
 		<style>
 			html {
 				scrollbar-width: none;
+			}
+
+			.datetimepicker-dummy {
+				display: none;
 			}
 
 			::-webkit-scrollbar {

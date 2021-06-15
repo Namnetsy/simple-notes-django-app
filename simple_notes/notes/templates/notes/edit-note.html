@@ -1,5 +1,6 @@
 {% extends 'notes/base.html' %}
 {% load i18n %}
+{% load static %}
 
 {% block title %}{{ note_title }} | {{ notebook_title }}{% endblock %}
 
@@ -116,15 +117,65 @@
 				<textarea id="text-editor" name="content" class="textarea is-fullwidth" style="min-height: 680px; resize: none;" spellcheck="false" placeholder="{% translate "Write something here." context "Placeholder" %}">{{ form.content.value }}</textarea>
 			</section>
 			{% if note_edit_date %}
-				<small class="ml-4 has-text-grey-dark mb-1">
-					{{ note_edit_date }}
-				</small>
+				<div class="field column is-12 has-text-grey-dark mb-1">
+					<div class="columns is-mobile">
+						<div class="column is-6 is-6-mobile is-mobile ml-4">
+							{{ note_edit_date }}
+						</div>
+						<div class="column is-mobile is-6 is-6-mobile mr-4 has-text-right">
+							{% if reminder_set %}
+								<a href="{% url 'notes:remove-reminder' notebook_title note_title %}" title="{% translate "Cancel reminder" context "Tooltip" %}" class="mr-6">{% translate "Cancel Reminder" context "Link" %}</a>
+							{% else %}
+								<a id="remind-me-button" title="{% translate "Send me a reminder to write later" context "Tooltip" %}" class="mr-6">{% translate "Remind Me" context "Link" %}</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
 			{% endif %}
 		</article>
 	</form>
 
+	<form action="{% url 'notes:set-reminder' notebook_title note_title %}" method="POST">
+		{% csrf_token %}
+		<input hidden id="remind-me-date-picker" type="date" name="remind-me-date">
+	</form>
+
+	<script src="{% static "scripts/bulma-calendar.js" %}"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
+			// Initialize all inputs of type date
+			const calendars = bulmaCalendar.attach('[type="date"]', {
+				type: 'datetime',
+				color: 'info',
+				displayMode: 'dialog',
+				cancelLabel: '{% translate "Cancel" context "Button" %}',
+				validateLabel: '{% translate "OK" context "Button" %}',
+				weekStart: 1,
+				lang: '{{ language }}',
+				showClearButton: false,
+				showTodayButton: false,
+			});
+
+			// Loop on each calendar initialized
+			calendars.forEach(calendar => {
+				// Add listener to select event
+				calendar.on('select', date => {
+					console.log(date);
+				});
+			});
+
+			document.getElementsByClassName(
+				'datetimepicker-footer-validate', 'has-text-success', 'button', 'is-small', 'is-text'
+			)[0].onclick = () => {
+				const input = document.getElementById('remind-me-date-picker');
+
+				if (!input.value) {
+					return;
+				}
+
+				document.forms[1].submit();
+			};
+
 			keyboardJS.bind('alt + s', (e) => {
 				e.preventDefault();
 
@@ -160,13 +211,17 @@
 				window.open("{% url 'notes:export-to-pdf' notebook_title note_title %}", "_self");
 			});
 
-			document.getElementById('text-editor').onkeydown = function(e) {
+			document.getElementById('text-editor').onkeydown = (e) => {
 				if (e.keyCode === 9) { // tab was pressed
 					document.execCommand('insertText', false, '\t');
 
 					return false;
 				}
 			};
+
+			document.getElementById('remind-me-button').addEventListener('click', () => {
+				document.querySelector('#remind-me-date-picker').bulmaCalendar.show();
+			});
 		});
 	</script>
 {% endblock %}

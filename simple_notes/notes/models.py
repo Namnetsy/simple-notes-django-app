@@ -83,3 +83,11 @@ class ActivationToken(models.Model):
 
     def __str__(self):
         return self.profile.user.username
+
+
+class Reminder(models.Model):
+    task_id = models.CharField(max_length=36, primary_key=True)
+    note = models.ForeignKey(Note, on_delete=models.CASCADE, unique=True)
+
+    def __str__(self):
+        return f'{self.note.notebook.user}: {self.note.title}'
