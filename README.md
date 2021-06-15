@@ -9,6 +9,7 @@ A simple note-taking application written using python's django web framework.
  - Export notes as PDF files
  - Share your notes via a unique link
  - Multiple themes
+ - Reminders
 
 # Installation
 Clone repo & create .env file from .env.example
