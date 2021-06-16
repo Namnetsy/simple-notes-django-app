@@ -386,9 +386,6 @@ def set_reminder(request, notebook_title, note_title):
     if not date:
         return redirect(reverse('notes:edit-note', args=[notebook_title, note_title]))
 
-    import pdb
-    pdb.set_trace()
-
     result = send_reminder_task.apply_async((
         request.user.username,
         request.user.email,
