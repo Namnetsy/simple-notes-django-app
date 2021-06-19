@@ -16,7 +16,6 @@ django-redis-sessions = "*"
 celery = "*"
 django-celery-results = "*"
 django-redis = "*"
-django-extensions = "*"
 
 [dev-packages]
 ipython = "*"

@@ -26,4 +26,6 @@ Run database migrations and the project itself:
 ```
 ./manage.py migrate
 ./manage.py runserver
+# or
+gunicorn --chdir simple_notes simple_notes.wsgi --preload
 ```
