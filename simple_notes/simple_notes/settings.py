@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'notes.apps.NotesConfig',
     'debug_toolbar',
     'django_celery_results',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
