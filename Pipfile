@@ -16,11 +16,13 @@ django-redis-sessions = "*"
 celery = "*"
 django-celery-results = "*"
 django-redis = "*"
+django-extensions = "*"
 
 [dev-packages]
 ipython = "*"
 pylint = "*"
 inotify = "*"
+django-extensions = "*"
 
 [requires]
 python_version = "3.8"
