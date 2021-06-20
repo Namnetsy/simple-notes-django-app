@@ -4,7 +4,7 @@
 {% block title %}{{ shared_note.note.title }} | Simple Notes{% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user == shared_note.user %}
         <div class="columns">
             <section class="block column is-11">
                 <h1 class="title has-text-centered">{{ shared_note.note.title }}</h1>
@@ -23,7 +23,7 @@
     
     {% if shared_note.note.content %}
         <article>
-            {% if not user.is_authenticated %}
+            {% if not user.is_authenticated or user != shared_note.user %}
                 <section class="block">
                     <h1 class="title has-text-centered">{{ shared_note.note.title }}</h1>
                 </section>
