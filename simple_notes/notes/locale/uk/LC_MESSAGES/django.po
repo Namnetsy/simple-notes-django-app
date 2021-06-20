@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-20 10:30+0300\n"
+"POT-Creation-Date: 2021-06-20 12:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,9 @@ msgid "Activate Account"
 msgstr "Активувати обліковий запис"
 
 #: notes/forms.py:76
-msgid "Without an activated account you won't be able to use features like reminders or password reset."
+msgid ""
+"Without an activated account you won't be able to use features like "
+"reminders or password reset."
 msgstr "Без активації вам не будуть доступні нагадування та скидування паролю."
 
 #: notes/models.py:65
@@ -64,8 +66,12 @@ msgstr "Не забудьте про {note_name} | Simple Notes Reminder"
 
 #: notes/tasks.py:46
 #, python-brace-format
-msgid "You wanted to be reminded about {note_name}. Click on the link below in order to open it."
-msgstr "Ви хотіли отримати нагадування про {note_name}. Перейдіть за посиланням нижче, щоб переглянути нотатку."
+msgid ""
+"You wanted to be reminded about {note_name}. Click on the link below in "
+"order to open it."
+msgstr ""
+"Ви хотіли отримати нагадування про {note_name}. Перейдіть за посиланням "
+"нижче, щоб переглянути нотатку."
 
 #: notes/tasks.py:49
 #, python-brace-format
@@ -380,8 +386,8 @@ msgstr "Розпочати"
 
 #: notes/templates/notes/index.html:46
 msgctxt "Small text with a link on the front page."
-msgid "Simple Notes offered in: <a class='has-text-info' href='/uk'>Ukrainian</a>"
-msgstr "Simple Notes доступний на таких мовах: <a class='has-text-info' href='/en'>Англійська</a>"
+msgid "Simple Notes offered in: <a class='has-text-info' href='/uk'>Українська</a>"
+msgstr "Simple Notes доступний на таких мовах: <a class='has-text-info' href='/en'>English</a>"
 
 #: notes/templates/notes/index.html:55
 msgctxt "Heading"
@@ -498,10 +504,12 @@ msgid "End"
 msgstr "Кінець"
 
 #: notes/templates/notes/note-versions-list.html:35
+#: notes/templates/notes/note-versions-list.html:71
 msgid "There's no versions yet"
 msgstr "Немає збережених версій"
 
 #: notes/templates/notes/note-versions-list.html:36
+#: notes/templates/notes/note-versions-list.html:72
 msgid "Press <b>Add</b> button in order to add a new version."
 msgstr "Натисніть кнопку <b>Додати</b>, щоб додати нову версію"
 
@@ -636,11 +644,11 @@ msgstr "Нагадування було відмінено успішно."
 msgid "Version was added successfully."
 msgstr "Версію нотатка було додано успішно."
 
-#: notes/views.py:456
+#: notes/views.py:454
 msgid "Version was removed successfully."
 msgstr "Версію нотатка було успішно видалено."
 
-#: notes/views.py:475
+#: notes/views.py:471
 msgid "Version was restored successfully."
 msgstr "Версію нотатка було успешіно відновлено."
 
