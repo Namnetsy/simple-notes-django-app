@@ -29,6 +29,15 @@
         <header class="timeline-header">
             <span class="tag is-medium is-info">{% translate "End" context "Label" %}</span>
         </header>
+    {% else %}
+        {% load static %}
+        <article class="block has-text-centered">
+            <p class="title">{% translate "There's no versions yet" %}</p>
+            <p class="subtitle">{% translate "Press <b>Add</b> button in order to add a new version." %}</p>
+            <figure style="margin: 0 auto; width: 35vw;" class="image is-128x128">
+                <img src="{% static 'images/not_found.svg' %}">
+            </figure>
+        </article>
     {% endif %}
 </div>
 
@@ -56,6 +65,15 @@
         <header class="timeline-header">
             <span class="tag is-medium is-info">{% translate "End" context "Label" %}</span>
         </header>
+    {% else %}
+        {% load static %}
+        <article class="block has-text-centered">
+            <p class="title">{% translate "There's no versions yet" %}</p>
+            <p class="subtitle">{% translate "Press <b>Add</b> button in order to add a new version." %}</p>
+            <figure style="margin: 0 auto; width: 35vw;" class="image is-128x128">
+                <img src="{% static 'images/not_found.svg' %}">
+            </figure>
+        </article>
     {% endif %}
 </div>
 {% endblock %}

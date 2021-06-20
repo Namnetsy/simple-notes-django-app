@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-20 10:13+0300\n"
+"POT-Creation-Date: 2021-06-20 10:30+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,8 +30,12 @@ msgid "Hey {username}!"
 msgstr "Привіт {username}!"
 
 #: notes/forms.py:73
-msgid "Thank you for signing up, just one more step... click on the link below in order to activate your account."
-msgstr "Дякую за реєстрацію, залишився тільки один крок... перейдіть за посиланням нижче щоб активувати ваш обіковий запис."
+msgid ""
+"Thank you for signing up, just one more step... click on the link below in "
+"order to activate your account."
+msgstr ""
+"Дякую за реєстрацію, залишився тільки один крок... перейдіть за посиланням "
+"нижче щоб активувати ваш обіковий запис."
 
 #: notes/forms.py:75
 msgid "Activate Account"
@@ -464,34 +468,42 @@ msgid "Sign up"
 msgstr "Зареєструватись"
 
 #: notes/templates/notes/note-versions-list.html:11
-#: notes/templates/notes/note-versions-list.html:38
+#: notes/templates/notes/note-versions-list.html:47
 msgctxt "Label"
 msgid "Start"
 msgstr "Початок"
 
 #: notes/templates/notes/note-versions-list.html:23
-#: notes/templates/notes/note-versions-list.html:50
+#: notes/templates/notes/note-versions-list.html:59
 msgctxt "Link"
 msgid "View"
 msgstr "Переглянути"
 
 #: notes/templates/notes/note-versions-list.html:23
-#: notes/templates/notes/note-versions-list.html:50
+#: notes/templates/notes/note-versions-list.html:59
 msgctxt "Link"
 msgid "Remove"
 msgstr "Видалити"
 
 #: notes/templates/notes/note-versions-list.html:23
-#: notes/templates/notes/note-versions-list.html:50
+#: notes/templates/notes/note-versions-list.html:59
 msgctxt "Link"
 msgid "Restore"
 msgstr "Відновити"
 
 #: notes/templates/notes/note-versions-list.html:30
-#: notes/templates/notes/note-versions-list.html:57
+#: notes/templates/notes/note-versions-list.html:66
 msgctxt "Label"
 msgid "End"
 msgstr "Кінець"
+
+#: notes/templates/notes/note-versions-list.html:35
+msgid "There's no versions yet"
+msgstr "Немає збережених версій"
+
+#: notes/templates/notes/note-versions-list.html:36
+msgid "Press <b>Add</b> button in order to add a new version."
+msgstr "Натисніть кнопку <b>Додати</b>, щоб додати нову версію"
 
 #: notes/templates/notes/sign-up.html:4
 msgctxt "Page's title"
