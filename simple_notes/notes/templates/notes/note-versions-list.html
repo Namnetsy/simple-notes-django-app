@@ -1,0 +1,61 @@
+{% extends 'notes/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ note_title }} | Simple Notes {% endblock %}
+
+{% block content %}
+<div class="timeline is-centered is-hidden-mobile">
+    {% if note_versions %}
+        <header class="timeline-header">
+            <span class="tag is-medium is-info">{% translate "Start" context "Label" %}</span>
+        </header>
+
+        {% for note_version in note_versions %}
+            <div class="timeline-item is-danger">
+                <div class="timeline-marker is-info"></div>
+                <div class="timeline-content">
+                    <p class="heading">{{ note_version.title }} | {{ note_version.created_at }}</p>
+                    {% if note_version.message %}
+                        <p>{{ note_version.message }}</p>
+                    {% endif %}
+                    <div style="display: inline">
+                        <a href="{% url 'notes:view-note-version' notebook_title note_version.title %}">{% translate "View" context "Link" %}</a> / <a href="{% url 'notes:remove-note-version' notebook_title note_version.title %}">{% translate "Remove" context "Link" %}</a> / <a href="{% url 'notes:restore-note-version' notebook_title note_version.title %}">{% translate "Restore" context "Link" %}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <header class="timeline-header">
+            <span class="tag is-medium is-info">{% translate "End" context "Label" %}</span>
+        </header>
+    {% endif %}
+</div>
+
+<div class="timeline is-hidden-desktop is-hidden-tablet">
+    {% if note_versions %}
+        <header class="timeline-header">
+            <span class="tag is-medium is-info">{% translate "Start" context "Label" %}</span>
+        </header>
+
+        {% for note_version in note_versions %}
+            <div class="timeline-item is-danger">
+                <div class="timeline-marker is-info"></div>
+                <div class="timeline-content">
+                    <p class="heading">{{ note_version.title }} | {{ note_version.created_at }}</p>
+                    {% if note_version.message %}
+                        <p>Timeline content - Can include any HTML element</p>
+                    {% endif %}
+                    <div style="display: inline">
+                        <a href="{% url 'notes:view-note-version' notebook_title note_version.title %}">{% translate "View" context "Link" %}</a> / <a href="{% url 'notes:remove-note-version' notebook_title note_version.title %}">{% translate "Remove" context "Link" %}</a> / <a href="{% url 'notes:restore-note-version' notebook_title note_version.title %}">{% translate "Restore" context "Link" %}</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <header class="timeline-header">
+            <span class="tag is-medium is-info">{% translate "End" context "Label" %}</span>
+        </header>
+    {% endif %}
+</div>
+{% endblock %}

@@ -26,9 +26,21 @@ class Note(models.Model):
 
     def __str__(self):
         return f'{self.notebook.user.username}: {self.title}'
-    
+
     class Meta:
         unique_together = ('notebook', 'title')
+
+
+class NoteVersion(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    note = models.ForeignKey(Note, on_delete=models.CASCADE)
+    message = models.CharField(max_length=150, blank=True)
+    title = models.CharField(max_length=150)
+    content = models.TextField(blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'{self.user.username}[{self.created_at}]: {self.title}'
 
 
 class PublicSharedNote(models.Model):

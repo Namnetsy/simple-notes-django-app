@@ -8,13 +8,13 @@ from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
 
-from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm, UserAccountForm
-from .models import Notebook, Note, PublicSharedNote, Profile, ActivationToken, Reminder
+from .forms import NotebookForm, NoteForm, UserSettingsForm, ProfileSettingsForm, UserAccountForm, AddNoteVersionForm
+from .models import Notebook, Note, PublicSharedNote, Profile, ActivationToken, Reminder, NoteVersion
 from xhtml2pdf import pisa
 from tempfile import TemporaryFile
 
 from .tasks import send_reminder_task
-from .utils import serialize_notebooks_with_notes
+from .utils import serialize_notebooks_with_notes, redirect_back
 
 from datetime import datetime
 
@@ -169,9 +169,7 @@ def settings(request):
 
             messages.success(request, _('Your settings were saved successfully.'))
 
-            return redirect(request.META.get('HTTP_REFERER', '/')
-                .replace('/uk/', f'/{language}/')
-                .replace('/en/', f'/{language}/'))
+            return redirect_back(request)
 
     return redirect('notes:index', {
         'user_settings_form': user_settings_form,
@@ -417,3 +415,78 @@ def remove_reminder(request, notebook_title, note_title):
     messages.success(request, message=_('Reminder was canceled successfully!'))
 
     return redirect(reverse('notes:edit-note', args=[notebook_title, note_title]))
+
+
+def view_note_versions(request, notebook_title, note_title):
+    note = Note.objects.get(notebook__title=notebook_title, title=note_title, notebook__user=request.user)
+    versions = NoteVersion.objects.filter(note=note, user=request.user)
+
+    ctx = general_context(request, {
+        'note_versions': versions,
+        'notebook_title': notebook_title,
+        'note_title': note_title
+    })
+
+    return render(request, 'notes/note-versions-list.html', ctx)
+
+
+def add_note_version(request, notebook_title, note_title):
+    note = Note.objects \
+        .get(notebook__title=notebook_title,
+             title=note_title,
+             notebook__user=request.user)
+    form = AddNoteVersionForm(request.POST, request=request, note=note)
+
+    if form.is_valid():
+        form.save()
+
+        messages.success(request, _('Version was added successfully.'))
+
+    return redirect_back(request)
+
+
+def remove_note_version(request, notebook_title, note_title):
+    get_object_or_404(
+        NoteVersion,
+        title=note_title,
+        note__notebook__title=notebook_title,
+        user=request.user
+    ).delete()
+
+    messages.success(request, _('Version was removed successfully.'))
+
+    return redirect_back(request)
+
+
+def restore_note_version(request, notebook_title, note_title):
+    note_version = get_object_or_404(
+        NoteVersion,
+        title=note_title,
+        note__notebook__title=notebook_title,
+        user=request.user
+    )
+
+    note = note_version.note
+    note.title = note_version.title
+    note.content = note_version.content
+    note.modified_at = note_version.created_at
+    note.save()
+
+    messages.success(request, _('Version was restored successfully.'))
+
+    return redirect(reverse('notes:edit-note', args=(notebook_title, note.title)))
+
+
+def view_note_version(request, notebook_title, note_title):
+    note_version = get_object_or_404(
+        NoteVersion,
+        title=note_title,
+        note__notebook__title=notebook_title,
+        user=request.user
+    )
+
+    return render(request, 'notes/view-note-version.html', general_context(request, {
+        'note_version': note_version,
+        'notebook_title': note_version.note.notebook.title,
+        'note_title': note_version.note.title,
+    }))

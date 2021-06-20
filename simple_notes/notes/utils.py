@@ -3,7 +3,9 @@ from typing import List
 
 from django.conf import settings
 from django.db.models import F
+from django.shortcuts import redirect
 from django.urls import reverse
+from django.utils.translation import get_language
 
 from pepipost.pepipost_client import PepipostClient
 from pepipost.models.send import Send
@@ -88,3 +90,9 @@ def generate_token(length=32) -> str:
     """Return url safe randomly generated token."""
 
     return token_urlsafe(length)
+
+
+def redirect_back(request):
+    return redirect(request.META.get('HTTP_REFERER', '/')
+             .replace('/uk/', f'/{get_language()}/')
+             .replace('/en/', f'/{get_language()}/'))

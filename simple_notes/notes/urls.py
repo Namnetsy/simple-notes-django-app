@@ -25,4 +25,9 @@ urlpatterns = [
     path('activate-account/<str:token>', activate_account, name='activate-account'),
     path('reminders/<str:notebook_title>/notes/<str:note_title>/remind-me', set_reminder, name='set-reminder'),
     path('reminders/<str:notebook_title>/notes/<str:note_title>/cancel', remove_reminder, name='remove-reminder'),
+    path('versions/<str:notebook_title>/notes/<str:note_title>/list', view_note_versions, name='view-note-versions'),
+    path('versions/<str:notebook_title>/notes/<str:note_title>/add', add_note_version, name='add-note-version'),
+    path('versions/<str:notebook_title>/notes/<str:note_title>/restore', restore_note_version, name='restore-note-version'),
+    path('versions/<str:notebook_title>/notes/<str:note_title>/view', view_note_version, name='view-note-version'),
+    path('versions/<str:notebook_title>/notes/<str:note_title>/remove', remove_note_version, name='remove-note-version'),
 ]

@@ -1,0 +1,27 @@
+{% extends 'notes/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{{ note_version.title }} | {{ notebook_title }}{% endblock %}
+
+{% block content %}
+	{% if note_version.content %}
+        <article>
+			<section class="block">
+				<h1 class="title has-text-centered">{{ note_version.title }}</h1>
+			</section>
+            <section class="content">
+                {{ note_version.content }}
+            </section>
+        </article>
+    {% else %}
+        {% load static %}
+        <article class="block has-text-centered">
+			<h1 class="title">{{ note_version.title }}</h1>
+            <p class="subtitle">{% translate "The author didn't even left a single word for you!" %}</p>
+            <figure style="margin: 0 auto; width: 35vw;" class="image is-128x128">
+                <img src="{% static 'images/not_found.svg' %}">
+            </figure>
+        </article>
+    {% endif %}
+{% endblock %}

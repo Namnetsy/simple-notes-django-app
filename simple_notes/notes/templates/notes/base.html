@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 <!DOCTYPE html>
 <html class="has-background-light">
 	<head>
@@ -13,6 +14,7 @@
 			<link rel="stylesheet" href="https://jenil.github.io/bulmaswatch/{{ theme }}/bulmaswatch.min.css">
 		{% endif %}
 		<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js@2.2.0/dist/style.css"/>
+		<link rel="stylesheet" href="{% static 'styles/bulma-timeline.min.css' %}">
 		<style>
 			html {
 				scrollbar-width: none;
@@ -135,6 +137,76 @@
 							{% endif %}
 						</ul>
 					</div>
+					{% if notebook_title and note_title %}
+						<div class="box menu pt-0 pb-2 mb-0 is-hidden-mobile">
+							<p class="menu-label">
+								<span class="columns is-mobile">
+									<span class="column is-7 has-text-left">
+										{% translate "Version Control" context "List title" %}
+									</span>
+								</span>
+							</p>
+							<div>
+								<form action="{% url 'notes:add-note-version' notebook_title note_title %}" method="POST">
+									{% csrf_token %}
+									<div class="field">
+										<p class="control has-icons-left has-icons-right">
+											<input class="input" type="text" name="message" placeholder="{% translate "Message (Optional)" context "Input placeholder" %}">
+											<span class="icon is-small is-left">
+												<i class="far fa-comment-dots"></i>
+											</span>
+										</p>
+									</div>
+									<div class="columns mb-0">
+										<div class="column is-9 pr-1">
+											<button type="submit" class="button is-fullwidth" title="{% translate "Save this version" context "Button" %}">{% translate "Add" context "Button" %}</button>
+										</div>
+										<div class="column is-3 pl-1">
+											<a href="{% url 'notes:view-note-versions' notebook_title note_title %}" class="button is-fullwidth" title="{% translate "View All Saved Versions" context "Tooltip" %}">
+												<span class="icon is-small">
+													<i class="fas fa-list"></i>
+												</span>
+											</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="box menu is-hidden-desktop is-hidden-tablet pt-0">
+							<p class="menu-label">
+								<span class="columns is-mobile">
+									<span class="column is-7 has-text-left">
+										{% translate "Version Control" context "List title" %}
+									</span>
+								</span>
+							</p>
+							<div>
+								<form action="{% url 'notes:add-note-version' notebook_title note_title %}" method="POST">
+									{% csrf_token %}
+									<div class="field">
+										<p class="control has-icons-left has-icons-right">
+											<input class="input" name="message" type="text" placeholder="{% translate "Message (Optional)" context "Input placeholder" %}">
+											<span class="icon is-small is-left">
+												<i class="far fa-comment-dots"></i>
+											</span>
+										</p>
+									</div>
+									<div class="columns is-mobile">
+										<div class="column is-9">
+											<button type="submit" class="button is-fullwidth" title="{% translate "Save this version" context "Button" %}">{% translate "Add" context "Button" %}</button>
+										</div>
+										<div class="column is-3">
+											<a href="{% url 'notes:view-note-versions' notebook_title note_title %}" class="button is-fullwidth" title="{% translate "View All Saved Versions" context "Tooltip" %}">
+												<span class="icon is-small">
+													<i class="fas fa-list"></i>
+												</span>
+											</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					{% endif %}
 				</aside>
 			{% endif %}
 

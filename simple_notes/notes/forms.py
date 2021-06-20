@@ -2,7 +2,7 @@ from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext as _, get_language
 
-from .models import Notebook, Note, Profile, ActivationToken
+from .models import Notebook, Note, Profile, ActivationToken, NoteVersion
 from django.contrib.auth.models import User
 
 from .tasks import send_email_task
@@ -82,3 +82,27 @@ class UserAccountForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'password', 'email']
+
+
+class AddNoteVersionForm(forms.ModelForm):
+    message = forms.CharField(max_length=150, required=False)
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        self.note = kwargs.pop('note', None)
+
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        note_version = super(forms.ModelForm, self).save(commit=False)
+        note_version.user = self.request.user
+        note_version.note = self.note
+        note_version.title = self.note.title
+        note_version.content = self.note.content
+        note_version.save()
+
+        return note_version
+
+    class Meta:
+        model = NoteVersion
+        fields = ['message']
