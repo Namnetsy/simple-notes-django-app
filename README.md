@@ -10,6 +10,7 @@ A simple note-taking application written using python's django web framework.
  - Share your notes via a unique link
  - Multiple themes
  - Reminders
+ - Version Control
 
 # Installation
 Clone repo & create .env file from .env.example
