@@ -20,7 +20,7 @@
                         <p>{{ note_version.message }}</p>
                     {% endif %}
                     <div style="display: inline">
-                        <a href="{% url 'notes:view-note-version' notebook_title note_version.title %}">{% translate "View" context "Link" %}</a> / <a href="{% url 'notes:remove-note-version' notebook_title note_version.title %}">{% translate "Remove" context "Link" %}</a> / <a href="{% url 'notes:restore-note-version' notebook_title note_version.title %}">{% translate "Restore" context "Link" %}</a>
+                        <a href="{% url 'notes:view-note-version' notebook_title note_version.id %}">{% translate "View" context "Link" %}</a> / <a href="{% url 'notes:remove-note-version' notebook_title note_version.id %}">{% translate "Remove" context "Link" %}</a> / <a href="{% url 'notes:restore-note-version' notebook_title note_version.id %}">{% translate "Restore" context "Link" %}</a>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         <p>Timeline content - Can include any HTML element</p>
                     {% endif %}
                     <div style="display: inline">
-                        <a href="{% url 'notes:view-note-version' notebook_title note_version.title %}">{% translate "View" context "Link" %}</a> / <a href="{% url 'notes:remove-note-version' notebook_title note_version.title %}">{% translate "Remove" context "Link" %}</a> / <a href="{% url 'notes:restore-note-version' notebook_title note_version.title %}">{% translate "Restore" context "Link" %}</a>
+                        <a href="{% url 'notes:view-note-version' notebook_title note_version.id %}">{% translate "View" context "Link" %}</a> / <a href="{% url 'notes:remove-note-version' notebook_title note_version.id %}">{% translate "Remove" context "Link" %}</a> / <a href="{% url 'notes:restore-note-version' notebook_title note_version.id %}">{% translate "Restore" context "Link" %}</a>
                     </div>
                 </div>
             </div>

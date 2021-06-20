@@ -445,12 +445,10 @@ def add_note_version(request, notebook_title, note_title):
     return redirect_back(request)
 
 
-def remove_note_version(request, notebook_title, note_title):
+def remove_note_version(request, notebook_title, note_id):
     get_object_or_404(
         NoteVersion,
-        title=note_title,
-        note__notebook__title=notebook_title,
-        user=request.user
+        id=note_id
     ).delete()
 
     messages.success(request, _('Version was removed successfully.'))
@@ -458,12 +456,10 @@ def remove_note_version(request, notebook_title, note_title):
     return redirect_back(request)
 
 
-def restore_note_version(request, notebook_title, note_title):
+def restore_note_version(request, notebook_title, note_id):
     note_version = get_object_or_404(
         NoteVersion,
-        title=note_title,
-        note__notebook__title=notebook_title,
-        user=request.user
+        id=note_id
     )
 
     note = note_version.note
@@ -477,12 +473,10 @@ def restore_note_version(request, notebook_title, note_title):
     return redirect(reverse('notes:edit-note', args=(notebook_title, note.title)))
 
 
-def view_note_version(request, notebook_title, note_title):
+def view_note_version(request, notebook_title, note_id):
     note_version = get_object_or_404(
         NoteVersion,
-        title=note_title,
-        note__notebook__title=notebook_title,
-        user=request.user
+        id=note_id
     )
 
     return render(request, 'notes/view-note-version.html', general_context(request, {
