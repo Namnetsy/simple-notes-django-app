@@ -217,7 +217,15 @@ def create_note(request, title):
             note = form.save(commit=False)
             note.notebook = notebook
             note.modified_at = timezone.now()
-            note.save()
+            try:
+                note.save()
+            except IntegrityError:
+                messages.error(request, _('A note with such name already exists!'))
+
+                return render(request, _('notes/create_note.html'), general_context(request, {
+                    'form': form,
+                    'notebook_title': title,
+                }))
 
             messages.success(request, _('{note_title} was created successfully.').format(note_title=note.title))
 

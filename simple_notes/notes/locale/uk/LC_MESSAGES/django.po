@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-20 12:35+0300\n"
+"POT-Creation-Date: 2021-06-20 13:44+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,31 +20,25 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
-#: notes/forms.py:59
+#: notes/forms.py:58
 msgid "Welcome to Simple Notes!"
 msgstr "Вітаю в Simple Notes!"
 
-#: notes/forms.py:72 notes/tasks.py:45
+#: notes/forms.py:71 notes/tasks.py:45
 #, python-brace-format
 msgid "Hey {username}!"
 msgstr "Привіт {username}!"
 
-#: notes/forms.py:73
-msgid ""
-"Thank you for signing up, just one more step... click on the link below in "
-"order to activate your account."
-msgstr ""
-"Дякую за реєстрацію, залишився тільки один крок... перейдіть за посиланням "
-"нижче щоб активувати ваш обіковий запис."
+#: notes/forms.py:72
+msgid "Thank you for signing up, just one more step... click on the link below in order to activate your account."
+msgstr "Дякую за реєстрацію, залишився тільки один крок... перейдіть за посиланням нижче щоб активувати ваш обіковий запис."
 
-#: notes/forms.py:75
+#: notes/forms.py:74
 msgid "Activate Account"
 msgstr "Активувати обліковий запис"
 
-#: notes/forms.py:76
-msgid ""
-"Without an activated account you won't be able to use features like "
-"reminders or password reset."
+#: notes/forms.py:75
+msgid "Without an activated account you won't be able to use features like reminders or password reset."
 msgstr "Без активації вам не будуть доступні нагадування та скидування паролю."
 
 #: notes/models.py:65
@@ -66,12 +60,8 @@ msgstr "Не забудьте про {note_name} | Simple Notes Reminder"
 
 #: notes/tasks.py:46
 #, python-brace-format
-msgid ""
-"You wanted to be reminded about {note_name}. Click on the link below in "
-"order to open it."
-msgstr ""
-"Ви хотіли отримати нагадування про {note_name}. Перейдіть за посиланням "
-"нижче, щоб переглянути нотатку."
+msgid "You wanted to be reminded about {note_name}. Click on the link below in order to open it."
+msgstr "Ви хотіли отримати нагадування про {note_name}. Перейдіть за посиланням нижче, щоб переглянути нотатку."
 
 #: notes/tasks.py:49
 #, python-brace-format
@@ -434,7 +424,7 @@ msgstr "Розпочнімо"
 msgid "Do not hesitate, start using <strong>Simple Notes</strong> right now!"
 msgstr "Не зволікайте, розпочніть використовувати <strong>Simple Notes</strong> прямо зараз!"
 
-#: notes/templates/notes/index.html:125 notes/templates/notes/sign-up.html:62
+#: notes/templates/notes/index.html:125 notes/templates/notes/sign-up.html:49
 msgctxt "Text on a button"
 msgid "Create an account"
 msgstr "Створити обліковий запис"
@@ -523,21 +513,11 @@ msgctxt "Heading"
 msgid "Sign Up"
 msgstr "Зареєструватись"
 
-#: notes/templates/notes/sign-up.html:48
-msgctxt "Label"
-msgid "Repeat Password"
-msgstr "Повторіть пароль"
-
-#: notes/templates/notes/sign-up.html:50
-msgctxt "Placeholder"
-msgid "Repeat Password"
-msgstr "Повторіть пароль"
-
-#: notes/templates/notes/sign-up.html:67
+#: notes/templates/notes/sign-up.html:54
 msgid "If you already have an account"
 msgstr "Якщо ви вже зареєстровані"
 
-#: notes/templates/notes/sign-up.html:67
+#: notes/templates/notes/sign-up.html:54
 msgctxt "Link's text"
 msgid "Log in"
 msgstr "Авторизуватись"
@@ -610,7 +590,7 @@ msgstr "Перевірте вірність введених даних!"
 msgid "Changes in {note_title} were saved successfully."
 msgstr "Зміни в {note_title} були успішно збережені."
 
-#: notes/views.py:130 notes/views.py:226
+#: notes/views.py:130 notes/views.py:234
 msgid "The title field should NOT be empty!"
 msgstr "Назва не повинна бути пустою!"
 
@@ -618,39 +598,44 @@ msgstr "Назва не повинна бути пустою!"
 msgid "Your settings were saved successfully."
 msgstr "Налаштування були успішно збережені."
 
-#: notes/views.py:222
+#: notes/views.py:223
+msgid "A note with such name already exists!"
+msgstr "Нотаток з цією назвою вже існує!"
+
+#: notes/views.py:225
+msgid "notes/create_note.html"
+msgstr ""
+
+#: notes/views.py:230
 #, python-brace-format
 msgid "{note_title} was created successfully."
 msgstr "{note_title} був успішно збережений."
 
-#: notes/views.py:245
+#: notes/views.py:253
 msgid "Notebook with this name already exists!"
 msgstr "Нотаток з цією назвою вже існує!"
 
-#: notes/views.py:252
+#: notes/views.py:260
 #, python-brace-format
 msgid "{notebook_title} was created successfully."
 msgstr "{notebook_title} був успішно створений."
 
-#: notes/views.py:404
+#: notes/views.py:412
 msgid "Reminder was set successfully!"
 msgstr "Нагадування було встановленно успішно."
 
-#: notes/views.py:415
+#: notes/views.py:423
 msgid "Reminder was canceled successfully!"
 msgstr "Нагадування було відмінено успішно."
 
-#: notes/views.py:443
+#: notes/views.py:451
 msgid "Version was added successfully."
 msgstr "Версію нотатка було додано успішно."
 
-#: notes/views.py:454
+#: notes/views.py:462
 msgid "Version was removed successfully."
 msgstr "Версію нотатка було успішно видалено."
 
-#: notes/views.py:471
+#: notes/views.py:479
 msgid "Version was restored successfully."
 msgstr "Версію нотатка було успешіно відновлено."
-
-#~ msgid "Ukrainian"
-#~ msgstr "Українська"
