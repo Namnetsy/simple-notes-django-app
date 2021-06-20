@@ -44,19 +44,6 @@
 				</p>
 			</div>
 
-			<div class="field">
-				<label class="label" for="field-password2">{% translate "Repeat Password" context "Label" %}</label>
-				<p class="control has-icons-left">
-					<input id="field-password2" class="input" type="password" placeholder="{% translate "Repeat Password" context "Placeholder" %}" name="password2" value="{{ form.password2.value }}" required>
-					<span class="icon is-small is-left">
-						<i class="fas fa-lock"></i>
-					</span>
-				</p>
-				<p class="help">
-					{{ form.errors.password2 }}
-				</p>
-			</div>
-
 			<div class="field pt-2">
 				<p class="control">
 					<input class="input button is-link has-text-centered" type="submit" value="{% translate "Create an account" context "Text on a button" %}">

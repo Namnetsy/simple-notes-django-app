@@ -38,8 +38,6 @@ class UserAccountForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
-    password2 = forms.CharField(max_length=200, required=True)  # TODO: validate this field
-
     def save(self, commit=True):
         user = super(forms.ModelForm, self).save(commit=False)
         user.save()
