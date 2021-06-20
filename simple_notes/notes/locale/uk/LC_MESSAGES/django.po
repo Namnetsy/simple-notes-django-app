@@ -613,7 +613,7 @@ msgstr "{note_title} був успішно збережений."
 
 #: notes/views.py:253
 msgid "Notebook with this name already exists!"
-msgstr "Нотаток з цією назвою вже існує!"
+msgstr "Записник з цією назвою вже існує!"
 
 #: notes/views.py:260
 #, python-brace-format
