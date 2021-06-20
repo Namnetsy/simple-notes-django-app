@@ -62,7 +62,7 @@ class Language:
     EN = 'en'
 
     CHOICES = (
-        (UK, _('Ukrainian')),
+        (UK, _('Українська')),
         (EN, _('English'))
     )
 
