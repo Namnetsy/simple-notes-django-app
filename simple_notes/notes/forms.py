@@ -40,6 +40,7 @@ class UserAccountForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super(forms.ModelForm, self).save(commit=False)
+        user.set_password(user.password)
         user.save()
         self.save_m2m()
 
