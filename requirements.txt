@@ -33,7 +33,7 @@ jsonpickle==1.5.2; python_version >= '2.7'
 kombu==5.1.0; python_version >= '3.6'
 msgpack==1.0.2
 pepipost==5.0.0
-pillow==8.2.0; python_version >= '3.6'
+pillow==9.3.0; python_version >= '3.6'
 prompt-toolkit==3.0.19; python_full_version >= '3.6.1'
 psycopg2-binary==2.9.1
 pypdf2==1.26.0
