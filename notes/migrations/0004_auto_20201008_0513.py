@@ -8,12 +8,12 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('notes', '0003_auto_20201006_0607'),
+        ("notes", "0003_auto_20201006_0607"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='publicsharednote',
-            unique_together={('user', 'note')},
+            name="publicsharednote",
+            unique_together={("user", "note")},
         ),
     ]

@@ -17,7 +17,7 @@ Clone repo & create .env file from .env.example
 ```
 git clone https://github.com/Namnetsy/simple-notes-django-app 
 cd simple-notes-django-app
-cp simple_notes/simple_notes/.env.example simple_notes/simple_notes/.env
+cp simple_notes/.env.example simple_notes/.env
 ```
 Note: You may want to edit .env file to specify SECRET_KEY and some other information.
 

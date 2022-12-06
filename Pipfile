@@ -16,12 +16,17 @@ django-redis-sessions = "*"
 celery = "*"
 django-celery-results = "*"
 django-redis = "*"
+django-extensions = "*"
 
 [dev-packages]
 ipython = "*"
-pylint = "*"
 inotify = "*"
-django-extensions = "*"
+black = "*"
+isort = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.8"
+
+[scripts]
+dev-server = "python manage.py runserver --settings=simple_notes.test_settings"
